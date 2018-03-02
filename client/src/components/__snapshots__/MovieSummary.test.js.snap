@@ -1,0 +1,217 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MovieSummary MovieSummary snapshot 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <MovieSummary
+    id={135397}
+    onClick={[Function]}
+    overview="Twenty-two years after the events of Jurassic Park..."
+    poster_path="/jjBgi2r5cRt36xF6iNUEhzscEcb.jpg"
+    rating={0}
+    release_date="2015-06-12"
+    setRatingFor={[Function]}
+    title="Jurassic World"
+    vote_average={6.9}
+/>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "children": Array [
+        <MovieTitle
+          onClick={[Function]}
+>
+          Jurassic World
+</MovieTitle>,
+        <StarRating
+          rating={0}
+          setRating={[Function]}
+/>,
+        <styled.p>
+          (
+          2015
+          )
+</styled.p>,
+        <styled.p>
+          TMDB score: 
+          6.9
+</styled.p>,
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": "Jurassic World",
+          "onClick": [Function],
+        },
+        "ref": null,
+        "rendered": "Jurassic World",
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "rating": 0,
+          "setRating": [Function],
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": Array [
+            "(",
+            "2015",
+            ")",
+          ],
+        },
+        "ref": null,
+        "rendered": Array [
+          "(",
+          "2015",
+          ")",
+        ],
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": Array [
+            "TMDB score: ",
+            6.9,
+          ],
+        },
+        "ref": null,
+        "rendered": Array [
+          "TMDB score: ",
+          6.9,
+        ],
+        "type": [Function],
+      },
+    ],
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "children": Array [
+          <MovieTitle
+            onClick={[Function]}
+>
+            Jurassic World
+</MovieTitle>,
+          <StarRating
+            rating={0}
+            setRating={[Function]}
+/>,
+          <styled.p>
+            (
+            2015
+            )
+</styled.p>,
+          <styled.p>
+            TMDB score: 
+            6.9
+</styled.p>,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": "Jurassic World",
+            "onClick": [Function],
+          },
+          "ref": null,
+          "rendered": "Jurassic World",
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "rating": 0,
+            "setRating": [Function],
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": Array [
+              "(",
+              "2015",
+              ")",
+            ],
+          },
+          "ref": null,
+          "rendered": Array [
+            "(",
+            "2015",
+            ")",
+          ],
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": Array [
+              "TMDB score: ",
+              6.9,
+            ],
+          },
+          "ref": null,
+          "rendered": Array [
+            "TMDB score: ",
+            6.9,
+          ],
+          "type": [Function],
+        },
+      ],
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

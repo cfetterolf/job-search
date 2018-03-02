@@ -1,0 +1,34 @@
+{
+  "name": "film-explorer-server-mongodb",
+  "version": "1.0.0",
+  "private": true,
+  "description": "mongoDB-backed server for CS312 film-explorer example",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "node postinstall.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "node index.js",
+    "mongo": "mongod --config mongod.conf",
+    "start": "concurrently \"npm run mongo\" \"npm run server\"",
+    "lint": "eslint ."
+  },
+  "keywords": [],
+  "author": "Christopher Andrews <candrews@middlebury.edu>",
+  "contributors": [
+    "Michael Linderman <mlinderman@middlebury.edu>",
+    "Christopher Andrews <candrews@middlebury.edu>"
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "mongodb": "^3.0.1"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1",
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0"
+  }
+}
