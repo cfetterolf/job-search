@@ -1,5 +1,5 @@
 {
-  "name": "film-explorer-client",
+  "name": "job-search-client",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:3001",
@@ -27,10 +27,10 @@
     "eslint-plugin-react": "^7.5.1",
     "react-test-renderer": "^16.2.0"
   },
-  "author": "Christopher Andrews <candrews@middlebury.edu>",
+  "author": "Chris Fetterolf <cfetterolf@middlebury.edu>",
   "contributors": [
-    "Michael Linderman <mlinderman@middlebury.edu>",
-    "Christopher Andrews <candrews@middlebury.edu>"
+    "Chris Fetterolf <cfetterolf@middlebury.edu>",
+    "Connor Hannify <chanify@middlebury.edu>"
   ],
   "license": "Apache-2.0"
 }

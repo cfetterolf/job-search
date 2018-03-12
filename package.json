@@ -1,8 +1,8 @@
 {
-  "name": "film-explorer",
+  "name": "job-search",
   "version": "0.1.0",
   "private": true,
-  "description": "Film Explorer example for CS312",
+  "description": "Job Search skeleton",
   "engines": {
     "node": "8.9.x"
   },
@@ -19,10 +19,10 @@
     "server-mongodb/node_modules"
   ],
   "keywords": [],
-  "author": "Michael Linderman <mlinderman@middlebury.edu>",
+  "author": "Chris Fetterolf <cfetterolf@middlebury.edu>",
   "contributors": [
-    "Michael Linderman <mlinderman@middlebury.edu>",
-    "Christopher Andrews <candrews@middlebury.edu>"
+    "Chris Fetterolf <cfetterolf@middlebury.edu>",
+    "Conner Hannify <channify@middlebury.edu>"
   ],
   "license": "Apache-2.0",
   "devDependencies": {
