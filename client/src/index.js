@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import FilmExplorer from './FilmExplorer';
+import Dashboard from './Dashboard';
 
-ReactDOM.render(<FilmExplorer />, document.getElementById('root'));
+ReactDOM.render(<Dashboard />, document.getElementById('root'));
