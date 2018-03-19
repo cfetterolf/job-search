@@ -1,3 +1,5 @@
+Chris Fetterolf and Connor Hanify
+
 # Film Explorer Top-level
 
 This repository combines the Film Explorer client and servers into a single repository that can be co-developed, tested and ultimately deployed to Heroku.
