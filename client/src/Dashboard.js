@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import Navbar from './components/Navbar';
+//import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import Timeline from './components/Timeline';
 
@@ -40,7 +40,7 @@ class Dashboard extends Component {
 
     return (
       <OuterDiv class="Dashboard">
-        <Navbar />
+    
         <Container class="container-fluid">
           <Row clas="row">
             <Sidebar />
