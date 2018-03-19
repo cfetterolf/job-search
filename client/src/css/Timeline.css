@@ -1,0 +1,17 @@
+.main {
+  padding-left: 0px;
+  padding-right: 0px;
+  background-color: #f7f7f7;
+  position: fixed;
+  top: 56px;
+  bottom: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 10px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.pt-3 {
+    padding-top: 2rem!important;
+}
