@@ -13,8 +13,7 @@ class Timeline extends React.Component  {
 
   render() {
     return (
-      <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-        <div class="container-fluid test">
+        <div className="container-fluid test">
           Test
           <p> TEST </p>
           <p> TEST </p>
@@ -23,7 +22,6 @@ class Timeline extends React.Component  {
           <p> TEST </p>
           <p> TEST </p>
         </div>
-      </main>
     );
   }
 }

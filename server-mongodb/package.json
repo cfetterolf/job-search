@@ -2,7 +2,7 @@
   "name": "job-search-server-mongodb",
   "version": "1.0.0",
   "private": true,
-  "description": "mongoDB-backed server for CS312 film-explorer example",
+  "description": "mongoDB-backed server for job search app",
   "main": "index.js",
   "scripts": {
     "postinstall": "node postinstall.js",
@@ -13,7 +13,7 @@
     "lint": "eslint ."
   },
   "keywords": [],
-  "author": "Christopher Andrews <candrews@middlebury.edu>",
+  "author": "Chris Fetterolf <cfetterolf@middlebury.edu>",
   "contributors": [
     "Michael Linderman <mlinderman@middlebury.edu>",
     "Christopher Andrews <candrews@middlebury.edu>"
