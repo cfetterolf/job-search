@@ -19,12 +19,15 @@ class Contacts extends React.Component  {
   }
 
   render() {
-    let listStyle = { color: '#9D7618', backgroundColor: 'inherit' };
-    let graphStyle = { color: '#C93A3C', backgroundColor: 'inherit' };
+    /* conditionally set selected tab */
+    let listStyle = { color: '#9D7618', fontWeight: 'normal', backgroundColor: 'inherit' };
+    let graphStyle = { color: '#C93A3C', fontWeight: 'normal', backgroundColor: 'inherit' };
     if (this.state.selected === 'list') {
-      listStyle.backgroundColor = '#FFF5DB'
+      listStyle.backgroundColor = '#FFF5DB';
+      listStyle.fontWeight = 'bold';
     } else {
-      graphStyle.backgroundColor = '#F4D8D8'
+      graphStyle.backgroundColor = '#F4D8D8';
+      graphStyle.fontWeight = 'bold';
     }
 
     /* conditionally set body */

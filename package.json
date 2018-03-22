@@ -29,6 +29,6 @@
     "concurrently": "^3.5.1"
   },
   "dependencies": {
-    "sigma": "^1.2.1"
+    "react-sigma": "^1.2.30"
   }
 }
