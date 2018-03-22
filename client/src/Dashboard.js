@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+//import styled from 'styled-components';
 
 import NavBar from './components/NavBar';
 import Sidebar from './components/Sidebar';

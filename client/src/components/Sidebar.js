@@ -20,11 +20,11 @@ class Sidebar extends React.Component  {
     return (
       <nav className="col-sm-3 col-md-2 hidden-xs-down sidebar" >
         <ul className="nav nav-pills flex-column">
-          {this.props.sections.map(function(sectionName){
+          {this.props.sections.map(function(sectionName, index){
             let activeClass = this.state.active === sectionName ? 'nav-link active' : 'nav-link';
             return (
-              <li className="nav-item">
-                <a key={sectionName} className={activeClass} onClick={() => { this.handleSelection(sectionName); }} role="button" tabindex="0">
+              <li key={index} className="nav-item">
+                <a className={activeClass} onClick={() => { this.handleSelection(sectionName); }} role="button" tabIndex="0">
                   {sectionName}
                 </a>
               </li>
