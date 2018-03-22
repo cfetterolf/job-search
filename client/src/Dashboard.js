@@ -8,9 +8,6 @@ import Tasks from './components/Tasks';
 import Contacts from './components/Contacts';
 import Discover from './components/Discover';
 
-const Row = styled.div``;
-const Container = styled.div``;
-const OuterDiv = styled.div``;
 const bodyStyle = {
   paddingLeft: '0px',
   paddingRight: '0px',
@@ -67,10 +64,10 @@ class Dashboard extends Component {
     }
 
     return (
-      <OuterDiv className="Dashboard">
+      <div className="Dashboard">
         <NavBar />
-        <Container className="container-fluid">
-          <Row clas="row">
+        <div className="container-fluid">
+          <div clas="row">
             <Sidebar
               setSection={ (s) => this.setState({selected: s}) } // callback function
               sections={sections}
@@ -78,9 +75,9 @@ class Dashboard extends Component {
             <main className="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3" style={bodyStyle}>
               {body}
             </main>
-          </Row>
-        </Container>
-      </OuterDiv>
+          </div>
+        </div>
+      </div>
     );
   }
 }
