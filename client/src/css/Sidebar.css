@@ -1,3 +1,11 @@
+li > a {
+  cursor: pointer !important;
+}
+
+a:focus {
+  outline: none;
+}
+
 .sidebar {
   padding-left: 0px;
   padding-right: 0px;

@@ -1,8 +1,8 @@
 import React from 'react';
 //import styled from 'styled-components';
-import '../css/Timeline.css';
+//import '../css/Discover.css';
 
-class Timeline extends React.Component  {
+class Discover extends React.Component  {
   constructor(props) {
     super(props);
 
@@ -13,11 +13,11 @@ class Timeline extends React.Component  {
 
   render() {
     return (
-      <div className="container-fluid test">
-        Timeline goes Here
+      <div className="container-fluid">
+        Discover goes Here
       </div>
     );
   }
 }
 
-export default Timeline;
+export default Discover;

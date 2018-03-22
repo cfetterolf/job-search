@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import NavBar from './components/NavBar';
 import Sidebar from './components/Sidebar';
 import Timeline from './components/Timeline';
+import Tasks from './components/Tasks';
+import Contacts from './components/Contacts';
+import Discover from './components/Discover';
 
 const Row = styled.div``;
 const Container = styled.div``;
@@ -22,37 +25,45 @@ const bodyStyle = {
   overflowY: 'auto',
 }
 
+const sections = ['Timeline', 'Tasks', 'Contacts', 'Discover'];
+
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = { selected: null };
+    this.state = {
+      selected: sections[0], // current section on sidebar
+    };
   }
 
   componentDidMount() {
-    fetch('/api/')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(response.status_text);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        this.setState({ selected: data.response });
-      })
-      .catch(err => console.log(err)); // eslint-disable-line no-console
+    /* dummy GET to test connection */
+    // fetch('/api/')
+    //   .then((response) => {
+    //     if (!response.ok) {
+    //       throw new Error(response.status_text);
+    //     }
+    //     return response.json();
+    //   })
+    //   .then((data) => {
+    //     this.setState({ selected: data.response });
+    //   })
+    //   .catch(err => console.log(err)); // eslint-disable-line no-console
   }
 
   render() {
 
+    /* conditionally set body based on section selected */
     let body;
-    if (this.state.selected === "Hello!") {
+    if (this.state.selected === "Timeline") {
       body = <Timeline />;
+    } else if (this.state.selected === "Tasks") {
+      body = <Tasks />;
+    } else if (this.state.selected === "Contacts") {
+      body = <Contacts />;
+    } else if (this.state.selected === "Discover") {
+      body = <Discover />;
     } else {
-      body = (
-        <div>
-          <div>failedfailedfailedfailedfailedfailed</div>
-        </div>
-      );
+      body = <div>Something went wrong!</div>;
     }
 
     return (
@@ -60,7 +71,10 @@ class Dashboard extends Component {
         <NavBar />
         <Container className="container-fluid">
           <Row clas="row">
-            <Sidebar />
+            <Sidebar
+              setSection={ (s) => this.setState({selected: s}) } // callback function
+              sections={sections}
+            />
             <main className="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3" style={bodyStyle}>
               {body}
             </main>
