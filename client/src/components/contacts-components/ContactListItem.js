@@ -1,10 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
+//import styled from 'styled-components';
 //import '../css/Contacts.css';
-
-import ContactListItem from './ContactListItem';
-
-const Blue = styled.div`background: blue; height: 500px;`
 
 class ContactList extends React.Component  {
   constructor(props) {
@@ -13,11 +9,10 @@ class ContactList extends React.Component  {
     this.state = {};
   }
 
-
   render() {
     return (
-      <div className="container-fluid">
-        <input type="" />
+      <div>
+        List
       </div>
     );
   }
