@@ -1,4 +1,6 @@
 import React from 'react';
+import {Avatar, RaisedButton} from "material-ui";
+//import styled from 'styled-components';
 //import PropTypes from 'prop-types';
 
 class NavBar extends React.Component   {
@@ -7,23 +9,29 @@ class NavBar extends React.Component   {
     super(props);
 
     this.state = {
-      // TODO - set state
     };
+
   }
 
   render() {
     const Title = (
       <div className="navbar-header">
-        <a className="navbar-brand" href="#">
+        <a className="navbar-brand" role="button" tabIndex="0">
           Job Search
         </a>
       </div>
     );
 
     const Buttons = (
-      <button className="btn btn-outline-info my-2 my-sm-0">
-        Log In
-      </button>
+      <span>
+        <RaisedButton
+          backgroundColor="#a4c639"
+          labelColor="#ffffff"
+          label="Sign Out"
+          onTouchTap={this.props.logoutClicked()}
+        />
+        <Avatar src={this.props.user.photoURL}/>
+      </span>
     );
 
     return (

@@ -1,8 +1,9 @@
 import React from 'react';
-import { GoogleLogin } from 'react-google-login';
 import {FontIcon, RaisedButton} from "material-ui";
 import {loginWithGoogle} from "../helpers/auth";
 import {firebaseAuth} from "../config/constants";
+import splashImg from '../img/splash_image.jpg';
+import styled from 'styled-components';
 
 // Google Info
 // Client ID
@@ -12,6 +13,18 @@ import {firebaseAuth} from "../config/constants";
 
 const firebaseAuthKey = "firebaseAuthInProgress";
 const appTokenKey = "appToken";
+const firebaseUser = "firebaseUser";
+const BackgroundImage = styled.img`
+height: auto;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+  -webkit-filter: blur(3px);
+  -moz-filter: blur(3px);
+  -o-filter: blur(3px);
+  -ms-filter: blur(3px);
+  filter: blur(3px);
+`;
 
 
 export default class SignIn extends React.Component   {
@@ -36,31 +49,6 @@ export default class SignIn extends React.Component   {
   }
 
   componentWillMount() {
-        /*         firebaseAuth().getRedirectResult().then(function(result) {
-         if (result.user) {
-         console.log("GoogleLogin Redirect result");
-         if (result.credential) {
-         // This gives you a Google Access Token. You can use it to access the Google API.
-         let token = result.credential.accessToken;
-         // ...
-         }
-         // The signed-in user info.
-         let user = result.user;
-         console.log("user:", JSON.stringify(user));
-         }
-         }).catch(function(error) {
-         // Handle Errors here.
-         var errorCode = error.code;
-         var errorMessage = error.message;
-         // The email of the user's account used.
-         var email = error.email;
-         // The firebase.auth.AuthCredential type that was used.
-         var credential = error.credential;
-         // ...
-         alert(error);
-         })*/
-
-
         /**
          * We have appToken relevant for our backend API
          */
@@ -80,6 +68,9 @@ export default class SignIn extends React.Component   {
                 // authenticate with firebase every time a user logs in
                 localStorage.setItem(appTokenKey, user.uid);
 
+                // set the firebase user
+                localStorage.setItem(firebaseUser, JSON.stringify(user));
+
                 // store the token
                 this.props.history.push("/app/dash")
             }
@@ -88,9 +79,13 @@ export default class SignIn extends React.Component   {
 
 
     render() {
-          console.log(firebaseAuthKey + "=" + localStorage.getItem(firebaseAuthKey));
-          if (localStorage.getItem(firebaseAuthKey) === "1") return <SplashScreen />;
-          return <LoginPage handleGoogleLogin={this.handleGoogleLogin}/>;
+      if (localStorage.getItem(firebaseAuthKey) === "1") return <SplashScreen />;
+      return (
+        <div>
+          <LoginPage handleGoogleLogin={this.handleGoogleLogin}/>
+          <BackgroundImage src={splashImg} />
+        </div>
+      );
     }
 }
 

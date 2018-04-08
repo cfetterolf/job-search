@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {Avatar, RaisedButton} from "material-ui";
 import {logout} from "../helpers/auth";
 //import styled from 'styled-components';
 
@@ -31,20 +30,12 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: sections[0], // current section on sidebar
-      //firebaseUser: JSON.parse(localStorage.getItem("firebaseUser"))
+      selected: sections[0],
+      firebaseUser: JSON.parse(localStorage.getItem("firebaseUser")),
     };
 
     this.handleLogout = this.handleLogout.bind(this);
   }
-
-  handleLogout() {
-    logout().then(function () {
-      localStorage.removeItem(appTokenKey);
-      this.props.history.push("/signin");
-      console.log("user signed out from firebase");
-    }.bind(this));
-    }
 
   componentDidMount() {
     /* dummy GET to test connection */
@@ -59,6 +50,14 @@ class Dashboard extends Component {
     //     this.setState({ selected: data.response });
     //   })
     //   .catch(err => console.log(err)); // eslint-disable-line no-console
+  }
+
+  handleLogout() {
+    logout().then(function () {
+      localStorage.removeItem(appTokenKey);
+      localStorage.removeItem("firebaseUser");
+      this.props.history.push("/signin");
+    }.bind(this));
   }
 
   render() {
@@ -79,15 +78,7 @@ class Dashboard extends Component {
 
     return (
       <div className="Dashboard">
-        <NavBar />
-        <div>
-          <RaisedButton
-            backgroundColor="#a4c639"
-            labelColor="#ffffff"
-            label="Sign Out"
-            onTouchTap={this.handleLogout}
-          />
-        </div>
+        <NavBar logoutClicked={() => this.handleLogout} user={this.state.firebaseUser} />
         <div className="container-fluid">
           <div clas="row">
             <Sidebar

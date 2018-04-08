@@ -26,7 +26,9 @@
   ],
   "license": "Apache-2.0",
   "devDependencies": {
-    "concurrently": "^3.5.1"
+    "concurrently": "^3.5.1",
+    "file-loader": "^1.1.11",
+    "url-loader": "^1.0.1"
   },
   "dependencies": {
     "firebase": "^4.12.1",
