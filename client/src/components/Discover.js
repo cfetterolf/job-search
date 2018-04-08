@@ -11,10 +11,14 @@ class Discover extends React.Component  {
     };
   }
 
+  componentDidMount () {
+
+  }
+
   render() {
     return (
       <div className="container-fluid">
-        Discover goes Here
+        Discover here!
       </div>
     );
   }

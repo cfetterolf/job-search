@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 //import styled from 'styled-components';
 
-import NavBar from './components/NavBar';
-import Sidebar from './components/Sidebar';
-import Timeline from './components/Timeline';
-import Tasks from './components/Tasks';
-import Contacts from './components/Contacts';
-import Discover from './components/Discover';
+import NavBar from './NavBar';
+import Sidebar from './Sidebar';
+import Timeline from './Timeline';
+import Tasks from './Tasks';
+import Contacts from './Contacts';
+import Discover from './Discover';
 
 const bodyStyle = {
   paddingLeft: '0px',
