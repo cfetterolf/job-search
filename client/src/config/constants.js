@@ -22,5 +22,5 @@ export const colors = {
   bg: '#C63D0F',
   text: '#3B3738',
   fill: '#FDF3E7',
-  accent: '#7E8F7C',
+  accent: '#92a191',
 }

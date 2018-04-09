@@ -1,5 +1,6 @@
 import React from 'react';
 import {FontIcon, RaisedButton} from "material-ui";
+import ReactLoading from 'react-loading';
 import {loginWithGoogle} from "../helpers/auth";
 import {firebaseAuth} from "../config/constants";
 import styled from 'styled-components';
@@ -55,44 +56,35 @@ export default class SignIn extends React.Component   {
   }
 
   componentWillMount() {
-        /**
-         * We have appToken relevant for our backend API
-         */
-        if (localStorage.getItem(appTokenKey)) {
-            this.props.history.push("/app/dash");
-            return;
-        }
-
-        firebaseAuth().onAuthStateChanged(user => {
-            if (user) {
-                console.log("User signed in: ", JSON.stringify(user));
-
-                localStorage.removeItem(firebaseAuthKey);
-
-                // here you could authenticate with you web server to get the
-                // application specific token so that you do not have to
-                // authenticate with firebase every time a user logs in
-                localStorage.setItem(appTokenKey, user.uid);
-
-                // set the firebase user
-                localStorage.setItem(firebaseUser, JSON.stringify(user));
-
-                // go to dashboard
-                this.props.history.push("/app/dash")
-            }
-        });
+    // We have appToken relevant for our backend API
+    if (localStorage.getItem(appTokenKey)) {
+      this.props.history.push("/app/dash");
+      return;
     }
 
+    firebaseAuth().onAuthStateChanged(user => {
+      if (user) {
+        localStorage.removeItem(firebaseAuthKey);
 
-    render() {
-      if (localStorage.getItem(firebaseAuthKey) === "1") return <SplashScreen />;
-      return <LoginPage handleGoogleLogin={this.handleGoogleLogin}/>;
-    }
+        // here you could authenticate with you web server to get the
+        // application specific token so that you do not have to
+        // authenticate with firebase every time a user logs in
+        localStorage.setItem(appTokenKey, user.uid);
+
+        // set the firebase user
+        localStorage.setItem(firebaseUser, JSON.stringify(user));
+
+        // go to dashboard
+        this.props.history.push("/app/dash")
+      }
+    });
+  }
+
+  render() {
+    if (localStorage.getItem(firebaseAuthKey) === "1") return <SplashScreen />;
+    return <LoginPage handleGoogleLogin={this.handleGoogleLogin}/>;
+  }
 }
-
-const iconStyles = {
-    color: "#ffffff"
-};
 
 const LoginPage = ({handleGoogleLogin}) => (
     <div>
@@ -115,4 +107,16 @@ const LoginPage = ({handleGoogleLogin}) => (
     </div>
 );
 
-const SplashScreen = () => (<p>Loading...</p>)
+const SplashScreen = () => (
+  <div className='center'>
+    <div className='mt-lg'>
+      <h4 className='subtitle'>Loading...</h4>
+      <ReactLoading
+        type="bars"
+        color={colors.bg}
+        width='150px'
+        height='50px'
+      />
+    </div>
+  </div>
+);

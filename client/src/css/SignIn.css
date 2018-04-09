@@ -16,6 +16,16 @@
   text-align: center;
 }
 
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mt-lg {
+  margin-top: 20%;
+}
+
 #signInBtn {
   width: 200px;
   height: auto;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {logout} from "../helpers/auth";
+import {colors} from '../config/constants';
 //import styled from 'styled-components';
 
 import NavBar from './NavBar';

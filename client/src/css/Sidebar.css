@@ -7,16 +7,33 @@ a:focus {
 }
 
 .sidebar {
-  padding-left: 0px;
-  padding-right: 0px;
+  padding: 0;
   background-color: #f7f7f7;
   position: fixed;
   top: 56px;
   bottom: 0;
   left: 0;
   z-index: 1000;
-  padding: 10px;
   overflow-x: hidden;
   overflow-y: auto;
   border-right: 1px solid #eee;
+}
+
+.nav {
+  margin-top: 10px;
+}
+
+.nav-link {
+  color: #404040 !important;
+}
+
+.nav-item {
+  border-bottom: 1px solid lightgrey !important;
+  border-color: lightgrey;
+}
+
+.active {
+  font-weight: bold;
+  background-color: rgba(0,0,0, 0.03) !important;
+  border-radius: 3px !important;
 }
