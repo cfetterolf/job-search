@@ -81,9 +81,26 @@ export default class SignIn extends React.Component   {
   }
 
   render() {
+    const SplashScreen = () => (
+      <div className='center'>
+        <div className='mt-lg'>
+          <h4 className='subtitle'>Loading...</h4>
+          <ReactLoading
+            type="bars"
+            color={colors.bg}
+            width='150px'
+            height='50px'
+          />
+          <h4 className='subtitle mt-lg'>Not working?</h4>
+          <a role='button' tabIndex='0' onClick={() => {localStorage.removeItem(firebaseAuthKey)}}>Take me back</a>
+        </div>
+      </div>
+    );
+
     if (localStorage.getItem(firebaseAuthKey) === "1") return <SplashScreen />;
     return <LoginPage handleGoogleLogin={this.handleGoogleLogin}/>;
   }
+
 }
 
 const LoginPage = ({handleGoogleLogin}) => (
@@ -105,18 +122,4 @@ const LoginPage = ({handleGoogleLogin}) => (
         </div>
       </div>
     </div>
-);
-
-const SplashScreen = () => (
-  <div className='center'>
-    <div className='mt-lg'>
-      <h4 className='subtitle'>Loading...</h4>
-      <ReactLoading
-        type="bars"
-        color={colors.bg}
-        width='150px'
-        height='50px'
-      />
-    </div>
-  </div>
 );
