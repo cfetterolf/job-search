@@ -77,13 +77,16 @@ export default class SignIn extends React.Component   {
 
         // go to dashboard
         this.props.history.push("/app/dash")
+      } else {
+        console.log('error in login');
+        localStorage.removeItem(firebaseAuthKey);
       }
     });
   }
 
   reset() {
     localStorage.removeItem(firebaseAuthKey);
-    this.setState({splashScreen: false});
+    this.props.history.push("/")
   }
 
   render() {
@@ -103,7 +106,7 @@ export default class SignIn extends React.Component   {
       </div>
     );
 
-    if ((localStorage.getItem(firebaseAuthKey) === "1") && this.state.splashScreen) {
+    if ((localStorage.getItem(firebaseAuthKey) === "1")) {
       return <SplashScreen />;
     }
     return <LoginPage handleGoogleLogin={this.handleGoogleLogin}/>;
