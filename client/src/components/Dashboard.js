@@ -68,7 +68,7 @@ class Dashboard extends Component {
     if (this.state.selected === "Timeline") {
       body = <Timeline />;
     } else if (this.state.selected === "Tasks") {
-      body = <Tasks />;
+      body = <Tasks user={this.state.firebaseUser} />;
     } else if (this.state.selected === "Contacts") {
       body = <Contacts />;
     } else if (this.state.selected === "Discover") {
