@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400,500,600,700');
+
+.title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 60px;
+  font-weight: 700;
+  color: #383838;
+  text-align: center;
+}
+
+.subtitle {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;
+  color: #585858;
+  margin-top: -20px;
+  text-align: center;
+}
+
+#signInBtn {
+  width: 200px;
+  height: auto;
+  border-radius: 3px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  display: block;
+  margin: auto;
+  margin-top: 50px;
+}
+
+#signInBtn:hover {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.22);
+  cursor: pointer;
+}

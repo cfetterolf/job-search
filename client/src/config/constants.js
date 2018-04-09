@@ -16,3 +16,11 @@ export const database = firebase.database();
 export const googleProvider = new firebase.auth.GoogleAuthProvider();
 export const ref = firebase.database().ref();
 export const firebaseAuth = firebase.auth;
+
+/* Color Scheme */
+export const colors = {
+  bg: '#C63D0F',
+  text: '#3B3738',
+  fill: '#FDF3E7',
+  accent: '#7E8F7C',
+}

@@ -2,29 +2,35 @@ import React from 'react';
 import {FontIcon, RaisedButton} from "material-ui";
 import {loginWithGoogle} from "../helpers/auth";
 import {firebaseAuth} from "../config/constants";
-import splashImg from '../img/splash_image.jpg';
 import styled from 'styled-components';
-
-// Google Info
-// Client ID
-// 813819049284-3lij99gjqte25c5316k29f43buif1h17.apps.googleusercontent.com
-// Client Secret
-// ctL8XEKoWdDGOPpuyjGz4PGi
+import {colors} from '../config/constants';
+import icon from '../img/g-light.png';
+import '../css/SignIn.css';
 
 const firebaseAuthKey = "firebaseAuthInProgress";
 const appTokenKey = "appToken";
 const firebaseUser = "firebaseUser";
-const BackgroundImage = styled.img`
-height: auto;
-background-position: center;
-background-repeat: no-repeat;
-background-size: cover;
-  -webkit-filter: blur(3px);
-  -moz-filter: blur(3px);
-  -o-filter: blur(3px);
-  -ms-filter: blur(3px);
-  filter: blur(3px);
-`;
+const styles = {
+  bg: {
+    background: '#eee url(https://subtlepatterns.com/patterns/extra_clean_paper.png)',
+    width: '100%',
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  icon: {
+    width: '200px',
+    height: 'auto',
+    boxShadow: '0 1px 3px rgba(0,0,0,0.24)',
+    transition: 'all 0.3s cubic-bezier(.25,.8,.25,1)',
+    borderRadius: '3px'
+  },
+  center: {
+    marginTop: '-100px',
+  }
+}
+
 
 
 export default class SignIn extends React.Component   {
@@ -71,7 +77,7 @@ export default class SignIn extends React.Component   {
                 // set the firebase user
                 localStorage.setItem(firebaseUser, JSON.stringify(user));
 
-                // store the token
+                // go to dashboard
                 this.props.history.push("/app/dash")
             }
         });
@@ -80,12 +86,7 @@ export default class SignIn extends React.Component   {
 
     render() {
       if (localStorage.getItem(firebaseAuthKey) === "1") return <SplashScreen />;
-      return (
-        <div>
-          <LoginPage handleGoogleLogin={this.handleGoogleLogin}/>
-          <BackgroundImage src={splashImg} />
-        </div>
-      );
+      return <LoginPage handleGoogleLogin={this.handleGoogleLogin}/>;
     }
 }
 
@@ -95,16 +96,22 @@ const iconStyles = {
 
 const LoginPage = ({handleGoogleLogin}) => (
     <div>
-        <h1>Login</h1>
-        <div>
-            <RaisedButton
-                label="Sign in with Google"
-                labelColor={"#ffffff"}
-                backgroundColor="#dd4b39"
-                icon={<FontIcon className="fa fa-google-plus" style={iconStyles}/>}
-                onClick={handleGoogleLogin}
-            />
+      <div style={styles.bg}>
+        <div style={styles.center}>
+          <div>
+            <h1 className="title">Job Search App</h1>
+            <br/>
+            <h4 className="subtitle">
+              Click below to get started
+            </h4>
+          </div>
+          <img
+            src={icon}
+            id="signInBtn"
+            onClick={handleGoogleLogin}
+          />
         </div>
+      </div>
     </div>
 );
 
