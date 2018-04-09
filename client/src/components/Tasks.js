@@ -28,7 +28,7 @@ class Tasks extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            items: []
+            items: [] //call pull down list function
         };
         this.addItem = this.addItem.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
@@ -37,7 +37,6 @@ class Tasks extends React.Component {
     addItem(e) {
         if (this._inputElement.value !== "") {
           var newItem = {
-          //generate random ID - us MD5 on Date.now maybe
             text: this._inputElement.value,
             key: Date.now()
           };
@@ -54,7 +53,6 @@ class Tasks extends React.Component {
         this.writeUserData(newItem);
 
         console.log(this.state.items);
-
         e.preventDefault();
     }
 
@@ -62,6 +60,11 @@ class Tasks extends React.Component {
       firebase.database().ref('tasks/' + item.key).set({
         name: item.text
       });
+
+      var obj = {};
+      obj[item.key] = true;
+
+      firebase.database().ref('users/' + this.props.user.uid + '/tasks/').set(obj);
     }
 
     deleteItem(key) {
@@ -73,6 +76,7 @@ class Tasks extends React.Component {
         items: filteredItems
       });
 
+      firebase.database().ref('users/' + this.props.user.uid + '/tasks/' + key).remove();
       firebase.database().ref('tasks/' + key).remove();
 
     }
