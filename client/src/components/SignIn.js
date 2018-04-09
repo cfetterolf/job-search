@@ -98,7 +98,7 @@ export default class SignIn extends React.Component   {
             height='50px'
           />
           <h4 className='subtitle mt-lg'>Not working?</h4>
-          <a role='button' tabIndex='0' onClick={() => {reset()}}>Take me back</a>
+          <a role='button' tabIndex='0' onClick={() => {this.reset}}>Take me back</a>
         </div>
       </div>
     );
