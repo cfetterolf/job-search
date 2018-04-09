@@ -19,6 +19,7 @@ class Sidebar extends React.Component  {
   render() {
     return (
       <nav className="col-sm-3 col-md-2 hidden-xs-down sidebar" >
+        <hr/>
         <ul className="nav nav-pills flex-column">
           {this.props.sections.map(function(sectionName, index){
             let activeClass = this.state.active === sectionName ? 'nav-link active' : 'nav-link';

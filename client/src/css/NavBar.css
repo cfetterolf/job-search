@@ -1,0 +1,27 @@
+.user-icon:hover {
+  cursor: pointer !important;
+}
+
+.logout {
+  color: #c63d0f;
+  font-weight: bold;
+}
+
+.logout:hover {
+  color: #c63d0f;
+}
+
+/* Customize Bootstrap */
+.dropdown-menu-right {
+  margin-top: 10px;
+  right: 0;
+  left: auto;
+}
+
+.dropdown-menu > a {
+  cursor: pointer;
+}
+
+.bg-dark {
+  background-color: #C63D0F !important;
+}

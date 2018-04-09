@@ -17,11 +17,12 @@ const app = express();
 // Database connection
 let db;
 
+// Resolve client build directory as absolute path to avoid errors in express
+const path = require('path'); // eslint-disable-line global-require
+const buildPath = path.resolve(__dirname, '../client/build');
+
 // express only serves static assets in production
 if (process.env.NODE_ENV === 'production') {
-  // Resolve client build directory as absolute path to avoid errors in express
-  const path = require('path'); // eslint-disable-line global-require
-  const buildPath = path.resolve(__dirname, '../client/build');
 
   app.use(express.static(buildPath));
 
@@ -56,6 +57,11 @@ app.get('/api/movies/:id', (request, response) => {
       response.send(document);
     }
   });
+});
+
+/* default route */
+app.get('/*', (request, response) => {
+  response.sendFile(path.join(buildPath, 'index.html'));
 });
 
 MongoClient.connect(mongoURL, (err, database) => {
