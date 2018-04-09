@@ -53,6 +53,7 @@ export default class SignIn extends React.Component   {
         localStorage.removeItem(firebaseAuthKey);
       });
     localStorage.setItem(firebaseAuthKey, "1");
+    this.setState({splashScreen: true});
   }
 
   componentWillMount() {
@@ -80,6 +81,11 @@ export default class SignIn extends React.Component   {
     });
   }
 
+  reset() {
+    localStorage.removeItem(firebaseAuthKey);
+    this.setState({splashScreen: false});
+  }
+
   render() {
     const SplashScreen = () => (
       <div className='center'>
@@ -92,12 +98,14 @@ export default class SignIn extends React.Component   {
             height='50px'
           />
           <h4 className='subtitle mt-lg'>Not working?</h4>
-          <a role='button' tabIndex='0' onClick={() => {localStorage.removeItem(firebaseAuthKey)}}>Take me back</a>
+          <a role='button' tabIndex='0' onClick={() => {reset()}}>Take me back</a>
         </div>
       </div>
     );
 
-    if (localStorage.getItem(firebaseAuthKey) === "1") return <SplashScreen />;
+    if ((localStorage.getItem(firebaseAuthKey) === "1") && this.state.splashScreen) {
+      return <SplashScreen />;
+    }
     return <LoginPage handleGoogleLogin={this.handleGoogleLogin}/>;
   }
 
