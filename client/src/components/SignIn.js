@@ -76,7 +76,7 @@ export default class SignIn extends React.Component   {
         localStorage.setItem(firebaseUser, JSON.stringify(user));
 
         // go to dashboard
-        this.props.history.push("/app/dash")
+        this.props.history.push("/app/dash");
       } else {
         console.log('error in login');
         localStorage.removeItem(firebaseAuthKey);
@@ -86,7 +86,7 @@ export default class SignIn extends React.Component   {
 
   reset() {
     localStorage.removeItem(firebaseAuthKey);
-    this.props.history.push("/")
+    this.props.history.push("/");
   }
 
   render() {
@@ -100,8 +100,6 @@ export default class SignIn extends React.Component   {
             width='150px'
             height='50px'
           />
-          <h4 className='subtitle mt-lg'>Not working?</h4>
-          <a role='button' tabIndex='0' onClick={() => {this.reset}}>Take me back</a>
         </div>
       </div>
     );

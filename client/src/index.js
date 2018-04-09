@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Redirect, Route, Router} from "react-router";
+import {Redirect, Route, Router, Switch} from "react-router";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import injectTapEventPlugin from "react-tap-event-plugin";
@@ -22,11 +22,11 @@ const customHistory = createBrowserHistory();
 const Root = () => (
   <MuiThemeProvider muiTheme={muiTheme}>
         <Router history={customHistory}>
-            <div>
+            <Switch>
                 <Route path="/signin" component={SignIn}/>
                 <Route path="/app/dash" component={Dashboard}/>
                 <Redirect from="/" to="/signin"/>
-            </div>
+            </Switch>
         </Router>
     </MuiThemeProvider>
 );
