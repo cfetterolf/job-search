@@ -1,9 +1,8 @@
 import React from 'react';
-import {FontIcon, RaisedButton} from "material-ui";
 import ReactLoading from 'react-loading';
 import {loginWithGoogle} from "../helpers/auth";
 import {firebaseAuth} from "../config/constants";
-import styled from 'styled-components';
+import firebase from 'firebase';
 import {colors} from '../config/constants';
 import icon from '../img/g-light.png';
 import '../css/SignIn.css';
@@ -58,7 +57,7 @@ export default class SignIn extends React.Component   {
 
   componentWillMount() {
     // We have appToken relevant for our backend API
-    if (localStorage.getItem(appTokenKey)) {
+    if (localStorage.getItem(firebaseUser)) {
       this.props.history.push("/app/dash");
       return;
     }
@@ -72,11 +71,22 @@ export default class SignIn extends React.Component   {
         // authenticate with firebase every time a user logs in
         localStorage.setItem(appTokenKey, user.uid);
 
-        // set the firebase user
-        localStorage.setItem(firebaseUser, JSON.stringify(user));
+        let userObj = {
+          user: user,
+        }
 
-        // go to dashboard
-        this.props.history.push("/app/dash");
+        // get contacts
+        const path = 'users/' + user.uid + '/contacts';
+        firebase.database().ref(path).once('value').then(function(snapshot) {
+          userObj.contacts = snapshot.val()
+        }).then(() => {
+
+          // set the firebase user
+          localStorage.setItem(firebaseUser, JSON.stringify(userObj));
+
+          // go to dashboard
+          this.props.history.push("/app/dash");
+        })
       } else {
         console.log('error in login');
         localStorage.removeItem(firebaseAuthKey);
@@ -123,11 +133,13 @@ const LoginPage = ({handleGoogleLogin}) => (
               Click below to get started
             </h4>
           </div>
+          {/*eslint-disable */}
           <img
             src={icon}
             id="signInBtn"
             onClick={handleGoogleLogin}
           />
+          {/*eslint-enable */}
         </div>
       </div>
     </div>

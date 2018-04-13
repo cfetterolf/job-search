@@ -5,6 +5,15 @@
   overflow: hidden;
 }
 
+.btn:focus,.btn:active {
+   outline: none !important;
+   box-shadow: none;
+}
+
+.borderless {
+  border-top: none !important;
+}
+
 .tab-header button {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -36,4 +45,19 @@
 
 .list-group a {
   cursor: pointer;
+}
+
+/* add contact form */
+.add-contact form {
+  float: left;
+  padding: 20px;
+  width: 80%;
+}
+
+.add-contact form .form-group {
+
+}
+
+.add-contact-btns button {
+  margin: 10px;
 }

@@ -2,7 +2,6 @@ import React from 'react';
 //import styled from 'styled-components';
 import '../../css/Discover.css';
 import {colors} from '../../config/constants';
-import {getTemplate, getContacts} from '../../helpers/db';
 import firebase from 'firebase'
 
 const database = firebase.database();

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {logout} from "../helpers/auth";
-import {colors} from '../config/constants';
+import { logout } from "../helpers/auth";
+//import { colors } from '../config/constants';
 //import styled from 'styled-components';
 
 import NavBar from './NavBar';
@@ -70,7 +70,7 @@ class Dashboard extends Component {
     } else if (this.state.selected === "Tasks") {
       body = <Tasks user={this.state.firebaseUser} />;
     } else if (this.state.selected === "Contacts") {
-      body = <Contacts />;
+      body = <Contacts contacts={this.state.firebaseUser.contacts}/>;
     } else if (this.state.selected === "Discover") {
       body = <Discover user={this.state.firebaseUser}/>;
     } else {
@@ -79,7 +79,7 @@ class Dashboard extends Component {
 
     return (
       <div className="Dashboard">
-        <NavBar logoutClicked={() => this.handleLogout} user={this.state.firebaseUser} />
+        <NavBar logoutClicked={() => this.handleLogout} user={this.state.firebaseUser.user} />
         <div className="container-fluid">
           <div clas="row">
             <Sidebar

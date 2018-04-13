@@ -1,5 +1,4 @@
 import React from 'react';
-import FontAwesome from 'react-fontawesome';
 import '../css/Sidebar.css';
 
 class Sidebar extends React.Component  {

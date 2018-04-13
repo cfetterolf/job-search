@@ -1,15 +1,9 @@
 import React from 'react';
-import {Avatar, RaisedButton} from "material-ui";
+import { Avatar } from "material-ui";
 import '../css/NavBar.css';
-import {colors} from '../config/constants';
+//import { colors } from '../config/constants';
 //import styled from 'styled-components';
 //import PropTypes from 'prop-types';
-
-const styles = {
-  navBG: {
-    backgroundColor: colors.bg + ' !important',
-  },
-}
 
 class NavBar extends React.Component   {
 

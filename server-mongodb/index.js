@@ -14,9 +14,6 @@ const { MongoClient, ObjectID } = mongoDB;
 // Create Express application
 const app = express();
 
-// Database connection
-let db;
-
 // Resolve client build directory as absolute path to avoid errors in express
 const path = require('path'); // eslint-disable-line global-require
 const buildPath = path.resolve(__dirname, '../client/build');
@@ -46,34 +43,12 @@ app.get('/api', (request, response) => {
   response.send({ response: "Hello!" });
 });
 
-app.get('/api/movies/:id', (request, response) => {
-  const movieId = parseInt(request.params.id, 10);
-
-  db.collection('movies').find({ id: movieId }).next((err, document) => {
-    if (err) {
-      console.error(err);
-      response.sendStatus(500);
-    } else {
-      response.send(document);
-    }
-  });
-});
-
 /* default route */
 app.get('/*', (request, response) => {
   response.sendFile(path.join(buildPath, 'index.html'));
 });
 
-MongoClient.connect(mongoURL, (err, database) => {
-  if (err) {
-    console.error(err);
-  } else {
-    // Don't start server unless we have successfully connect to the database
-    db = database.db(url.parse(mongoURL).pathname.slice(1)); // Extract database name
-
-    // We create the server explicitly (instead of using app.listen()) to
-    // provide an example of how we would create a https server
-    const server = http.createServer(app).listen(process.env.PORT || 3001);
-    console.log('Listening on port %d', server.address().port);
-  }
-});
+// We create the server explicitly (instead of using app.listen()) to
+// provide an example of how we would create a https server
+const server = http.createServer(app).listen(process.env.PORT || 3002);
+console.log('Listening on port %d', server.address().port);
