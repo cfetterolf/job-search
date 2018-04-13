@@ -1,9 +1,28 @@
 import React from 'react';
 //import styled from 'styled-components';
 import '../css/Contacts.css';
-
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ContactList from './contacts-components/ContactList';
 import ContactGraph from './contacts-components/ContactGraph';
+
+const dummyList = {
+  1: {
+    city: "San Francisco",
+    company: "Quid",
+    email: "cfetterolf@middlebury.edu",
+    f_name: "Bob",
+    l_name: "Smith",
+    note: "Met at Tech Trek Dinner.  Son Matt knows Alex from school.",
+  },
+  2: {
+    city: "San Francisco",
+    company: "Thumbtack",
+    email: "chrisy.fetterolf@gmail.com",
+    f_name: "Chicken",
+    l_name: "Little",
+    note: "Met at Tech Trek Dinner.  Cool cluck.",
+  },
+}
 
 class Contacts extends React.Component  {
   constructor(props) {
@@ -31,7 +50,7 @@ class Contacts extends React.Component  {
     }
 
     /* conditionally set body */
-    let body = this.state.selected === 'list' ? <ContactList /> : <ContactGraph />;
+    let body = this.state.selected === 'list' ? <ContactList list={dummyList}/> : <ContactGraph />;
 
     return (
       <div className="container-fluid">

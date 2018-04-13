@@ -21,6 +21,6 @@ export const firebaseAuth = firebase.auth;
 export const colors = {
   bg: '#C63D0F',
   text: '#3B3738',
-  fill: '#FDF3E7',
+  fill: '#fffaf4',
   accent: '#92a191',
 }

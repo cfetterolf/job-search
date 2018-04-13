@@ -10,18 +10,6 @@
   border-top-right-radius: 10px;
 }
 
-#listTab:hover {
-  /* color: #6e5211 !important; */
-  font-weight: bold !important;
-  transition: 0.1s;
-}
-
-#graphTab:hover {
-  /* color: #8c2628 !important; */
-  font-weight: bold !important;
-  transition: 0.1s;
-}
-
 #listBorder {
   width: 50%;
   float: left;
@@ -45,8 +33,7 @@
 }
 
 /* Style the body */
-.tab-body {
-  background: white;
-  width: 100%;
-  height: 1000px;
+
+.list-group a {
+  cursor: pointer;
 }

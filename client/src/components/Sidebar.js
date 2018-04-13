@@ -1,5 +1,5 @@
 import React from 'react';
-//import styled from 'styled-components';
+import FontAwesome from 'react-fontawesome';
 import '../css/Sidebar.css';
 
 class Sidebar extends React.Component  {
@@ -17,6 +17,7 @@ class Sidebar extends React.Component  {
   }
 
   render() {
+    const icons = ['fa-home', 'fa-clipboard-check', 'fa-address-book', 'fa-search'];
     return (
       <nav className="col-sm-3 col-md-2 hidden-xs-down sidebar" >
         <hr/>
@@ -25,9 +26,11 @@ class Sidebar extends React.Component  {
             let activeClass = this.state.active === sectionName ? 'nav-link active' : 'nav-link';
             return (
               <li key={index} className="nav-item">
-                <a className={activeClass} onClick={() => { this.handleSelection(sectionName); }} role="button" tabIndex="0">
-                  {sectionName}
-                </a>
+                  <a className={activeClass} onClick={() => { this.handleSelection(sectionName); }} role="button" tabIndex="0">
+                    <i className={"icon fas "+icons[index]}></i>
+                    <span className='section-title'>{sectionName}</span>
+                  </a>
+
               </li>
             );
           }, this)}

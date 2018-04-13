@@ -72,7 +72,7 @@ class Dashboard extends Component {
     } else if (this.state.selected === "Contacts") {
       body = <Contacts />;
     } else if (this.state.selected === "Discover") {
-      body = <Discover />;
+      body = <Discover user={this.state.firebaseUser}/>;
     } else {
       body = <div>Something went wrong!</div>;
     }

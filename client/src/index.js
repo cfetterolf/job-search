@@ -8,6 +8,7 @@ import './index.css';
 import Dashboard from './components/Dashboard';
 import SignIn from './components/SignIn';
 import createBrowserHistory from "history/createBrowserHistory";
+import 'font-awesome/css/font-awesome.min.css';
 
 const muiTheme = getMuiTheme({
     appBar: {

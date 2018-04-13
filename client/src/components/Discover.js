@@ -2,11 +2,25 @@ import React from 'react';
 //import styled from 'styled-components';
 import '../css/Discover.css';
 import {colors} from '../config/constants';
+import Template from './discover-components/Template';
 
 const styles = {
   form: {
     backgroundColor: colors.fill,
   },
+}
+
+const message = {
+  greeting: "Hi ",
+  intro: ", \n\nMy name is Chris Fetterolf and I attend Middlebury College in Vermont.",
+}
+
+const dummy = {
+  name: "Chris Fetterolf",
+  company: "Quid",
+  position: "Software Engineering Intern",
+  email: "chris.fetterolf@gmail.com",
+  content: message,
 }
 
 class Discover extends React.Component  {
@@ -15,8 +29,22 @@ class Discover extends React.Component  {
     super(props);
 
     this.state = {
-      // TODO - set state
+      name: "Chris Fetterolf",
+      company: "Quid",
+      position: "Software Engineering Intern",
+      email: "chris.fetterolf@gmail.com",
+      content: dummy.content.greeting+dummy.name+dummy.content.intro,
     };
+
+    this.handleName = this.handleTextUpdate.bind(this, 'name');
+    this.handleCompany = this.handleTextUpdate.bind(this, 'company');
+    this.handlePosition = this.handleTextUpdate.bind(this, 'position');
+    this.handleEmail = this.handleTextUpdate.bind(this, 'email');
+    this.handleContent = this.handleTextUpdate.bind(this, 'content');
+  }
+
+  handleTextUpdate(field, event) {
+    this.setState({ [field]: event.target.value });
   }
 
   componentDidMount () {
@@ -26,35 +54,7 @@ class Discover extends React.Component  {
   render() {
     return (
       <div className="container-fluid wrapper">
-        <div className="form" style={styles.form}>
-        <form class="form-style-7">
-          <ul>
-            <li>
-              <label for="name">Name</label>
-              <input type="text" name="name" maxlength="100"/>
-              <span>Enter your full name here</span>
-            </li>
-            <li>
-              <label for="email">Email</label>
-              <input type="email" name="email" maxlength="100"/>
-              <span>Enter a valid email address</span>
-            </li>
-            <li>
-              <label for="url">Website</label>
-              <input type="url" name="url" maxlength="100"/>
-              <span>Your website address (eg: http://www.google.com)</span>
-            </li>
-            <li>
-              <label for="bio">About You</label>
-              <textarea className="email"></textarea>
-              <span>Say something about yourself</span>
-            </li>
-            <li>
-              <input type="submit" value="Send This" />
-            </li>
-          </ul>
-          </form>
-        </div>
+        <Template user={this.props.user}/>
       </div>
     );
   }
