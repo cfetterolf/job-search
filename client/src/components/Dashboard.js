@@ -57,7 +57,7 @@ class Dashboard extends Component {
     logout().then(() => {
       localStorage.removeItem(appTokenKey);
       localStorage.removeItem('firebaseUser');
-      this.props.history.push('/signin');
+      this.props.logout();
     });
   }
 

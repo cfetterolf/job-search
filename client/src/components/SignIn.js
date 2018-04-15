@@ -32,7 +32,9 @@ const styles = {
   },
 };
 
-
+/*
+ * props: login - callback function when user is logged in
+*/
 export default class SignIn extends React.Component {
   constructor(props) {
     super(props);
@@ -57,7 +59,7 @@ export default class SignIn extends React.Component {
   componentWillMount() {
     // We have appToken relevant for our backend API
     if (localStorage.getItem(firebaseUser)) {
-      this.props.history.push('/app/dash');
+      this.props.login();
       return;
     }
 
@@ -84,18 +86,14 @@ export default class SignIn extends React.Component {
             localStorage.setItem(firebaseUser, JSON.stringify(userObj));
 
             // go to dashboard
-            this.props.history.push('/app/dash');
+            this.props.login();
           });
-      } else {
-        console.log('error in login');
-        localStorage.removeItem(firebaseAuthKey);
       }
     });
   }
 
   reset() {
     localStorage.removeItem(firebaseAuthKey);
-    this.props.history.push('/');
   }
 
   render() {
