@@ -1,6 +1,5 @@
 import React from 'react';
 import '../../css/Contacts.css';
-import { Button } from 'reactstrap';
 import MediumHeader from '../headers/MediumHeader';
 
 const styles = {

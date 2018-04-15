@@ -5,7 +5,6 @@ import { firebaseAuth } from '../config/constants';
 import firebase from 'firebase';
 import { colors } from '../config/constants';
 import icon from '../img/g-light.png';
-import { Button } from 'reactstrap';
 import '../css/SignIn.css';
 
 const firebaseAuthKey = 'firebaseAuthInProgress';
