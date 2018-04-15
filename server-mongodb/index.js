@@ -44,9 +44,9 @@ app.get('/api', (request, response) => {
 });
 
 /* default route */
-app.get('/', (request, response) => {
-  response.sendFile(path.join(buildPath, 'index.html'));
-});
+// app.get('/', (request, response) => {
+//   response.sendFile(path.join(buildPath, 'index.html'));
+// });
 
 // We create the server explicitly (instead of using app.listen()) to
 // provide an example of how we would create a https server
