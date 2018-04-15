@@ -6,10 +6,6 @@ const http = require('http');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const mongoDB = require('mongodb');
-
-const mongoURL = process.env.MONGODB_URI || 'mongodb://localhost:5000/job-search';
-const { MongoClient, ObjectID } = mongoDB;
 
 // Create Express application
 const app = express();
@@ -44,9 +40,9 @@ app.get('/api', (request, response) => {
 });
 
 /* default route */
-// app.get('/', (request, response) => {
-//   response.sendFile(path.join(buildPath, 'index.html'));
-// });
+app.get('/*', (request, response) => {
+  response.sendFile(path.join(buildPath, 'index.html'));
+});
 
 // We create the server explicitly (instead of using app.listen()) to
 // provide an example of how we would create a https server

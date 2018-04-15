@@ -35,6 +35,8 @@ class Dashboard extends Component {
       firebaseUser: JSON.parse(localStorage.getItem('firebaseUser')),
     };
 
+    console.log(this.state);
+
     this.handleLogout = this.handleLogout.bind(this);
   }
 
