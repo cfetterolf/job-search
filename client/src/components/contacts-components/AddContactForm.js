@@ -9,8 +9,8 @@ const styles = {
     boxShadow: '0 1px 10px rgba(0,0,0,0.24)',
     borderRadius: '10px',
     overflow: 'hidden',
-  }
-}
+  },
+};
 
 /*
  * props: submit - submit callback function, passes up new contact obj.
@@ -29,18 +29,16 @@ class AddContactForm extends React.Component {
       company: '',
       city: '',
       note: '',
+      disabled: '',
     };
   }
 
-  submit() {
+  submit(disabled) {
     const contact = this.state;
-    
-    // Make sure form is filled correctly
-    if (contact.f_name && contact.l_name && contact.company &&
-        contact.city && contact.email && contact.note) {
+    if (!disabled) {
       this.props.submit(contact);
     } else {
-      alert("Please fill out all fields.");
+      alert('Please fill out all fields.');
     }
   }
 
@@ -49,12 +47,19 @@ class AddContactForm extends React.Component {
   }
 
   render() {
-
+    const disabled = (this.state.f_name && this.state.l_name && this.state.company &&
+                      this.state.city && this.state.email && this.state.note) ? '' : ' disabled';
     const buttons = (
       <div className="form-row">
         <div className="col">
           <span className="add-contact-btns">
-            <button type="button" className="btn btn-success" onClick={this.submit}>Add Contact</button>
+            <button
+              type="button"
+              className={`btn btn-success${disabled}`}
+              onClick={() => this.submit(disabled)}
+            >
+              Add Contact
+            </button>
             <button type="button" className="btn btn-danger" onClick={this.cancel}>Cancel</button>
           </span>
         </div>
@@ -119,12 +124,12 @@ class AddContactForm extends React.Component {
     const note = (
       <div className="form-row">
         <div className="form-group col-md-12">
-        <textarea
-          className="form-control"
-          rows="4"
-          placeholder="Note"
-          onChange={e => this.setState({ note: e.target.value })}
-        />
+          <textarea
+            className="form-control"
+            rows="4"
+            placeholder="Note"
+            onChange={e => this.setState({ note: e.target.value })}
+          />
         </div>
       </div>
     );
@@ -133,7 +138,7 @@ class AddContactForm extends React.Component {
       <div className="add-contact" style={styles.formWrapper}>
         <form>
           <MediumHeader title="Add Contact" />
-          <hr style={{ margin: '5px 0 25px 0' }}/>
+          <hr style={{ margin: '5px 0 25px 0' }} />
           {nameInput}
           {email}
           {location}

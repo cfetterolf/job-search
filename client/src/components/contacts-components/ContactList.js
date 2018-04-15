@@ -13,8 +13,8 @@ const styles = {
     boxShadow: '0 1px 10px rgba(0,0,0,0.24)',
     borderRadius: '10px',
     overflow: 'hidden',
-  }
-}
+  },
+};
 
 const tableHead = (
   <thead>
@@ -31,7 +31,7 @@ const tableHead = (
 /*
  * props: list: list of contact objects
 */
-class ContactList extends React.Component  {
+class ContactList extends React.Component {
   constructor(props) {
     super(props);
 
@@ -53,16 +53,16 @@ class ContactList extends React.Component  {
       const id = Date.now();
 
       // update state
-      let contactList = this.state.list;
+      const contactList = this.state.list;
       contactList[id] = contact;
 
       // update localStorage
-      let user = JSON.parse(localStorage.getItem('firebaseUser'));
+      const user = JSON.parse(localStorage.getItem('firebaseUser'));
       user.contacts = contactList;
       localStorage.setItem('firebaseUser', JSON.stringify(user));
 
       // update Firebase
-      database.ref('users/'+user.user.uid+'/contacts/'+id).set(contact);
+      database.ref(`users/${user.user.uid}/contacts/${id}`).set(contact);
     }
 
     this.setState({ addNewContact: false });
@@ -76,13 +76,13 @@ class ContactList extends React.Component  {
             <Button outline color="primary" onClick={this.showForm}>
               Add New Contact
             </Button>
-          </td><td/><td/><td/><td/>
+          </td><td /><td /><td /><td />
         </tr>
       </tfoot>
     );
 
     if (this.state.addNewContact) {
-      return <AddContactForm submit={(contact) => this.addContact(contact)}/>;
+      return <AddContactForm submit={contact => this.addContact(contact)} />;
     }
 
     return (
@@ -91,11 +91,11 @@ class ContactList extends React.Component  {
           {tableHead}
           {tableFoot}
           <tbody>
-          {Object.keys(this.state.list).map(function(id) {
+            {Object.keys(this.state.list).map(function (id) {
             const contact = this.state.list[id];
               return (
                 <tr key={id}>
-                  <td>{contact.f_name+" "+contact.l_name}</td>
+                  <td>{`${contact.f_name} ${contact.l_name}`}</td>
                   <td>{contact.email}</td>
                   <td>{contact.company}</td>
                   <td>{contact.city}</td>

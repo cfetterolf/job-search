@@ -1,8 +1,8 @@
 import React from 'react';
-//import styled from 'styled-components';
-//import '../css/Contacts.css';
+// import styled from 'styled-components';
+// import '../css/Contacts.css';
 
-class ContactGraph extends React.Component  {
+class ContactGraph extends React.Component {
   constructor(props) {
     super(props);
 
@@ -10,7 +10,6 @@ class ContactGraph extends React.Component  {
   }
 
   render() {
-
     return (
       <div>
         Graph

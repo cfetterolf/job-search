@@ -44,7 +44,7 @@ app.get('/api', (request, response) => {
 });
 
 /* default route */
-app.get('/*', (request, response) => {
+app.get('/', (request, response) => {
   response.sendFile(path.join(buildPath, 'index.html'));
 });
 

@@ -1,5 +1,5 @@
 import React from 'react';
-//import styled from 'styled-components';
+// import styled from 'styled-components';
 import '../css/Contacts.css';
 import ContactList from './contacts-components/ContactList';
 import ContactGraph from './contacts-components/ContactGraph';
@@ -7,7 +7,7 @@ import ContactGraph from './contacts-components/ContactGraph';
 /*
  * props: contacts - firebase contacts obj
 */
-class Contacts extends React.Component  {
+class Contacts extends React.Component {
   constructor(props) {
     super(props);
 
@@ -24,8 +24,8 @@ class Contacts extends React.Component  {
     const contactList = this.props.contacts;
 
     /* conditionally set selected tab */
-    let listStyle = { color: '#9D7618', fontWeight: 'normal', backgroundColor: 'inherit' };
-    let graphStyle = { color: '#C93A3C', fontWeight: 'normal', backgroundColor: 'inherit' };
+    const listStyle = { color: '#9D7618', fontWeight: 'normal', backgroundColor: 'inherit' };
+    const graphStyle = { color: '#C93A3C', fontWeight: 'normal', backgroundColor: 'inherit' };
     if (this.state.selected === 'list') {
       listStyle.backgroundColor = '#FFF5DB';
       listStyle.fontWeight = 'bold';
@@ -35,7 +35,7 @@ class Contacts extends React.Component  {
     }
 
     /* conditionally set body */
-    let body = this.state.selected === 'list' ? <ContactList list={contactList}/> : <ContactGraph />;
+    const body = this.state.selected === 'list' ? <ContactList list={contactList} /> : <ContactGraph />;
 
     return (
       <div className="container-fluid">
@@ -47,7 +47,7 @@ class Contacts extends React.Component  {
             Graph
           </button>
         </div>
-        <span id="listBorder"></span><span id="graphBorder"></span>
+        <span id="listBorder" /><span id="graphBorder" />
         <div className="tab-body">
           {body}
         </div>

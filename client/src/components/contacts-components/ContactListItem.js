@@ -1,8 +1,8 @@
 import React from 'react';
-//import styled from 'styled-components';
-//import '../css/Contacts.css';
+// import styled from 'styled-components';
+// import '../css/Contacts.css';
 
-class ContactList extends React.Component  {
+class ContactList extends React.Component {
   constructor(props) {
     super(props);
 

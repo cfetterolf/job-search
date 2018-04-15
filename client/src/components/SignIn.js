@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactLoading from 'react-loading';
-import {loginWithGoogle} from "../helpers/auth";
-import {firebaseAuth} from "../config/constants";
+import { loginWithGoogle } from '../helpers/auth';
+import { firebaseAuth } from '../config/constants';
 import firebase from 'firebase';
-import {colors} from '../config/constants';
+import { colors } from '../config/constants';
 import icon from '../img/g-light.png';
+import { Button } from 'reactstrap';
 import '../css/SignIn.css';
 
-const firebaseAuthKey = "firebaseAuthInProgress";
-const appTokenKey = "appToken";
-const firebaseUser = "firebaseUser";
+const firebaseAuthKey = 'firebaseAuthInProgress';
+const appTokenKey = 'appToken';
+const firebaseUser = 'firebaseUser';
 const styles = {
   bg: {
     background: '#eee url(https://subtlepatterns.com/patterns/extra_clean_paper.png)',
@@ -24,45 +25,43 @@ const styles = {
     height: 'auto',
     boxShadow: '0 1px 3px rgba(0,0,0,0.24)',
     transition: 'all 0.3s cubic-bezier(.25,.8,.25,1)',
-    borderRadius: '3px'
+    borderRadius: '3px',
   },
   center: {
     marginTop: '-100px',
-  }
-}
+  },
+};
 
 
-
-export default class SignIn extends React.Component   {
-
+export default class SignIn extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      splashScreen: false
+      splashScreen: false,
     };
 
+    this.reset = this.reset.bind(this);
     this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
   }
 
   handleGoogleLogin() {
     loginWithGoogle()
-      .catch(function (error) {
+      .catch((error) => {
         alert(error); // or show toast
         localStorage.removeItem(firebaseAuthKey);
       });
-    localStorage.setItem(firebaseAuthKey, "1");
-    this.setState({splashScreen: true});
+    localStorage.setItem(firebaseAuthKey, '1');
   }
 
   componentWillMount() {
     // We have appToken relevant for our backend API
     if (localStorage.getItem(firebaseUser)) {
-      this.props.history.push("/app/dash");
+      this.props.history.push('/app/dash');
       return;
     }
 
-    firebaseAuth().onAuthStateChanged(user => {
+    firebaseAuth().onAuthStateChanged((user) => {
       if (user) {
         localStorage.removeItem(firebaseAuthKey);
 
@@ -71,22 +70,22 @@ export default class SignIn extends React.Component   {
         // authenticate with firebase every time a user logs in
         localStorage.setItem(appTokenKey, user.uid);
 
-        let userObj = {
-          user: user,
-        }
+        const userObj = {
+          user,
+        };
 
         // get contacts
-        const path = 'users/' + user.uid + '/contacts';
-        firebase.database().ref(path).once('value').then(function(snapshot) {
-          userObj.contacts = snapshot.val()
-        }).then(() => {
-
-          // set the firebase user
-          localStorage.setItem(firebaseUser, JSON.stringify(userObj));
-
-          // go to dashboard
-          this.props.history.push("/app/dash");
+        const path = `users/${user.uid}/contacts`;
+        firebase.database().ref(path).once('value').then((snapshot) => {
+          userObj.contacts = snapshot.val();
         })
+          .then(() => {
+          // set the firebase user
+            localStorage.setItem(firebaseUser, JSON.stringify(userObj));
+
+            // go to dashboard
+            this.props.history.push('/app/dash');
+          });
       } else {
         console.log('error in login');
         localStorage.removeItem(firebaseAuthKey);
@@ -96,51 +95,50 @@ export default class SignIn extends React.Component   {
 
   reset() {
     localStorage.removeItem(firebaseAuthKey);
-    this.props.history.push("/");
+    this.props.history.push('/');
   }
 
   render() {
     const SplashScreen = () => (
-      <div className='center'>
-        <div className='mt-lg'>
-          <h4 className='subtitle'>Loading...</h4>
+      <div className="center">
+        <div className="mt-lg">
+          <h4 className="subtitle">Loading...</h4>
           <ReactLoading
             type="bars"
             color={colors.bg}
-            width='150px'
-            height='50px'
+            width="150px"
+            height="50px"
           />
         </div>
       </div>
     );
 
-    if ((localStorage.getItem(firebaseAuthKey) === "1")) {
+    if ((localStorage.getItem(firebaseAuthKey) === '1')) {
       return <SplashScreen />;
     }
-    return <LoginPage handleGoogleLogin={this.handleGoogleLogin}/>;
+    return <LoginPage handleGoogleLogin={this.handleGoogleLogin} />;
   }
-
 }
 
-const LoginPage = ({handleGoogleLogin}) => (
-    <div>
-      <div style={styles.bg}>
-        <div style={styles.center}>
-          <div>
-            <h1 className="title">Job Search App</h1>
-            <br/>
-            <h4 className="subtitle">
+const LoginPage = ({ handleGoogleLogin }) => (
+  <div>
+    <div style={styles.bg}>
+      <div style={styles.center}>
+        <div>
+          <h1 className="title">Job Search App</h1>
+          <br />
+          <h4 className="subtitle">
               Click below to get started
-            </h4>
-          </div>
-          {/*eslint-disable */}
+          </h4>
+        </div>
+        {/*eslint-disable */}
           <img
             src={icon}
             id="signInBtn"
             onClick={handleGoogleLogin}
           />
-          {/*eslint-enable */}
-        </div>
+          {/* eslint-enable */}
       </div>
     </div>
+  </div>
 );
