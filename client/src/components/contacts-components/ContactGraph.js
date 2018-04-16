@@ -3,12 +3,6 @@ import { Graph } from 'react-d3-graph';
 // import styled from 'styled-components';
 // import '../css/Contacts.css';
 
-
-const data = {
-  nodes: [{ id: 'Harry' }, { id: 'Sally' }, { id: 'Alice' }],
-  links: [{ source: 'Harry', target: 'Sally' }, { source: 'Harry', target: 'Alice' }]
-};
-
 const myConfig = {
   nodeHighlightBehavior: true,
   node: {
@@ -23,31 +17,59 @@ const myConfig = {
 
 // graph event callbacks
 const onClickNode = function(nodeId) {
-  window.alert('Clicked node ${nodeId}');
+  console.log('Clicked node ${nodeId}');
 };
 
 const onMouseOverNode = function(nodeId) {
-  window.alert(`Mouse over node ${nodeId}`);
+  console.log(`Mouse over node ${nodeId}`);
 };
 
 const onMouseOutNode = function(nodeId) {
-  window.alert(`Mouse out node ${nodeId}`);
+  console.log(`Mouse out node ${nodeId}`);
 };
 
 
+/*
+ * props: data - the contacts object
+*/
 class ContactGraph extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.setByName = this.setByName.bind(this);
+
+    this.state = {
+      graphData: {
+        nodes: [{ id: 'Me' }],
+        links: []
+      }
+    };
+  }
+
+  componentDidMount() {
+    this.setByName();
+  }
+
+  setByName() {
+    let data = this.state.graphData;
+
+    Object.keys(this.props.data).map(function(id) {
+      const contact = this.props.data[id];
+      const name = contact.f_name+' '+contact.l_name;
+
+      data.nodes.push({ id: name });
+      data.links.push({ source: 'Me', target: name });
+    }, this);
+
+    this.setState({ graphData: data });
   }
 
   render() {
     return (
-      <div style={{backgroundColor: 'red'}}>
+      <div>
         <Graph
           id="graph-id" // id is mandatory
-          data={data}
+          data={this.state.graphData}
           config={myConfig}
           onClickNode={onClickNode}
           onMouseOverNode={onMouseOverNode}

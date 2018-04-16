@@ -1,8 +1,8 @@
 import React from 'react';
 import '../../css/Contacts.css';
-import PopoverItem from './PopoverItem';
 import { Button } from 'reactstrap';
 import AddContactForm from './AddContactForm';
+import ContactListItem from './ContactListItem';
 import firebase from 'firebase';
 
 const database = firebase.database();
@@ -16,18 +16,6 @@ const styles = {
   },
 };
 
-const tableHead = (
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Email</th>
-      <th scope="col">Company</th>
-      <th scope="col">City</th>
-      <th scope="col">Note</th>
-    </tr>
-  </thead>
-);
-
 /*
  * props: list: list of contact objects
 */
@@ -37,10 +25,13 @@ class ContactList extends React.Component {
 
     this.showForm = this.showForm.bind(this);
     this.addContact = this.addContact.bind(this);
+    this.deleteContact = this.deleteContact.bind(this);
+    this.toggleDelete = this.toggleDelete.bind(this);
 
     this.state = {
       list: this.props.list,
       addNewContact: false,
+      deleteItems: false,
     };
   }
 
@@ -51,8 +42,6 @@ class ContactList extends React.Component {
   addContact(contact) {
     if (contact) {
       const id = Date.now();
-
-      // update state
       const contactList = this.state.list;
       contactList[id] = contact;
 
@@ -63,12 +52,56 @@ class ContactList extends React.Component {
 
       // update Firebase
       database.ref(`users/${user.user.uid}/contacts/${id}`).set(contact);
+
+      // update state
+      this.setState({ list: contactList });
     }
 
     this.setState({ addNewContact: false });
   }
 
+  deleteContact(id) {
+    if (window.confirm('Are you sure you want to permanently delete this contact?')) {
+      const contactList = this.state.list;
+      delete contactList[id];
+
+      // update localStorage
+      const user = JSON.parse(localStorage.getItem('firebaseUser'));
+      user.contacts = contactList;
+      localStorage.setItem('firebaseUser', JSON.stringify(user));
+
+      // update Firebase
+      database.ref(`users/${user.user.uid}/contacts/${id}`).remove();
+
+      // update state
+      this.setState({ list: contactList, deleteItems: false });
+    }
+  }
+
+  toggleDelete() {
+    if (this.state.deleteItems) {
+      this.setState({ deleteItems: false });
+    } else {
+      this.setState({ deleteItems: true });
+    }
+  }
+
   render() {
+    const tableHead = (
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Company</th>
+          <th scope="col">City</th>
+          <th scope="col">Note</th>
+          <th scope="col" onClick={this.toggleDelete}>
+            <i className="fas fa-trash-alt" />
+          </th>
+        </tr>
+      </thead>
+    );
+
     const tableFoot = (
       <tfoot>
         <tr>
@@ -76,15 +109,17 @@ class ContactList extends React.Component {
             <Button outline color="primary" onClick={this.showForm}>
               Add New Contact
             </Button>
-          </td><td /><td /><td /><td />
+          </td><td/><td/><td/><td/><td/>
         </tr>
       </tfoot>
     );
 
+    // returns Add Contact Form
     if (this.state.addNewContact) {
       return <AddContactForm submit={contact => this.addContact(contact)} />;
     }
 
+    // returns Contact List
     return (
       <div style={styles.listWrapper}>
         <table className="table table-hover">
@@ -92,15 +127,14 @@ class ContactList extends React.Component {
           {tableFoot}
           <tbody>
             {Object.keys(this.state.list).map(function (id) {
-            const contact = this.state.list[id];
               return (
-                <tr key={id}>
-                  <td>{`${contact.f_name} ${contact.l_name}`}</td>
-                  <td>{contact.email}</td>
-                  <td>{contact.company}</td>
-                  <td>{contact.city}</td>
-                  <PopoverItem id={id} text={contact.note} />
-                </tr>
+                <ContactListItem
+                  key={id}
+                  contact={this.state.list[id]}
+                  contactId={id}
+                  delIcon={this.state.deleteItems}
+                  delete={(conId) => this.deleteContact(conId)}
+                />
               );
             }, this)}
           </tbody>

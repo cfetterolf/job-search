@@ -1,3 +1,7 @@
+table.table thead tr th:hover {
+  opacity: 0.65 !important;
+  cursor: pointer;
+}
 
 .tab-header {
   width: 100%;
@@ -60,4 +64,10 @@
 
 .add-contact-btns button {
   margin: 10px;
+}
+
+/* contact list item */
+.del-icon:hover {
+  cursor: pointer;
+  opacity: 0.65;
 }
