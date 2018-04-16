@@ -1,9 +1,9 @@
 import React from 'react';
-//import styled from 'styled-components';
+// import styled from 'styled-components';
 import '../css/Tasks.css';
-import firebase from 'firebase'
-import TodoItems from "./task-components/TodoItems.js";
-//import "./TodoList.css";
+import firebase from 'firebase';
+import TodoItems from './task-components/TodoItems.js';
+// import "./TodoList.css";
 
 
 /* class Tasks extends React.Component  {
@@ -25,76 +25,74 @@ import TodoItems from "./task-components/TodoItems.js";
 } */
 
 class Tasks extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            items: [] //call pull down list function
-        };
-        this.addItem = this.addItem.bind(this);
-        this.deleteItem = this.deleteItem.bind(this);
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: [], // call pull down list function
+    };
+    this.addItem = this.addItem.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
+  }
+
+  addItem(e) {
+    if (this._inputElement.value !== '') {
+      var newItem = {
+        text: this._inputElement.value,
+        key: Date.now(),
+      };
+
+      this.setState(prevState => ({
+        items: prevState.items.concat(newItem),
+      }));
+
+      this._inputElement.value = '';
     }
 
-    addItem(e) {
-        if (this._inputElement.value !== "") {
-          var newItem = {
-            text: this._inputElement.value,
-            key: Date.now()
-          };
+    this.writeUserData(newItem);
 
-          this.setState((prevState) => {
-            return {
-              items: prevState.items.concat(newItem)
-            };
-          });
+    console.log(this.state.items);
+    e.preventDefault();
+  }
 
-          this._inputElement.value = "";
-        }
+  writeUserData(item) {
+    firebase.database().ref(`tasks/${item.key}`).set({
+      name: item.text,
+    });
 
-        this.writeUserData(newItem);
+    const obj = {};
+    obj[item.key] = true;
 
-        console.log(this.state.items);
-        e.preventDefault();
-    }
+    firebase.database().ref(`users/${this.props.user.uid}/tasks/`).set(obj);
+  }
 
-    writeUserData(item) {
-      firebase.database().ref('tasks/' + item.key).set({
-        name: item.text
-      });
+  deleteItem(key) {
+    const filteredItems = this.state.items.filter(item => (item.key !== key));
 
-      var obj = {};
-      obj[item.key] = true;
+    this.setState({
+      items: filteredItems,
+    });
 
-      firebase.database().ref('users/' + this.props.user.uid + '/tasks/').set(obj);
-    }
-
-    deleteItem(key) {
-      var filteredItems = this.state.items.filter(function (item) {
-        return (item.key !== key);
-      });
-
-      this.setState({
-        items: filteredItems
-      });
-
-      firebase.database().ref('users/' + this.props.user.uid + '/tasks/' + key).remove();
-      firebase.database().ref('tasks/' + key).remove();
-
-    }
+    firebase.database().ref(`users/${this.props.user.uid}/tasks/${key}`).remove();
+    firebase.database().ref(`tasks/${key}`).remove();
+  }
 
   render() {
     return (
       <div className="TasksMain">
           Task List
         <div className="Tasks-header">
-            <form onSubmit={this.addItem}>
-                <input ref={(a) => this._inputElement = a}
-                    placeholder="enter task">
-                </input>
-                <button type="submit">add</button>
-            </form>
+          <form onSubmit={this.addItem}>
+            <input
+              ref={a => this._inputElement = a}
+              placeholder="enter task"
+            />
+            <button type="submit">add</button>
+          </form>
         </div>
-        <TodoItems entries={this.state.items}
-                    delete={this.deleteItem}/>
+        <TodoItems
+          entries={this.state.items}
+          delete={this.deleteItem}
+        />
       </div>
     );
   }

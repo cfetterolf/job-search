@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {logout} from "../helpers/auth";
-import {colors} from '../config/constants';
-//import styled from 'styled-components';
+import { logout } from '../helpers/auth';
+// import { colors } from '../config/constants';
+// import styled from 'styled-components';
 
 import NavBar from './NavBar';
 import Sidebar from './Sidebar';
@@ -22,17 +22,17 @@ const bodyStyle = {
   padding: '10px',
   overflowX: 'hidden',
   overflowY: 'auto',
-}
+};
 
 const sections = ['Timeline', 'Tasks', 'Contacts', 'Discover'];
-const appTokenKey = "appToken";
+const appTokenKey = 'appToken';
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       selected: sections[0],
-      firebaseUser: JSON.parse(localStorage.getItem("firebaseUser")),
+      firebaseUser: JSON.parse(localStorage.getItem('firebaseUser')),
     };
 
     this.handleLogout = this.handleLogout.bind(this);
@@ -54,36 +54,35 @@ class Dashboard extends Component {
   }
 
   handleLogout() {
-    logout().then(function () {
+    logout().then(() => {
       localStorage.removeItem(appTokenKey);
-      localStorage.removeItem("firebaseUser");
-      this.props.history.push("/signin");
-    }.bind(this));
+      localStorage.removeItem('firebaseUser');
+      this.props.logout();
+    });
   }
 
   render() {
-
     /* conditionally set body based on section selected */
     let body;
-    if (this.state.selected === "Timeline") {
+    if (this.state.selected === 'Timeline') {
       body = <Timeline />;
-    } else if (this.state.selected === "Tasks") {
+    } else if (this.state.selected === 'Tasks') {
       body = <Tasks user={this.state.firebaseUser} />;
-    } else if (this.state.selected === "Contacts") {
-      body = <Contacts />;
-    } else if (this.state.selected === "Discover") {
-      body = <Discover />;
+    } else if (this.state.selected === 'Contacts') {
+      body = <Contacts contacts={this.state.firebaseUser.contacts} />;
+    } else if (this.state.selected === 'Discover') {
+      body = <Discover user={this.state.firebaseUser.user} />;
     } else {
       body = <div>Something went wrong!</div>;
     }
 
     return (
       <div className="Dashboard">
-        <NavBar logoutClicked={() => this.handleLogout} user={this.state.firebaseUser} />
+        <NavBar logoutClicked={() => this.handleLogout} user={this.state.firebaseUser.user} />
         <div className="container-fluid">
           <div clas="row">
             <Sidebar
-              setSection={ (s) => this.setState({selected: s}) } // callback function
+              setSection={s => this.setState({ selected: s })} // callback function
               sections={sections}
             />
             <main className="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3" style={bodyStyle}>

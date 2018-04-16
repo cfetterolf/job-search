@@ -8,9 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:mongo": "concurrently \"npm start --prefix server-mongodb\" \"npm start --prefix client\"",
-    "start:memory": "concurrently \"npm start --prefix server-memory\" \"npm start --prefix client\"",
-    "start:sqlite": "concurrently \"npm start --prefix server-sqlite\" \"npm start --prefix client\"",
+    "start": "concurrently \"npm start --prefix server-mongodb\" \"npm start --prefix client\"",
     "heroku-postbuild": "npm install --prefix client && npm install --only=dev --no-shrinkwrap --prefix client && npm run build --prefix client && npm install --prefix server-mongodb",
     "basin-postbuild": "npm install --prefix client && npm install --only=dev --no-shrinkwrap --prefix client && npm run build --prefix client && npm install --prefix server-sqlite"
   },
@@ -30,16 +28,5 @@
     "file-loader": "^1.1.11",
     "url-loader": "^1.0.1"
   },
-  "dependencies": {
-    "firebase": "^4.12.1",
-    "firebase-app": "0.0.1",
-    "firebase-auth": "^0.1.2",
-    "font-awesome": "^4.7.0",
-    "material-ui": "^0.20.0",
-    "react-google-login": "^3.1.0",
-    "react-loading": "^1.0.4",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
-    "react-tap-event-plugin": "^3.0.2"
-  }
+  "dependencies": {}
 }

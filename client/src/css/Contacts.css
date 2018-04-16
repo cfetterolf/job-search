@@ -1,3 +1,7 @@
+table.table thead tr th:hover {
+  opacity: 0.65 !important;
+  cursor: pointer;
+}
 
 .tab-header {
   width: 100%;
@@ -5,21 +9,18 @@
   overflow: hidden;
 }
 
+.btn:focus,.btn:active {
+   outline: none !important;
+   box-shadow: none;
+}
+
+.borderless {
+  border-top: none !important;
+}
+
 .tab-header button {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-}
-
-#listTab:hover {
-  /* color: #6e5211 !important; */
-  font-weight: bold !important;
-  transition: 0.1s;
-}
-
-#graphTab:hover {
-  /* color: #8c2628 !important; */
-  font-weight: bold !important;
-  transition: 0.1s;
 }
 
 #listBorder {
@@ -45,8 +46,28 @@
 }
 
 /* Style the body */
-.tab-body {
-  background: white;
-  width: 100%;
-  height: 1000px;
+
+.list-group a {
+  cursor: pointer;
+}
+
+/* add contact form */
+.add-contact form {
+  float: left;
+  padding: 20px;
+  width: 80%;
+}
+
+.add-contact form .form-group {
+
+}
+
+.add-contact-btns button {
+  margin: 10px;
+}
+
+/* contact list item */
+.del-icon:hover {
+  cursor: pointer;
+  opacity: 0.65;
 }

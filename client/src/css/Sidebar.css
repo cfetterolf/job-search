@@ -2,6 +2,15 @@ li > a {
   cursor: pointer !important;
 }
 
+.icon {
+  color: #C63D0F !important;
+  width: 30px !important;
+}
+
+.section-title {
+  margin-left: 10px;
+}
+
 a:focus {
   outline: none;
 }

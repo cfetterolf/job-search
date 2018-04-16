@@ -25,3 +25,7 @@
 .bg-dark {
   background-color: #C63D0F !important;
 }
+
+.navbar {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.24);
+}

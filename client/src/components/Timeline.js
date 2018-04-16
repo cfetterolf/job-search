@@ -1,8 +1,8 @@
 import React from 'react';
-//import styled from 'styled-components';
+// import styled from 'styled-components';
 import '../css/Timeline.css';
 
-class Timeline extends React.Component  {
+class Timeline extends React.Component {
   constructor(props) {
     super(props);
 
