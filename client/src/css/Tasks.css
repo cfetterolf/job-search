@@ -3,6 +3,7 @@
   font-size: 16px;
   border: 2px solid #FFF;
   width: 165px;
+  text-align: center;
 }
 .TasksMain .header button {
   padding: 10px;
@@ -30,6 +31,7 @@
   margin-bottom: 15px;
   border-radius: 5px;
   list-style: none;
+  
 
   transition: background-color .2s ease-out;
 }
