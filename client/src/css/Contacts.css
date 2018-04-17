@@ -1,4 +1,4 @@
-table.table thead tr th:hover {
+.col-head:hover {
   opacity: 0.65 !important;
   cursor: pointer;
 }
@@ -71,4 +71,8 @@ table.table thead tr th:hover {
 .del-icon:hover {
   cursor: pointer;
   opacity: 0.65;
+}
+
+.fa-caret-down {
+  margin-left: 5px !important;
 }
