@@ -58,15 +58,16 @@ table.table thead tr th:hover {
   width: 80%;
 }
 
-.add-contact form .form-group {
-
-}
 
 .add-contact-btns button {
   margin: 10px;
 }
 
 /* contact list item */
+.del-icon {
+  width: 20px;
+}
+
 .del-icon:hover {
   cursor: pointer;
   opacity: 0.65;

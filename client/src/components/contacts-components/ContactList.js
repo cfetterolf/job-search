@@ -27,12 +27,17 @@ class ContactList extends React.Component {
     this.addContact = this.addContact.bind(this);
     this.deleteContact = this.deleteContact.bind(this);
     this.toggleDelete = this.toggleDelete.bind(this);
+    this.sortBy = this.sortBy.bind(this);
 
     this.state = {
       list: this.props.list,
       addNewContact: false,
       deleteItems: false,
     };
+  }
+
+  sortBy(key) {
+    console.log(key);
   }
 
   showForm() {
@@ -90,10 +95,10 @@ class ContactList extends React.Component {
     const tableHead = (
       <thead>
         <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Email</th>
-          <th scope="col">Company</th>
-          <th scope="col">City</th>
+          <th scope="col" onClick={() => this.sortBy('name')}>Name</th>
+          <th scope="col" onClick={() => this.sortBy('email')}>Email</th>
+          <th scope="col" onClick={() => this.sortBy('company')}>Company</th>
+          <th scope="col" onClick={() => this.sortBy('city')}>City</th>
           <th scope="col">Note</th>
           <th scope="col" onClick={this.toggleDelete}>
             <i className="fas fa-trash-alt" />
