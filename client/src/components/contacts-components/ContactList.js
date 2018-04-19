@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../css/Contacts.css';
-import { Button } from 'reactstrap';
+import { Button, Tooltip } from 'reactstrap';
 import AddContactForm from './AddContactForm';
 import ContactListItem from './ContactListItem';
 import firebase from 'firebase';
@@ -27,11 +27,21 @@ class ContactList extends React.Component {
     this.addContact = this.addContact.bind(this);
     this.deleteContact = this.deleteContact.bind(this);
     this.toggleDelete = this.toggleDelete.bind(this);
+    this.compareBy = this.compareBy.bind(this);
 
     this.state = {
       list: this.props.list,
       addNewContact: false,
       deleteItems: false,
+      sortBy: 'f_name',
+    };
+  }
+
+  compareBy(key) {
+    return function (a, b) {
+      if (a[key] < b[key]) return -1;
+      if (a[key] > b[key]) return 1;
+      return 0;
     };
   }
 
@@ -90,12 +100,24 @@ class ContactList extends React.Component {
     const tableHead = (
       <thead>
         <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Email</th>
-          <th scope="col">Company</th>
-          <th scope="col">City</th>
+          <th className="col-head" scope="col" onClick={() => this.setState({ sortBy: 'f_name' })} title="Sort By Name">
+            Name
+            <i className="fas fa-caret-down"></i>
+          </th>
+          <th className="col-head" scope="col" onClick={() => this.setState({ sortBy: 'email' })} title="Sort By Email">
+            Email
+            <i className="fas fa-caret-down"></i>
+          </th>
+          <th className="col-head" scope="col" onClick={() => this.setState({ sortBy: 'company' })} title="Sort By Company">
+            Company
+            <i className="fas fa-caret-down"></i>
+          </th>
+          <th className="col-head" scope="col" onClick={() => this.setState({ sortBy: 'city' })} title="Sort By City">
+            City
+            <i className="fas fa-caret-down"></i>
+          </th>
           <th scope="col">Note</th>
-          <th scope="col" onClick={this.toggleDelete}>
+          <th className="col-head" scope="col" onClick={this.toggleDelete}>
             <i className="fas fa-trash-alt" />
           </th>
         </tr>
@@ -114,6 +136,18 @@ class ContactList extends React.Component {
       </tfoot>
     );
 
+    // transforms list object into a sorted array
+    const sortedArr = () => {
+      let listArr = [];
+      for (let contactID in this.state.list) {
+        let contactObj = this.state.list[contactID];
+        contactObj.id = contactID;
+        listArr.push(contactObj);
+      }
+      listArr.sort(this.compareBy(this.state.sortBy));
+      return listArr;
+    }
+
     // returns Add Contact Form
     if (this.state.addNewContact) {
       return <AddContactForm submit={contact => this.addContact(contact)} />;
@@ -126,12 +160,12 @@ class ContactList extends React.Component {
           {tableHead}
           {tableFoot}
           <tbody>
-            {Object.keys(this.state.list).map(function (id) {
+            {sortedArr().map(function(contact) {
               return (
                 <ContactListItem
-                  key={id}
-                  contact={this.state.list[id]}
-                  contactId={id}
+                  key={contact.id}
+                  contact={this.state.list[contact.id]}
+                  contactId={contact.id}
                   delIcon={this.state.deleteItems}
                   delete={(conId) => this.deleteContact(conId)}
                 />

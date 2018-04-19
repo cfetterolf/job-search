@@ -1,4 +1,4 @@
-table.table thead tr th:hover {
+.col-head:hover {
   opacity: 0.65 !important;
   cursor: pointer;
 }
@@ -58,16 +58,21 @@ table.table thead tr th:hover {
   width: 80%;
 }
 
-.add-contact form .form-group {
-
-}
 
 .add-contact-btns button {
   margin: 10px;
 }
 
 /* contact list item */
+.del-icon {
+  width: 20px;
+}
+
 .del-icon:hover {
   cursor: pointer;
   opacity: 0.65;
+}
+
+.fa-caret-down {
+  margin-left: 5px !important;
 }
