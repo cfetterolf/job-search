@@ -15,6 +15,7 @@ const styles = {
 };
 
 const showPopUp = (msg) => {
+  console.log(msg);
   window.alert(msg);
 }
 
