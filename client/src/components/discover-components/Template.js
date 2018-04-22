@@ -14,8 +14,8 @@ const styles = {
   },
 };
 
-const showPopUp = (info) => {
-  window.alert(`Email successfully sent to ${info.envelope.to}`);
+const showPopUp = (msg) => {
+  window.alert(msg);
 }
 
 class Template extends React.Component {
@@ -112,12 +112,17 @@ class Template extends React.Component {
     })
       .then((response) => {
         if (!response.ok) {
+          window.alert(response.status_text);
           throw new Error(response.status_text);
         }
         return response.json();
       })
       .then((response) => {
-        showPopUp(response.info);
+        if (response.error) {
+          window.alert(response.error);
+        } else {
+          showPopUp(`Email successfully sent to ${response.info.envelope.to}`);
+        }
       })
       .catch(err => console.log(err)); // eslint-disable-line no-console
 
