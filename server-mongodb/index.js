@@ -54,7 +54,7 @@ app.get('/api/test', (req, res) => {
  */
 app.post('/api/email', (request, response) => {
   const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
+    host: 'Gmail',
     port: 465,
     secure: true,
     auth: {

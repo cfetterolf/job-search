@@ -109,7 +109,7 @@ class Template extends React.Component {
     fetch('/api/email', {
       method: 'POST',
       body: JSON.stringify(body),
-      headers: new Headers({ 'Content-type': 'application/json' }),
+      headers: new Headers({ 'c': 'application/json' }),
     })
       .then((response) => {
         if (!response.ok) {
