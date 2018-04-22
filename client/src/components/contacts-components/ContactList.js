@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../css/Contacts.css';
-import { Button, Tooltip } from 'reactstrap';
+import { Button } from 'reactstrap';
 import AddContactForm from './AddContactForm';
 import ContactListItem from './ContactListItem';
 import firebase from 'firebase';

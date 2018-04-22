@@ -1,11 +1,23 @@
 @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400,500,600,700');
 
+a {
+  cursor: pointer;
+}
+
 .title {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: 60px;
   font-weight: 700;
   color: #383838;
   text-align: center;
+}
+
+.mt-lg {
+  margin-top: 10%;
+}
+
+.mt-md {
+  margin-top: 150px;
 }
 
 .subtitle {

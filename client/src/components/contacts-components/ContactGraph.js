@@ -4,29 +4,30 @@ import { Graph } from 'react-d3-graph';
 // import '../css/Contacts.css';
 
 const myConfig = {
-  nodeHighlightBehavior: true,
+  nodeHighlightBehavior: false,
   node: {
-    color: 'lightgreen',
-    size: 120,
-    highlightStrokeColor: 'blue'
+    color: '#C63D0F',
+    fontSize: 15,
+    highlightStrokeColor: '#772409'
   },
   link: {
-    highlightColor: 'lightblue'
+    highlightColor: '#f6a488',
+    semanticStrokeWidth: true,
   }
 };
 
 // graph event callbacks
-const onClickNode = function(nodeId) {
-  console.log('Clicked node ${nodeId}');
-};
-
-const onMouseOverNode = function(nodeId) {
-  console.log(`Mouse over node ${nodeId}`);
-};
-
-const onMouseOutNode = function(nodeId) {
-  console.log(`Mouse out node ${nodeId}`);
-};
+// const onClickNode = function(nodeId) {
+//   console.log(`Clicked node ${nodeId}`);
+// };
+//
+// const onMouseOverNode = function(nodeId) {
+//   console.log(`Mouse over node ${nodeId}`);
+// };
+//
+// const onMouseOutNode = function(nodeId) {
+//   console.log(`Mouse out node ${nodeId}`);
+// };
 
 
 /*
@@ -36,47 +37,72 @@ class ContactGraph extends React.Component {
   constructor(props) {
     super(props);
 
-    this.setByName = this.setByName.bind(this);
+    this.setBy = this.setBy.bind(this);
+    this.handleDropdown = this.handleDropdown.bind(this);
 
     this.state = {
-      graphData: {
-        nodes: [{ id: 'Me' }],
-        links: []
-      }
+      graphData: {},
     };
   }
 
-  componentDidMount() {
-    this.setByName();
+  componentWillMount() {
+    this.setBy('name');
   }
 
-  setByName() {
-    let data = this.state.graphData;
+  handleDropdown(event) {
+    this.setBy(event.target.value);
+  }
 
-    Object.keys(this.props.data).map(function(id) {
+  setBy(key) {
+    let data = {
+      nodes: [{ id: 'Me', size: 600 }],
+      links: []
+    };
+
+    for (var id in this.props.data) {
       const contact = this.props.data[id];
       const name = contact.f_name+' '+contact.l_name;
+      data.nodes.push({ id: name, size: 200 });
 
-      data.nodes.push({ id: name });
-      data.links.push({ source: 'Me', target: name });
-    }, this);
+      if (key !== 'name') { // 'company' or 'city'
+        let bigNode = { id: contact[key], size: 400 };
+        if (!data.nodes.includes(bigNode)) {
+          data.nodes.push(bigNode);
+          data.links.push({ source: bigNode.id, target: 'Me' });
+        }
+        data.links.push({ source: bigNode.id, target: name });
+      } else {
+        data.links.push({ source: 'Me', target: name });
+      }
+    }
 
     this.setState({ graphData: data });
   }
 
   render() {
     return (
-      <div>
-        <Graph
-          id="graph-id" // id is mandatory
-          data={this.state.graphData}
-          config={myConfig}
-          onClickNode={onClickNode}
-          onMouseOverNode={onMouseOverNode}
-          onMouseOutNode={onMouseOutNode}
-        />;
+      <div className="row graph">
+        <span className="col-3 graph-type">
+          <label
+            className=""
+            htmlFor="graphSelect"
+          >Organize By: </label>
+          <select id="graphSelect"  className="form-control" onChange={this.handleDropdown}>
+            <option value="name">Name</option>
+            <option value="company">Company</option>
+            <option value="city">City</option>
+          </select>
+        </span>
+        <div className="graph-data">
+          <Graph
+            style={{display: 'block', margin: '0 auto',}}
+            id="graph-id" // id is mandatory
+            data={this.state.graphData}
+            config={myConfig}
+          />
+        </div>
       </div>
-    ); // can use <RandomizeNodePositions/> to make nodes random
+    );
   }
 }
 
