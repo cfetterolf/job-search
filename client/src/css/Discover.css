@@ -76,7 +76,8 @@ label a {
   margin: 10px 0 0 10%;
 }
 
-.email-input a {
+.email-input p {
+  color: #666666;
   margin-left: 10%;
 }
 

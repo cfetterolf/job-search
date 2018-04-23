@@ -14,8 +14,8 @@ const styles = {
   },
 };
 
-const showPopUp = (info) => {
-  window.alert(`Email successfully sent to ${info.envelope.to}`);
+const showPopUp = (msg) => {
+  window.alert(msg);
 }
 
 class Template extends React.Component {
@@ -117,7 +117,12 @@ class Template extends React.Component {
         return response.json();
       })
       .then((response) => {
-        showPopUp(response.info);
+        if (response.error) {
+          console.log(response.error);
+          showPopUp("Could not send email.  Make sure to unlock your account by clicking the links below.");
+        } else {
+          showPopUp(`Email successfully sent to ${response.info.envelope.to}`);
+        }
       })
       .catch(err => console.log(err)); // eslint-disable-line no-console
 
@@ -142,12 +147,19 @@ class Template extends React.Component {
           <input type="text" name="subject" placeholder="Subject Line of Email" value={this.state.subject} onChange={this.handleSubject} />
           <input type="password" name="password" placeholder="Your Email Password" value={this.state.password} onChange={this.handlePassword} />
         </div>
-        <a
-          href="https://myaccount.google.com/lesssecureapps"
-          target="_blank"
-          rel="noopener noreferrer">
-          Grant App Access
-        </a>
+        <p>Email Not sending?<br />
+          Click <a
+            href="https://myaccount.google.com/lesssecureapps"
+            target="_blank"
+            rel="noopener noreferrer">
+            here
+          </a> and <a
+            href="https://accounts.google.com/DisplayUnlockCaptcha"
+            target="_blank"
+            rel="noopener noreferrer">
+            here
+          </a>
+        </p>
       </div>
     );
 
