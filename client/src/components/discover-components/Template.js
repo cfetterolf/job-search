@@ -111,12 +111,14 @@ class Template extends React.Component {
       headers: new Headers({ 'Content-type': 'application/json' }),
     })
       .then((response) => {
+        console.log(response);
         if (!response.ok) {
           throw new Error(response.status_text);
         }
         return response.json();
       })
       .then((response) => {
+        console.log(response);
         showPopUp(response.info);
       })
       .catch(err => console.log(err)); // eslint-disable-line no-console
