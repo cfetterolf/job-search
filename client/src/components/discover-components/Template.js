@@ -112,6 +112,7 @@ class Template extends React.Component {
       headers: new Headers({ 'c': 'application/json' }),
     })
       .then((response) => {
+        console.log(response);
         if (!response.ok) {
           window.alert(response.status_text);
           throw new Error(response.status_text);
@@ -119,11 +120,8 @@ class Template extends React.Component {
         return response.json();
       })
       .then((response) => {
-        if (response.error) {
-          window.alert(response.error);
-        } else {
-          showPopUp(`Email successfully sent to ${response.info.envelope.to}`);
-        }
+        console.log(response);
+        showPopUp(response.info);
       })
       .catch(err => console.log(err)); // eslint-disable-line no-console
 
