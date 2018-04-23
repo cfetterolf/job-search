@@ -57,10 +57,10 @@ export default class SignIn extends React.Component {
 
   componentWillMount() {
     // We have appToken relevant for our backend API
-    if (localStorage.getItem(firebaseUser)) {
-      this.props.login();
-      return;
-    }
+    // if (localStorage.getItem(firebaseUser)) {
+    //   this.props.login();
+    //   return;
+    // }
 
     firebaseAuth().onAuthStateChanged((user) => {
       if (user) {
