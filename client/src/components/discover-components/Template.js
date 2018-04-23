@@ -14,8 +14,9 @@ const styles = {
   },
 };
 
-const showPopUp = (info) => {
-  window.alert(`Email successfully sent to ${info.envelope.to}`);
+const showPopUp = (msg) => {
+  console.log(msg);
+  window.alert(msg);
 }
 
 class Template extends React.Component {
@@ -108,9 +109,10 @@ class Template extends React.Component {
     fetch('/api/email', {
       method: 'POST',
       body: JSON.stringify(body),
-      headers: new Headers({ 'Content-type': 'application/json' }),
+      headers: new Headers({ 'c': 'application/json' }),
     })
       .then((response) => {
+        console.log(response);
         if (!response.ok) {
           console.log(response.status_text);
           throw new Error(response.status_text);
