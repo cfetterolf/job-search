@@ -114,7 +114,7 @@ class Template extends React.Component {
       .then((response) => {
         console.log(response);
         if (!response.ok) {
-          window.alert(response.status_text);
+          console.log(response.status_text);
           throw new Error(response.status_text);
         }
         return response.json();
