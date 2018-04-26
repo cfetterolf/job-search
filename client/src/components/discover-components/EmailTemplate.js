@@ -2,30 +2,30 @@ import React from 'react';
 import '../../css/Discover.css';
 
 const replaceContent = (props) => {
-  var content = props.content;
-  const f_name = props.name.split(" ")[0];
-  const l_name = props.name.split(" ")[1];
+  let content = props.content;
+  const f_name = props.name.split(' ')[0];
+  const l_name = props.name.split(' ')[1];
   const config = {
-    f_name: "$FIRSTNAME",
-    l_name: "$LASTNAME",
-    company: "$COMPANY",
-    position: "$POSITION",
-    city: "$CITY",
-  }
+    f_name: '$FIRSTNAME',
+    l_name: '$LASTNAME',
+    company: '$COMPANY',
+    position: '$POSITION',
+    city: '$CITY',
+  };
 
-  for (var id in config) {
-    let re = new RegExp("\\"+config[id], "g");
+  for (const id in config) {
+    const re = new RegExp(`\\${config[id]}`, 'g');
     if (id === 'f_name' && f_name) {
       content = content.replace(re, f_name);
     } else if (id === 'l_name' && l_name) {
       content = content.replace(re, l_name);
-    } else if (props[id]){
+    } else if (props[id]) {
       content = content.replace(re, props[id]);
     }
   }
 
   return content;
-}
+};
 
 class EmailTemplate extends React.Component {
   constructor(props) {
@@ -101,7 +101,7 @@ class EmailTemplate extends React.Component {
     }
 
     return (
-      <div style={{height: '100%'}}>
+      <div style={{ height: '100%' }}>
         {input}
         {buttons}
       </div>

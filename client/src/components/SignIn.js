@@ -78,16 +78,14 @@ export default class SignIn extends React.Component {
             userObj.contacts = snapshot.val() ? snapshot.val().contacts : {};
             userObj.template = snapshot.val() ? snapshot.val().template : { position: '', content: '', subject: '' };
           })
-          .then(() => {
+            .then(() => {
             // set the firebase user
-            localStorage.setItem(firebaseUser, JSON.stringify(userObj));
+              localStorage.setItem(firebaseUser, JSON.stringify(userObj));
 
-            // go to dashboard
-            this.props.login();
-          });
-        }
-
-        catch(error) {
+              // go to dashboard
+              this.props.login();
+            });
+        } catch (error) {
           console.log(error);
           localStorage.removeItem(firebaseAuthKey);
           this.setState({ splashScreen: false });
@@ -115,7 +113,8 @@ export default class SignIn extends React.Component {
           <div className="mt-md">
             <span>
               Not Loading? <a role="button" tabIndex="0" onClick={() => this.reset}>
-              Back</a>
+              Back
+              </a>
             </span>
           </div>
         </div>

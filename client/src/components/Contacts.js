@@ -35,7 +35,7 @@ class Contacts extends React.Component {
     }
 
     /* conditionally set body */
-    const body = this.state.selected === 'list' ? <ContactList list={contactList} /> : <ContactGraph data={contactList}/>;
+    const body = this.state.selected === 'list' ? <ContactList list={contactList} /> : <ContactGraph data={contactList} />;
 
     return (
       <div className="container-fluid">

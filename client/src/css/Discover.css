@@ -123,3 +123,14 @@ label a {
   padding-left: 10px;
   padding-right: 10px;
 }
+
+.modal-img {
+  width: 130px;
+  margin: 20px;
+}
+
+.modal-dialog .alert {
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+}

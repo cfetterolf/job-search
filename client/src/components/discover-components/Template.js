@@ -1,9 +1,13 @@
 import React from 'react';
+import firebase from 'firebase';
 import EmailTemplate from './EmailTemplate';
 import ContactListSmall from '../contacts-components/ContactListSmall';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import '../../css/Discover.css';
-import firebase from 'firebase';
+import sendIcon from '../../img/paper_plane.png';
+import successIcon from '../../img/checkmark.png';
+import errorIcon from '../../img/error.png';
+
 
 const database = firebase.database();
 
@@ -13,10 +17,6 @@ const styles = {
     borderRadius: '10px',
   },
 };
-
-const showPopUp = (msg) => {
-  window.alert(msg);
-}
 
 class Template extends React.Component {
   constructor(props) {
@@ -33,6 +33,9 @@ class Template extends React.Component {
       content: props.user.template.content ? props.user.template.content : '',
       readOnly: true,
       modal: false,
+      alertModal: false,
+      modalMsg: 'Sending Email...',
+      modalImg: 'sending',
     };
 
     this.handleName = this.handleTextUpdate.bind(this, 'name');
@@ -49,10 +52,12 @@ class Template extends React.Component {
     this.sendEmail = this.sendEmail.bind(this);
   }
 
-  toggle() {
-    this.setState({
-      modal: !this.state.modal
-    });
+  toggle(type) {
+    if (type === 'modal') {
+      this.setState({ modal: !this.state.modal });
+    } else {
+      this.setState({ alertModal: !this.state.alertModal });
+    }
   }
 
   setFields(contact) {
@@ -60,7 +65,7 @@ class Template extends React.Component {
       name: `${contact.f_name} ${contact.l_name}`,
       company: contact.company,
       city: contact.city,
-      email: contact.email
+      email: contact.email,
     });
 
     this.setState({ modal: !this.state.modal });
@@ -75,7 +80,7 @@ class Template extends React.Component {
       content: newContent,
       position: this.state.position,
       subject: this.state.subject,
-    }
+    };
 
     // save new content to firebase
     database.ref(`users/${this.props.user.user.uid}/template`).set(template);
@@ -91,19 +96,21 @@ class Template extends React.Component {
 
   sendEmail(content) {
     if (!this.state.email || !this.state.password) {
-      window.alert("Please enter a valid email address and password.");
+      window.alert('Please enter a valid email address and password.');
       return;
     }
 
-    var body = {
+    this.setState({ modalMsg: 'Sending Email...', modalImg: 'sending' });
+    this.toggle('alertModal');
+
+    const body = {
       to: this.state.email,
       from: this.props.user.user.email,
       name: this.props.user.user.displayName,
       password: this.state.password,
       subject: this.state.subject,
-      content: content,
-    }
-
+      content,
+    };
 
     fetch('/api/email', {
       method: 'POST',
@@ -119,13 +126,18 @@ class Template extends React.Component {
       .then((response) => {
         if (response.error) {
           console.log(response.error);
-          showPopUp("Could not send email.  Make sure to unlock your account by clicking the links below.");
+          this.setState({
+            modalMsg: 'Could not send email.  Make sure to unlock your account by clicking the links below.',
+            modalImg: 'error'
+          });
         } else {
-          showPopUp(`Email successfully sent to ${response.info.envelope.to}`);
+          this.setState({
+            modalMsg: `Email successfully sent to ${response.info.envelope.to}!`,
+            modalImg: 'success'
+          });
         }
       })
       .catch(err => console.log(err)); // eslint-disable-line no-console
-
   }
 
   render() {
@@ -134,7 +146,7 @@ class Template extends React.Component {
         <div className="form-group email-input">
           <label htmlFor="inTop" id="topLabel">
             <strong>Contact Info</strong>
-            <a role="button" tabIndex="0" onClick={this.toggle}>Import Contact</a>
+            <a role="button" tabIndex="0" onClick={() => this.toggle('modal')}>Import Contact</a>
           </label>
           <input id="inTop" type="text" name="name" placeholder="$FIRSTNAME $LASTNAME" value={this.state.name} onChange={this.handleName} />
           <input type="text" name="company" placeholder="$COMPANY" value={this.state.company} onChange={this.handleCompany} />
@@ -148,48 +160,58 @@ class Template extends React.Component {
           <input type="password" name="password" placeholder="Your Email Password" value={this.state.password} onChange={this.handlePassword} />
         </div>
         <p>Email Not sending?<br />
-          Click <a
-            href="https://myaccount.google.com/lesssecureapps"
-            target="_blank"
-            rel="noopener noreferrer">
-            here
-          </a> and <a
-            href="https://accounts.google.com/DisplayUnlockCaptcha"
-            target="_blank"
-            rel="noopener noreferrer">
-            here
-          </a>
+          Click <a href="https://myaccount.google.com/lesssecureapps" target="_blank" rel="noopener noreferrer"> here
+          </a> and <a href="https://accounts.google.com/DisplayUnlockCaptcha" target="_blank" rel="noopener noreferrer"> here</a>
         </p>
       </div>
     );
 
-    const modal = (
-      <Modal isOpen={this.state.modal} toggle={this.toggle} className="modal-example">
-        <ModalHeader toggle={this.toggle}>Choose Contact to Import</ModalHeader>
+    const contactsModal = (
+      <Modal isOpen={this.state.modal} toggle={() => this.toggle('modal')} className="modal-example">
+        <ModalHeader toggle={() => this.toggle('modal')}>Choose Contact to Import</ModalHeader>
         <ModalBody>
           <ContactListSmall
             contacts={this.props.user.contacts}
-            clicked={(contact) => this.setFields(contact)}
+            clicked={contact => this.setFields(contact)}
           />
         </ModalBody>
         <ModalFooter>
-          <Button outline color="danger" onClick={this.toggle}>Cancel</Button>
+          <Button outline color="danger" onClick={() => this.toggle('modal')}>Cancel</Button>
         </ModalFooter>
+      </Modal>
+    );
+
+    let modalImg;
+    if (this.state.modalImg === 'sending') {
+      modalImg = sendIcon;
+    } else if (this.state.modalImg === 'success') {
+      modalImg = successIcon;
+    } else {
+      modalImg = errorIcon;
+    }
+
+    const alertModal = (
+      <Modal isOpen={this.state.alertModal} toggle={() => this.toggle('alertModal')}>
+        <ModalBody className="alert">
+          {this.state.modalMsg}<br/>
+          <img src={modalImg} className="modal-img" alt=""/>
+        </ModalBody>
       </Modal>
     );
 
     return (
       <div className="form" style={styles.form}>
-        <div className="row" style={{ height: '100%', }}>
+        <div className="row" style={{ height: '100%' }}>
           {inputFields}
-          {modal}
+          {contactsModal}
+          {alertModal}
           <div className="col-md-8">
             <div className="form-group email-temp">
               <label htmlFor="emailTemplate"><strong>Email Template</strong></label>
               <EmailTemplate
                 {...this.state}
-                saveContent={ content => this.saveContent(content) }
-                sendEmail={ content => this.sendEmail(content) }
+                saveContent={content => this.saveContent(content)}
+                sendEmail={content => this.sendEmail(content)}
               />
             </div>
           </div>
@@ -198,6 +220,5 @@ class Template extends React.Component {
     );
   }
 }
-
 
 export default Template;
