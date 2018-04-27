@@ -1,5 +1,5 @@
 .email {
-  width: 80%;
+  width: 80% !important;
   height: 80% !important;
 }
 
@@ -23,7 +23,7 @@
 /* form CSS */
 .form-input input {
   outline: none;
-  width: 95%;
+  width: 90%;
   padding: 0px;
   border: none;
   border-bottom: 1px solid #808080;
@@ -47,4 +47,90 @@ select:focus,
 textarea:focus,
 button:focus {
     outline: none;
+}
+
+/* remove yellow autofill */
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset;
+}
+
+#label2 {
+  margin-top: 30px;
+}
+
+label a {
+  font-size: 15px;
+  float: right;
+}
+
+#topLabel {
+  width: 100%;
+}
+
+.email-input input {
+  height: 25px;
+  margin-bottom: 15px;
+}
+
+.email-input label {
+  margin: 10px 0 0 10%;
+}
+
+.email-input p {
+  color: #666666;
+  margin-left: 10%;
+}
+
+.col-md-8 .form-group {
+  width: 100% !important;
+}
+
+.email-temp label {
+  margin: 10px 0 0 10%;
+}
+
+#emailTemplate {
+  margin: 10px 0 0 10%;
+  height: 100%;
+}
+
+#emailButtons {
+  float: right;
+  margin-right: 10%;
+}
+
+#emailButtons button {
+  margin: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#templateButtons {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+#templateButtons .btn-success {
+  float: left;
+}
+
+#templateButtons .btn-primary {
+  float: right;
+}
+
+#templateButtons button {
+  margin: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.modal-img {
+  width: 130px;
+  margin: 20px;
+}
+
+.modal-dialog .alert {
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
 }

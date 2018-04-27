@@ -76,3 +76,26 @@
 .fa-caret-down {
   margin-left: 5px !important;
 }
+
+/* contact graph */
+.graph {
+  float: left;
+}
+
+.graph-type {
+  display: inline-block;
+  margin: 30px auto auto 20px;
+}
+
+.graph-data {
+  margin-top: -30px;
+}
+
+.small-item {
+  cursor: pointer;
+  color: #404040;
+}
+
+.small-item:hover {
+  color: #0099ff;
+}

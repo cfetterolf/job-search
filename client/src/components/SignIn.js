@@ -57,42 +57,46 @@ export default class SignIn extends React.Component {
 
   componentWillMount() {
     // We have appToken relevant for our backend API
-    if (localStorage.getItem(firebaseUser)) {
-      this.props.login();
-      return;
-    }
+    // if (localStorage.getItem(firebaseUser)) {
+    //   this.props.login();
+    //   return;
+    // }
 
     firebaseAuth().onAuthStateChanged((user) => {
       if (user) {
-        localStorage.removeItem(firebaseAuthKey);
+        try {
+          localStorage.removeItem(firebaseAuthKey);
+          localStorage.setItem(appTokenKey, user.uid);
 
-        // here you could authenticate with you web server to get the
-        // application specific token so that you do not have to
-        // authenticate with firebase every time a user logs in
-        localStorage.setItem(appTokenKey, user.uid);
+          const userObj = {
+            user,
+          };
 
-        const userObj = {
-          user,
-        };
+          // get contacts
+          const path = `users/${user.uid}`;
+          firebase.database().ref(path).once('value').then((snapshot) => {
+            userObj.contacts = snapshot.val() ? snapshot.val().contacts : {};
+            userObj.template = snapshot.val() ? snapshot.val().template : { position: '', content: '', subject: '' };
+          })
+            .then(() => {
+            // set the firebase user
+              localStorage.setItem(firebaseUser, JSON.stringify(userObj));
 
-        // get contacts
-        const path = `users/${user.uid}/contacts`;
-        firebase.database().ref(path).once('value').then((snapshot) => {
-          userObj.contacts = snapshot.val();
-        })
-          .then(() => {
-          // set the firebase user
-            localStorage.setItem(firebaseUser, JSON.stringify(userObj));
-
-            // go to dashboard
-            this.props.login();
-          });
+              // go to dashboard
+              this.props.login();
+            });
+        } catch (error) {
+          console.log(error);
+          localStorage.removeItem(firebaseAuthKey);
+          this.setState({ splashScreen: false });
+        }
       }
     });
   }
 
   reset() {
     localStorage.removeItem(firebaseAuthKey);
+    this.setState({ splashScreen: false });
   }
 
   render() {
@@ -106,6 +110,13 @@ export default class SignIn extends React.Component {
             width="150px"
             height="50px"
           />
+          <div className="mt-md">
+            <span>
+              Not Loading? <a role="button" tabIndex="0" onClick={() => this.reset}>
+              Back
+              </a>
+            </span>
+          </div>
         </div>
       </div>
     );

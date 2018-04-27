@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../css/Contacts.css';
-import { Button, Tooltip } from 'reactstrap';
+import { Button } from 'reactstrap';
 import AddContactForm from './AddContactForm';
 import ContactListItem from './ContactListItem';
 import firebase from 'firebase';
@@ -102,19 +102,19 @@ class ContactList extends React.Component {
         <tr>
           <th className="col-head" scope="col" onClick={() => this.setState({ sortBy: 'f_name' })} title="Sort By Name">
             Name
-            <i className="fas fa-caret-down"></i>
+            <i className="fas fa-caret-down" />
           </th>
           <th className="col-head" scope="col" onClick={() => this.setState({ sortBy: 'email' })} title="Sort By Email">
             Email
-            <i className="fas fa-caret-down"></i>
+            <i className="fas fa-caret-down" />
           </th>
           <th className="col-head" scope="col" onClick={() => this.setState({ sortBy: 'company' })} title="Sort By Company">
             Company
-            <i className="fas fa-caret-down"></i>
+            <i className="fas fa-caret-down" />
           </th>
           <th className="col-head" scope="col" onClick={() => this.setState({ sortBy: 'city' })} title="Sort By City">
             City
-            <i className="fas fa-caret-down"></i>
+            <i className="fas fa-caret-down" />
           </th>
           <th scope="col">Note</th>
           <th className="col-head" scope="col" onClick={this.toggleDelete}>
@@ -131,22 +131,22 @@ class ContactList extends React.Component {
             <Button outline color="primary" onClick={this.showForm}>
               Add New Contact
             </Button>
-          </td><td/><td/><td/><td/><td/>
+          </td><td /><td /><td /><td /><td />
         </tr>
       </tfoot>
     );
 
     // transforms list object into a sorted array
     const sortedArr = () => {
-      let listArr = [];
-      for (let contactID in this.state.list) {
-        let contactObj = this.state.list[contactID];
+      const listArr = [];
+      for (const contactID in this.state.list) {
+        const contactObj = this.state.list[contactID];
         contactObj.id = contactID;
         listArr.push(contactObj);
       }
       listArr.sort(this.compareBy(this.state.sortBy));
       return listArr;
-    }
+    };
 
     // returns Add Contact Form
     if (this.state.addNewContact) {
@@ -160,14 +160,14 @@ class ContactList extends React.Component {
           {tableHead}
           {tableFoot}
           <tbody>
-            {sortedArr().map(function(contact) {
+            {sortedArr().map(function (contact) {
               return (
                 <ContactListItem
                   key={contact.id}
                   contact={this.state.list[contact.id]}
                   contactId={contact.id}
                   delIcon={this.state.deleteItems}
-                  delete={(conId) => this.deleteContact(conId)}
+                  delete={conId => this.deleteContact(conId)}
                 />
               );
             }, this)}

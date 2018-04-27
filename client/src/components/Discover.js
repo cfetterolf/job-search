@@ -1,14 +1,7 @@
 import React from 'react';
 // import styled from 'styled-components';
 import '../css/Discover.css';
-import { colors } from '../config/constants';
 import Template from './discover-components/Template';
-
-const styles = {
-  form: {
-    backgroundColor: colors.fill,
-  },
-};
 
 const message = {
   greeting: 'Hi ',
@@ -46,14 +39,10 @@ class Discover extends React.Component {
     this.setState({ [field]: event.target.value });
   }
 
-  componentDidMount() {
-
-  }
-
   render() {
     return (
       <div className="container-fluid wrapper">
-        <Template user={this.props.user} />
+        <Template user={JSON.parse(localStorage.getItem('firebaseUser'))} />
       </div>
     );
   }

@@ -11,7 +11,9 @@ import '../../css/Contacts.css';
  *    delete - callback function to delete contact, takes ID parameter
  */
 function ContactListItem(props) {
+  /* eslint-disable */
   const icon = props.delIcon ? <img className="del-icon" src={iconSrc} className="del-icon" onClick={() => props.delete(props.contactId)}/> : <img />;
+  /* eslint-enable */
   return (
     <tr key={props.contactId}>
       <td>{`${props.contact.f_name} ${props.contact.l_name}`}</td>

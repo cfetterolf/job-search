@@ -43,8 +43,8 @@ class NavBar extends React.Component {
             <Avatar src={this.props.user.photoURL} />
           </a>
           <div className="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-            <a className="dropdown-item" role="button" tabIndex="0">Action</a>
-            <a className="dropdown-item" role="button" tabIndex="0">Another action</a>
+            <a className="dropdown-item" href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a className="dropdown-item" href="https://www.github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
             <div className="dropdown-divider" />
             <a
               className="dropdown-item logout"

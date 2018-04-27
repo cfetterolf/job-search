@@ -6,6 +6,7 @@ const http = require('http');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
 
 // Create Express application
 const app = express();
@@ -35,16 +36,50 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
-app.get('/api', (request, response) => {
-  response.send({ response: "Hello!" });
-});
+app.get('/api/test', (req, res) => {
+  res.send({ ok: 'good'});
+})
 
-/* default route */
-app.get('/*', (request, response) => {
-  response.sendFile(path.join(buildPath, 'index.html'));
+
+/*
+ * Sends an email from USER_EMAIL account to DEST_EMAIL
+ *
+ * Expected request body:
+ *    to:       DEST_EMAIL
+ *    from:     USER_EMAIL
+ *    name:     USER_NAME
+ *    password: USER_PASSWORD
+ *    subject:  subject line of email
+ *    content:  body of email
+ */
+app.post('/api/email', (request, response) => {
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+      user: request.body.from,
+      pass: request.body.password,
+    },
+  });
+
+  const mailOptions = {
+    from: `"${request.body.name}" <${request.body.from}>`,
+    to: request.body.to,
+    subject: request.body.subject,
+    text: request.body.content,
+  };
+
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      response.send({ error: err });
+    } else {
+      response.send({ info: info });
+    }
+  });
 });
 
 // We create the server explicitly (instead of using app.listen()) to
 // provide an example of how we would create a https server
-const server = http.createServer(app).listen(process.env.PORT || 3002);
+const server = http.createServer(app).listen(process.env.PORT || 3001);
 console.log('Listening on port %d', server.address().port);

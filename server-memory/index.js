@@ -46,17 +46,8 @@ app.put('/api/movies/:id', (request, response) => {
   response.send(request.body);
 });
 
-// Load movie data before starting the server
-// path.join automatically inserts correct file separator
-fs.readFile(path.join(__dirname, 'movies.json'), (err, contents) => {
-  const data = JSON.parse(contents);
-  data.forEach((movie) => {
-    movies[movie.id] = movie;
-  });
-
-  // Don't start server until data loaded
-  // We create the server explicitly (instead of using app.listen()) to
-  // provide an example of how we would create a https server
-  const server = http.createServer(app).listen(process.env.PORT || 3001);
-  console.log('Listening on port %d', server.address().port);
-});
+// Don't start server until data loaded
+// We create the server explicitly (instead of using app.listen()) to
+// provide an example of how we would create a https server
+const server = http.createServer(app).listen(process.env.PORT || 3001);
+console.log('Listening on port %d', server.address().port);
