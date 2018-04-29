@@ -8,15 +8,7 @@ import sendIcon from '../../img/paper_plane.png';
 import successIcon from '../../img/checkmark.png';
 import errorIcon from '../../img/error.png';
 
-
 const database = firebase.database();
-
-const styles = {
-  form: {
-    backgroundColor: 'white',
-    borderRadius: '10px',
-  },
-};
 
 class Template extends React.Component {
   constructor(props) {
@@ -38,6 +30,7 @@ class Template extends React.Component {
       modalImg: 'sending',
     };
 
+    // bind input fields to handleTextUpdate
     this.handleName = this.handleTextUpdate.bind(this, 'name');
     this.handleCompany = this.handleTextUpdate.bind(this, 'company');
     this.handleCity = this.handleTextUpdate.bind(this, 'city');
@@ -100,6 +93,7 @@ class Template extends React.Component {
       return;
     }
 
+    // Activate our email status modal
     this.setState({ modalMsg: 'Sending Email...', modalImg: 'sending' });
     this.toggle('alertModal');
 
@@ -112,6 +106,7 @@ class Template extends React.Component {
       content,
     };
 
+    // Send email via NodeJS endpoint
     fetch('/api/email', {
       method: 'POST',
       body: JSON.stringify(body),
@@ -124,23 +119,27 @@ class Template extends React.Component {
         return response.json();
       })
       .then((response) => {
+        let msg, img;
         if (response.error) {
           console.log(response.error);
-          this.setState({
-            modalMsg: 'Could not send email.  Make sure to unlock your account by clicking the links below.',
-            modalImg: 'error'
-          });
+          msg = 'Could not send email.  Make sure to unlock your account by clicking the links below.';
+          img = 'error';
         } else {
-          this.setState({
-            modalMsg: `Email successfully sent to ${response.info.envelope.to}!`,
-            modalImg: 'success'
-          });
+          msg = `Email successfully sent to ${response.info.envelope.to}!`;
+          img = 'success';
         }
+
+        this.setState({
+          modalMsg: msg,
+          modalImg: img
+        });
       })
       .catch(err => console.log(err)); // eslint-disable-line no-console
   }
 
   render() {
+
+    // Create our macro input fields
     const inputFields = (
       <div className="col-md-4 form-input email-input">
         <div className="form-group email-input">
@@ -166,6 +165,7 @@ class Template extends React.Component {
       </div>
     );
 
+    // Create our import contacts list
     const contactsModal = (
       <Modal isOpen={this.state.modal} toggle={() => this.toggle('modal')} className="modal-example">
         <ModalHeader toggle={() => this.toggle('modal')}>Choose Contact to Import</ModalHeader>
@@ -181,6 +181,7 @@ class Template extends React.Component {
       </Modal>
     );
 
+    // Conditionally create our email alert modal
     let modalImg;
     if (this.state.modalImg === 'sending') {
       modalImg = sendIcon;
@@ -200,7 +201,7 @@ class Template extends React.Component {
     );
 
     return (
-      <div className="form" style={styles.form}>
+      <div className="form">
         <div className="row" style={{ height: '100%' }}>
           {inputFields}
           {contactsModal}
