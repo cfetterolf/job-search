@@ -8,6 +8,7 @@ const styles = {
     boxShadow: '0 1px 10px rgba(0,0,0,0.24)',
     borderRadius: '10px',
     overflow: 'hidden',
+    backgroundColor: 'white !important',
   },
 };
 
