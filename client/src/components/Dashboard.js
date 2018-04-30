@@ -13,7 +13,7 @@ import Discover from './Discover';
 const bodyStyle = {
   paddingLeft: '0px',
   paddingRight: '0px',
-  backgroundColor: 'white',
+  backgroundColor: '#ECEFF1',
   position: 'fixed',
   top: '56px',
   bottom: '0',

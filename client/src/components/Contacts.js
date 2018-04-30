@@ -4,12 +4,16 @@ import '../css/Contacts.css';
 import ContactList from './contacts-components/ContactList';
 import ContactGraph from './contacts-components/ContactGraph';
 
+let contactList;
+
 /*
  * props: contacts - firebase contacts obj
 */
 class Contacts extends React.Component {
   constructor(props) {
     super(props);
+
+    contactList = JSON.parse(localStorage.getItem('firebaseUser')).contacts;
 
     this.state = {
       selected: 'list',
@@ -21,13 +25,12 @@ class Contacts extends React.Component {
   }
 
   render() {
-    const contactList = this.props.contacts;
 
     /* conditionally set selected tab */
-    const listStyle = { color: '#9D7618', fontWeight: 'normal', backgroundColor: 'inherit' };
+    const listStyle = { color: '#354578', fontWeight: 'normal', backgroundColor: 'inherit' };
     const graphStyle = { color: '#C93A3C', fontWeight: 'normal', backgroundColor: 'inherit' };
     if (this.state.selected === 'list') {
-      listStyle.backgroundColor = '#FFF5DB';
+      listStyle.backgroundColor = '#cad1e8';
       listStyle.fontWeight = 'bold';
     } else {
       graphStyle.backgroundColor = '#F4D8D8';

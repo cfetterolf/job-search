@@ -28,6 +28,7 @@ class Template extends React.Component {
       alertModal: false,
       modalMsg: 'Sending Email...',
       modalImg: 'sending',
+      curContact: null,
     };
 
     // bind input fields to handleTextUpdate
@@ -53,19 +54,24 @@ class Template extends React.Component {
     }
   }
 
-  setFields(contact) {
+  setFields(contactID) {
+    const contact = this.props.user.contacts[contactID];
     this.setState({
       name: `${contact.f_name} ${contact.l_name}`,
       company: contact.company,
       city: contact.city,
       email: contact.email,
+      modal: !this.state.modal,
+      curContact: contactID,
     });
-
-    this.setState({ modal: !this.state.modal });
   }
 
   handleTextUpdate(field, event) {
-    this.setState({ [field]: event.target.value });
+    if (field === 'name' || field === 'email') {
+      this.setState({ curContact: null, [field]: event.target.value });
+    } else {
+      this.setState({ [field]: event.target.value });
+    }
   }
 
   saveContent(newContent) {
@@ -127,6 +133,18 @@ class Template extends React.Component {
         } else {
           msg = `Email successfully sent to ${response.info.envelope.to}!`;
           img = 'success';
+
+          // Update contact's emailed state in firebase and locally
+          if (this.state.curContact) {
+
+            // update firebase
+            database.ref(`users/${this.props.user.user.uid}/contacts/${this.state.curContact}/emailed`).set(true);
+
+            // update localStorage
+            const user = JSON.parse(localStorage.getItem('firebaseUser'));
+            user.contacts[this.state.curContact].emailed = true;
+            localStorage.setItem('firebaseUser', JSON.stringify(user));
+          }
         }
 
         this.setState({
@@ -172,7 +190,7 @@ class Template extends React.Component {
         <ModalBody>
           <ContactListSmall
             contacts={this.props.user.contacts}
-            clicked={contact => this.setFields(contact)}
+            clicked={contactID => this.setFields(contactID)}
           />
         </ModalBody>
         <ModalFooter>
