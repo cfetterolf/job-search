@@ -30,7 +30,7 @@ class Contacts extends React.Component {
     const listStyle = { color: '#354578', fontWeight: 'normal', backgroundColor: 'inherit' };
     const graphStyle = { color: '#C93A3C', fontWeight: 'normal', backgroundColor: 'inherit' };
     if (this.state.selected === 'list') {
-      listStyle.backgroundColor = '#cad1e8';
+      listStyle.backgroundColor = '#dce0ef';
       listStyle.fontWeight = 'bold';
     } else {
       graphStyle.backgroundColor = '#F4D8D8';
@@ -41,7 +41,7 @@ class Contacts extends React.Component {
     const body = this.state.selected === 'list' ? <ContactList list={contactList} /> : <ContactGraph data={contactList} />;
 
     return (
-      <div className="container-fluid">
+      <div className="container-fluid contact-container">
         <div className="tab-header">
           <button id="listTab" className="tab-link" style={listStyle} onClick={() => this.setState({ selected: 'list' })}>
             List
