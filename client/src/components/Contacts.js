@@ -27,10 +27,11 @@ class Contacts extends React.Component {
   render() {
 
     /* conditionally set selected tab */
-    const listStyle = { color: '#354578', fontWeight: 'normal', backgroundColor: 'inherit' };
-    const graphStyle = { color: '#C93A3C', fontWeight: 'normal', backgroundColor: 'inherit' };
+    const listStyle = { color: '#694502', fontWeight: 'normal', backgroundColor: 'inherit' };
+    const graphStyle = { color: '#95211B', fontWeight: 'normal', backgroundColor: 'inherit' };
     if (this.state.selected === 'list') {
-      listStyle.backgroundColor = '#dce0ef';
+      listStyle.backgroundColor = 'rgba(255, 223, 161, 0.4)';
+      listStyle.opactiy = '1.0';
       listStyle.fontWeight = 'bold';
     } else {
       graphStyle.backgroundColor = '#F4D8D8';
