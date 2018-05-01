@@ -79,6 +79,7 @@ class Tasks extends React.Component {
   render() {
     return (
       <div className="TasksMain">
+          Task List
         <div className="Tasks-header">
           <form onSubmit={this.addItem}>
             <input
