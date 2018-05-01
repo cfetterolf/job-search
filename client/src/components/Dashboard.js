@@ -24,7 +24,7 @@ const bodyStyle = {
   overflowY: 'auto',
 };
 
-const sections = ['Timeline', 'Tasks', 'Contacts', 'Connect'];
+const sections = ['Timeline', 'Tasks', 'Contacts', 'Discover', 'Connect'];
 const appTokenKey = 'appToken';
 
 class Dashboard extends Component {

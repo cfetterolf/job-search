@@ -93,6 +93,36 @@ class Template extends React.Component {
     this.setState({ content: newContent });
   }
 
+  sendGuess() {
+    const body = {
+      f_name: 'Chris',
+      l_name: 'Fetterolf',
+      custom: 'middlebury.edu',
+    }
+
+    fetch('/api/guess', {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: new Headers({ 'Content-type': 'application/json' }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response.status_text);
+        }
+        return response.json();
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.error) {
+          console.log(response.error);
+        } else {
+          console.log(response.valid);
+        }
+      })
+      .catch(err => console.log(err)); // eslint-disable-line no-console
+
+  }
+
   sendEmail(content) {
     if (!this.state.email || !this.state.password) {
       window.alert('Please enter a valid email address and password.');
@@ -230,7 +260,7 @@ class Template extends React.Component {
               <EmailTemplate
                 {...this.state}
                 saveContent={content => this.saveContent(content)}
-                sendEmail={content => this.sendEmail(content)}
+                sendEmail={content => this.sendGuess()}
               />
             </div>
           </div>

@@ -7,6 +7,8 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
+const needle = require('needle');
+const async = require('async');
 
 // Create Express application
 const app = express();
@@ -36,8 +38,72 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
-app.get('/api/test', (req, res) => {
-  res.send({ ok: 'good'});
+
+/*
+ * Endpoint to guess an email address.
+ *
+ *    f_name    the contact's first name
+ *    l_name    the contact's last name
+ *    company   the contact's company
+ *    custom    custom email ending (ex gmail.com)
+ */
+app.post('/api/guess', (request, response) => {
+
+  const f_name = request.body.f_name;
+  const l_name = request.body.l_name;
+  const company = request.body.company;
+  const custom = request.body.custom;
+
+  let emails = []
+  let email = company ? company+'.com' : custom;
+
+  // make gmail all caps to avoid verification issue
+  email = (email === 'gmail.com') ? email.toUpperCase() : email;
+
+  // contruct different forms of potential email
+  emails.push(f_name+'.'+l_name+'@'+email);
+  emails.push(f_name+'_'+l_name+'@'+email);
+  emails.push(f_name+l_name+'@'+email);
+  emails.push(l_name+'@'+email);
+  emails.push(f_name.substring(0,1)+l_name+'@'+email);
+  emails.push(f_name.substring(0,1)+'_'+l_name+'@'+email);
+  emails.push(f_name+l_name.substring(0,1)+'@'+email);
+  emails.push(f_name+'@'+email);
+
+  let validArr = [], tryAgainArr = [], verFailArr = [];
+
+  async.forEach(emails, function(addr, callback) {
+    needle('post', 'http://mailtester.com/testmail.php', { email: addr })
+    .then(function(response) {
+
+      // the messages to search for
+      const html = response.body;
+      const noVer = `Server doesn't allow e-mail address verification`;
+      const tooSoon = `4.2.1 The user you are trying to contact is receiving mail at a rate that`
+      const success = `E-mail address is valid`;
+
+      if (html.includes(success)) {
+        validArr.push(addr);
+      } else if (html.includes(noVer)) {
+        verFailArr.push(addr);
+      } else if (html.includes(tooSoon)) {
+        tryAgainArr.push(addr);
+      }
+
+      callback();
+    });
+  }, function(err) {
+      if (err) {
+        response.send({ error: err });
+      }
+      else {
+        response.send({
+          valid: validArr,
+          verFail: verFailArr,
+          tryAgain: tryAgainArr
+        })
+      }
+  });
 })
 
 

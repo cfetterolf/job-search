@@ -20,11 +20,13 @@
   ],
   "license": "Apache-2.0",
   "dependencies": {
+    "async": "^2.6.0",
     "body-parser": "^1.18.2",
     "cheerio": "^1.0.0-rc.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
     "mongodb": "^3.0.1",
+    "needle": "^2.2.1",
     "nodemailer": "^4.6.4",
     "request": "^2.85.0"
   },
