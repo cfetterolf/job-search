@@ -3,7 +3,6 @@ li > a {
 }
 
 .icon {
-  color: #C63D0F !important;
   width: 30px !important;
 }
 
@@ -17,7 +16,8 @@ a:focus {
 
 .sidebar {
   padding: 0;
-  background-color: #f7f7f7;
+  /* background-color: #f7f7f7; */
+  background-color: #27303D;
   position: fixed;
   top: 56px;
   bottom: 0;
@@ -37,9 +37,16 @@ nav > hr {
   margin-top: 5px !important;
 }
 
+.nav-pills {
+  background-color: #1A222B !important;
+  border-top: solid #4F5660 1px;
+  border-bottom: solid #4F5660 1px;
+  padding: 20px 0 20px 0;
+}
+
 
 .nav-link {
-  color: #404040 !important;
+  color: #C0C2C5 !important;
 }
 
 .nav-item {
@@ -48,12 +55,10 @@ nav > hr {
 }
 
 .nav-item:hover {
-  background-color: rgba(146, 161, 145, 0.15) !important;
+  background-color: #414b58 !important;
 }
 
 .active {
-  font-weight: bold;
-  color: #262626 !important;
-  background-color: #d6dcd6 !important;
-  border-radius: 3px !important;
+  color: #55C4F5 !important;
+  background-color: inherit !important;
 }

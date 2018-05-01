@@ -26,7 +26,7 @@ class Sidebar extends React.Component {
             return (
               <li key={index} className="nav-item">
                 <a className={activeClass} onClick={() => { this.handleSelection(sectionName); }} role="button" tabIndex="0">
-                  <i className={`icon fas ${icons[index]}`} />
+                  <i className={`icon fas ${icons[index]}`}/>
                   <span className="section-title">{sectionName}</span>
                 </a>
 

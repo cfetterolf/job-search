@@ -1,6 +1,7 @@
 import React from 'react';
 import PopoverItem from './PopoverItem';
-import iconSrc from '../../img/minus-circle.svg';
+import delIconSrc from '../../img/minus-circle.png';
+import emailIconSrc from '../../img/checkmark.png';
 import '../../css/Contacts.css';
 
 /*
@@ -11,9 +12,24 @@ import '../../css/Contacts.css';
  *    delete - callback function to delete contact, takes ID parameter
  */
 function ContactListItem(props) {
+
   /* eslint-disable */
-  const icon = props.delIcon ? <img className="del-icon" src={iconSrc} className="del-icon" onClick={() => props.delete(props.contactId)}/> : <img />;
+  const delIcon = props.delIcon ? (
+    <img
+      className="del-icon"
+      src={delIconSrc}
+      onClick={() => props.delete(props.contactId)}
+    />
+  ) : <img />;
+
+  const emailIcon = props.contact.emailed ? (
+    <img
+      className="email-icon"
+      src={emailIconSrc}
+    />
+  ) : <img />;
   /* eslint-enable */
+
   return (
     <tr key={props.contactId}>
       <td>{`${props.contact.f_name} ${props.contact.l_name}`}</td>
@@ -21,7 +37,8 @@ function ContactListItem(props) {
       <td>{props.contact.company}</td>
       <td>{props.contact.city}</td>
       <PopoverItem id={props.contactId} text={props.contact.note} />
-      <td>{icon}</td>
+      <td>{emailIcon}</td>
+      <td>{delIcon}</td>
     </tr>
   );
 }

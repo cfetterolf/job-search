@@ -5,6 +5,8 @@ import { firebaseAuth } from '../config/constants';
 import firebase from 'firebase';
 import { colors } from '../config/constants';
 import icon from '../img/g-light.png';
+import img1 from '../img/landing-img-1.png';
+import img2 from '../img/landing-img-2.png';
 import '../css/SignIn.css';
 
 const firebaseAuthKey = 'firebaseAuthInProgress';
@@ -12,12 +14,12 @@ const appTokenKey = 'appToken';
 const firebaseUser = 'firebaseUser';
 const styles = {
   bg: {
-    background: '#eee url(https://subtlepatterns.com/patterns/extra_clean_paper.png)',
+    //background: '#eee url(https://subtlepatterns.com/patterns/extra_clean_paper.png)',
+    background: '#34447A',
     width: '100%',
     height: '100vh',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    overflow: 'hidden',
+    overflowY: 'scroll',
   },
   icon: {
     width: '200px',
@@ -57,10 +59,10 @@ export default class SignIn extends React.Component {
 
   componentWillMount() {
     // We have appToken relevant for our backend API
-    // if (localStorage.getItem(firebaseUser)) {
-    //   this.props.login();
-    //   return;
-    // }
+    if (localStorage.getItem(firebaseUser)) {
+      this.props.login();
+      return;
+    }
 
     firebaseAuth().onAuthStateChanged((user) => {
       if (user) {
@@ -129,13 +131,13 @@ export default class SignIn extends React.Component {
 }
 
 const LoginPage = ({ handleGoogleLogin }) => (
-  <div>
-    <div style={styles.bg}>
-      <div style={styles.center}>
+  <div style={styles.bg}>
+    <div className="row">
+      <div className="col-md-4 offset-2">
         <div>
-          <h1 className="title">Job Search App</h1>
+          <h1 className="title-lg">Endeavor</h1>
           <br />
-          <h4 className="subtitle">
+          <h4 className="subtitle-light">
               Click below to get started
           </h4>
         </div>
@@ -146,7 +148,13 @@ const LoginPage = ({ handleGoogleLogin }) => (
             onClick={handleGoogleLogin}
           />
           {/* eslint-enable */}
-      </div>
+        </div>
+        <div className="col-md-6">
+          <div className="fadein">
+            <img src={img2} className="landing-img" id="f2"/>
+            <img src={img1} className="landing-img" id="f1"/>
+          </div>
+        </div>
     </div>
   </div>
 );

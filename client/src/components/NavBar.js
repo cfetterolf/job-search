@@ -17,7 +17,7 @@ class NavBar extends React.Component {
     const Title = (
       <div className="navbar-header">
         <a className="navbar-brand" role="button" tabIndex="0">
-          Job Search
+          Endeavor
         </a>
       </div>
     );

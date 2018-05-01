@@ -4,12 +4,13 @@ a {
   cursor: pointer;
 }
 
-.title {
-  font-family: 'IBM Plex Sans', sans-serif;
+.title-lg {
+  /* font-family: 'IBM Plex Sans', sans-serif; */
   font-size: 60px;
-  font-weight: 700;
-  color: #383838;
-  text-align: center;
+  font-weight: 900;
+  color: white;
+  text-align: left;
+  margin-top: 40%;
 }
 
 .mt-lg {
@@ -20,10 +21,18 @@ a {
   margin-top: 150px;
 }
 
-.subtitle {
-  font-family: 'IBM Plex Sans', sans-serif;
+.subtitle-light {
+  /* font-family: 'IBM Plex Sans', sans-serif; */
   font-weight: 300;
-  color: #585858;
+  color: #d9d9d9;
+  margin-top: -20px;
+  text-align: left;
+}
+
+.subtitle {
+  /* font-family: 'IBM Plex Sans', sans-serif; */
+  font-weight: 300;
+  color: #404040;
   margin-top: -20px;
   text-align: center;
 }
@@ -42,14 +51,63 @@ a {
   width: 200px;
   height: auto;
   border-radius: 3px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.24);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-  display: block;
-  margin: auto;
-  margin-top: 50px;
+  margin: 40px 0 0 30px;
 }
 
 #signInBtn:hover {
-  box-shadow: 0 10px 20px rgba(0,0,0,0.22);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
   cursor: pointer;
+}
+
+.landing-img {
+  width: 95%;
+  margin: 20% 0 0 2%;
+  border-radius: 10px;
+  box-shadow: 2px 15px 20px rgba(0,0,0,0.4);
+}
+
+/* src: http://css3.bradshawenterprises.com/cfimg/ */
+
+.fadein img {
+  position:absolute;
+  -webkit-animation-name: fade;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-duration: 10s;
+  animation-name: fade;
+  animation-iteration-count: infinite;
+  animation-duration: 10s;
+}
+
+@-webkit-keyframes fade {
+  0% {opacity: 0;}
+  50% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+@keyframes fade {
+  0% {
+    opacity:1;
+  }
+  30% {
+    opacity:1;
+  }
+  50% {
+    opacity:0;
+  }
+  80% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+#f1 {
+  background-color: #34447A;
+}
+#f2 {
+  -webkit-animation-delay: -5s;
+  background-color: #34447A;
 }

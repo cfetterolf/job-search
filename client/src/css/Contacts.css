@@ -26,7 +26,7 @@
 #listBorder {
   width: 50%;
   float: left;
-  border-bottom: 3px solid #FECC4A;
+  border-bottom: 3px solid #956B1B;
 }
 
 #graphBorder {
@@ -45,7 +45,6 @@
     width: 50%;
 }
 
-/* Style the body */
 
 .list-group a {
   cursor: pointer;
@@ -71,6 +70,10 @@
 .del-icon:hover {
   cursor: pointer;
   opacity: 0.65;
+}
+
+.email-icon {
+  width: 25px;
 }
 
 .fa-caret-down {

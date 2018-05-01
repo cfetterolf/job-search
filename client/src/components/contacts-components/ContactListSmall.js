@@ -5,7 +5,7 @@ function ContactListSmall(props) {
   return (
     <div>
       {Object.keys(props.contacts).map(id => (
-        <ContactItem key={id} contact={props.contacts[id]} clicked={() => props.clicked(props.contacts[id])} />
+        <ContactItem key={id} contact={props.contacts[id]} clicked={() => props.clicked(id)} />
       ), props)}
     </div>
   );

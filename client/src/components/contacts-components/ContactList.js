@@ -13,6 +13,7 @@ const styles = {
     boxShadow: '0 1px 10px rgba(0,0,0,0.24)',
     borderRadius: '10px',
     overflow: 'hidden',
+    backgroundColor: 'white',
   },
 };
 
@@ -89,11 +90,7 @@ class ContactList extends React.Component {
   }
 
   toggleDelete() {
-    if (this.state.deleteItems) {
-      this.setState({ deleteItems: false });
-    } else {
-      this.setState({ deleteItems: true });
-    }
+    this.setState({ deleteItems: !this.state.deleteItems });
   }
 
   render() {
@@ -117,6 +114,9 @@ class ContactList extends React.Component {
             <i className="fas fa-caret-down" />
           </th>
           <th scope="col">Note</th>
+          <th scope="col">
+            <i className="fas fa-envelope" />
+          </th>
           <th className="col-head" scope="col" onClick={this.toggleDelete}>
             <i className="fas fa-trash-alt" />
           </th>
@@ -131,7 +131,7 @@ class ContactList extends React.Component {
             <Button outline color="primary" onClick={this.showForm}>
               Add New Contact
             </Button>
-          </td><td /><td /><td /><td /><td />
+          </td><td/><td/><td/><td/><td/><td/>
         </tr>
       </tfoot>
     );
@@ -139,21 +139,23 @@ class ContactList extends React.Component {
     // transforms list object into a sorted array
     const sortedArr = () => {
       const listArr = [];
+
       for (const contactID in this.state.list) {
         const contactObj = this.state.list[contactID];
         contactObj.id = contactID;
         listArr.push(contactObj);
       }
+
       listArr.sort(this.compareBy(this.state.sortBy));
       return listArr;
     };
 
-    // returns Add Contact Form
+    // display Add Contact Form
     if (this.state.addNewContact) {
       return <AddContactForm submit={contact => this.addContact(contact)} />;
     }
 
-    // returns Contact List
+    // display Contact List
     return (
       <div style={styles.listWrapper}>
         <table className="table table-hover">
