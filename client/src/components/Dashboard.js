@@ -24,7 +24,7 @@ const bodyStyle = {
   overflowY: 'auto',
 };
 
-const sections = ['Timeline', 'Tasks', 'Contacts', 'Discover'];
+const sections = ['Timeline', 'Tasks', 'Contacts', 'Connect'];
 const appTokenKey = 'appToken';
 
 class Dashboard extends Component {
@@ -70,7 +70,7 @@ class Dashboard extends Component {
       body = <Tasks user={this.state.firebaseUser} />;
     } else if (this.state.selected === 'Contacts') {
       body = <Contacts contacts={this.state.firebaseUser.contacts} />;
-    } else if (this.state.selected === 'Discover') {
+    } else if (this.state.selected === 'Connect') {
       body = <Discover />;
     } else {
       body = <div>Something went wrong!</div>;
