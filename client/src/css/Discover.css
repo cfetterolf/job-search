@@ -56,3 +56,8 @@
 .no-results-text {
   color: #999999;
 }
+
+.no-results-header {
+  color: #666666;
+  margin-top: -40px;
+}

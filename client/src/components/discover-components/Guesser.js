@@ -235,18 +235,28 @@ class Guesser extends React.Component {
 const Results = ({emailLists, createContact}) => {
   if (!emailLists) {
     return (
-      <div>
-        <h5><strong>Whoops!</strong></h5>
-        <p>Something went wrong.  Please try again</p>
+      <div className="no-results" style={{paddingTop: '0px !important'}}>
+        <h5 className="no-results-header"><strong>Whoops!</strong></h5>
+        <p className="no-results-text">Something went wrong.  Please try again</p>
       </div>
     );
   }
 
   if (emailLists.valid.length === 0 && emailLists.tryAgain.length === 0 && emailLists.verFail.length === 0) {
     return (
-      <div>
-        <h5><strong>Whoops!</strong></h5>
-        <p>No email addresses were found for that combination.  Please try again with different info.</p>
+      <div className="no-results" style={{paddingTop: '0px !important'}}>
+        <h5 className="no-results-header"><strong>Whoops!</strong></h5>
+        <p className="no-results-text">No email addresses were found right now.  Wait a minute or so, and then try again.</p>
+      </div>
+    );
+  }
+
+  if (emailLists.valid.length === 0 && emailLists.tryAgain.length === 0 && emailLists.verFail.length > 0) {
+    const msg = `It looks like that email server won't process our requests.  Try a different company or domain!`;
+    return (
+      <div className="no-results" style={{paddingTop: '0px !important'}}>
+        <h5 className="no-results-header"><strong>Well, Shucks...</strong></h5>
+        <p className="no-results-text">{msg}</p>
       </div>
     );
   }
