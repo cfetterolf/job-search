@@ -15,6 +15,7 @@ const styles = {
 /*
  * props: submit - submit callback function, passes up new contact obj.
  *                 if object is null, cancels the operation
+ *        email, f_name, l_name, company as optional props
 */
 class AddContactForm extends React.Component {
   constructor(props) {
@@ -24,9 +25,10 @@ class AddContactForm extends React.Component {
     this.submit = this.submit.bind(this);
 
     this.state = {
-      f_name: '',
-      l_name: '',
-      company: '',
+      f_name: this.props.f_name,
+      l_name: this.props.l_name,
+      company: this.props.company,
+      email: this.props.email,
       city: '',
       note: '',
       disabled: '',
@@ -73,6 +75,7 @@ class AddContactForm extends React.Component {
             type="text"
             className="form-control"
             placeholder="First name"
+            value={this.state.f_name}
             onChange={e => this.setState({ f_name: e.target.value })}
           />
         </div>
@@ -81,6 +84,7 @@ class AddContactForm extends React.Component {
             type="text"
             className="form-control"
             placeholder="Last name"
+            value={this.state.l_name}
             onChange={e => this.setState({ l_name: e.target.value })}
           />
         </div>
@@ -94,6 +98,7 @@ class AddContactForm extends React.Component {
             type="text"
             className="form-control"
             placeholder="Company"
+            value={this.state.company}
             onChange={e => this.setState({ company: e.target.value })}
           />
         </div>
@@ -115,6 +120,7 @@ class AddContactForm extends React.Component {
             type="email"
             className="form-control"
             placeholder="Email"
+            value={this.state.email}
             onChange={e => this.setState({ email: e.target.value })}
           />
         </div>
@@ -148,6 +154,13 @@ class AddContactForm extends React.Component {
       </div>
     );
   }
+}
+
+AddContactForm.defaultProps = {
+  f_name: '',
+  l_name: '',
+  company: '',
+  email: '',
 }
 
 export default AddContactForm;

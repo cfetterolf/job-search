@@ -3,7 +3,7 @@ import firebase from 'firebase';
 import EmailTemplate from './EmailTemplate';
 import ContactListSmall from '../contacts-components/ContactListSmall';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import '../../css/Discover.css';
+import '../../css/Connect.css';
 import sendIcon from '../../img/paper_plane.png';
 import successIcon from '../../img/checkmark.png';
 import errorIcon from '../../img/error.png';
@@ -91,36 +91,6 @@ class Template extends React.Component {
 
     // update state
     this.setState({ content: newContent });
-  }
-
-  sendGuess() {
-    const body = {
-      f_name: 'Chris',
-      l_name: 'Fetterolf',
-      custom: 'middlebury.edu',
-    }
-
-    fetch('/api/guess', {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: new Headers({ 'Content-type': 'application/json' }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(response.status_text);
-        }
-        return response.json();
-      })
-      .then((response) => {
-        console.log(response);
-        if (response.error) {
-          console.log(response.error);
-        } else {
-          console.log(response.valid);
-        }
-      })
-      .catch(err => console.log(err)); // eslint-disable-line no-console
-
   }
 
   sendEmail(content) {
@@ -249,7 +219,7 @@ class Template extends React.Component {
     );
 
     return (
-      <div className="form">
+      <div className="form template-form">
         <div className="row" style={{ height: '100%' }}>
           {inputFields}
           {contactsModal}
@@ -260,7 +230,7 @@ class Template extends React.Component {
               <EmailTemplate
                 {...this.state}
                 saveContent={content => this.saveContent(content)}
-                sendEmail={content => this.sendGuess()}
+                sendEmail={content => this.sendEmail(content)}
               />
             </div>
           </div>

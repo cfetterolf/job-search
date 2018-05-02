@@ -9,6 +9,7 @@ import Timeline from './Timeline';
 import Tasks from './Tasks';
 import Contacts from './Contacts';
 import Discover from './Discover';
+import Connect from './Connect';
 
 const bodyStyle = {
   paddingLeft: '0px',
@@ -38,21 +39,6 @@ class Dashboard extends Component {
     this.handleLogout = this.handleLogout.bind(this);
   }
 
-  componentDidMount() {
-    /* dummy GET to test connection */
-    // fetch('/api/')
-    //   .then((response) => {
-    //     if (!response.ok) {
-    //       throw new Error(response.status_text);
-    //     }
-    //     return response.json();
-    //   })
-    //   .then((data) => {
-    //     this.setState({ selected: data.response });
-    //   })
-    //   .catch(err => console.log(err)); // eslint-disable-line no-console
-  }
-
   handleLogout() {
     logout().then(() => {
       localStorage.removeItem(appTokenKey);
@@ -71,6 +57,8 @@ class Dashboard extends Component {
     } else if (this.state.selected === 'Contacts') {
       body = <Contacts contacts={this.state.firebaseUser.contacts} />;
     } else if (this.state.selected === 'Connect') {
+      body = <Connect />;
+    } else if (this.state.selected === 'Discover') {
       body = <Discover />;
     } else {
       body = <div>Something went wrong!</div>;

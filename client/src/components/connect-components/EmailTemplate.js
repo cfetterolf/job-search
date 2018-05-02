@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../css/Discover.css';
+import '../../css/Connect.css';
 
 const replaceContent = (props) => {
   let content = props.content;

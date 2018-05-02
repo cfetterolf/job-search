@@ -83,11 +83,11 @@ app.post('/api/guess', (request, response) => {
       const success = `E-mail address is valid`;
 
       if (html.includes(success)) {
-        validArr.push(addr);
+        validArr.push(addr.toLowerCase());
       } else if (html.includes(noVer)) {
-        verFailArr.push(addr);
+        verFailArr.push(addr.toLowerCase());
       } else if (html.includes(tooSoon)) {
-        tryAgainArr.push(addr);
+        tryAgainArr.push(addr.toLowerCase());
       }
 
       callback();

@@ -16,7 +16,7 @@ class Sidebar extends React.Component {
   }
 
   render() {
-    const icons = ['fas fa-home', 'fas fa-clipboard-check', 'fas fa-address-book', 'fa fa-search', 'fas fa-handshake'];
+    const icons = ['fas fa-home', 'fas fa-clipboard-check', 'fas fa-address-book', 'fa fa-search', 'fas fa-envelope'];
     return (
       <nav className="col-sm-3 col-md-2 hidden-xs-down sidebar" >
         <hr />
