@@ -8,22 +8,24 @@ import AddContactForm from '../contacts-components/AddContactForm';
 
 const database = firebase.database();
 
+const initState = {
+  f_name: '',
+  l_name: '',
+  company: '',
+  custom: '',
+  visible: false,
+  results: '',
+  addContactForm: false,
+  selectedEmail: '',
+}
+
 /*
  * props: user - current user object
  */
 class Guesser extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      f_name: '',
-      l_name: '',
-      company: '',
-      custom: '',
-      visible: false,
-      results: '',
-      addContactForm: false,
-      selectedEmail: '',
-    };
+    this.state = initState;
 
     this.toggle = this.toggle.bind(this);
     //this.createContact = this.createContact.bind(this);
@@ -86,7 +88,7 @@ class Guesser extends React.Component {
       window.alert("Successfully added new contact!");
     }
 
-    this.setState({ addContactForm: false });
+    this.setState(initState);
   }
 
   render() {
@@ -265,7 +267,7 @@ const Results = ({emailLists, createContact}) => {
 
   const tryAgainList = !(emailLists.tryAgain.length === 0) ? (
     <div>
-      <h5>Try Again in a Bit!</h5>
+      <h5>Possible addresses</h5>
       <ResultList list={emailLists.tryAgain} type="info" createContact={email => createContact(email)}/>
     </div>
   ) : <div/>;
