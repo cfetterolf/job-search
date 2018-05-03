@@ -77,8 +77,9 @@ export default class SignIn extends React.Component {
           // get contacts
           const path = `users/${user.uid}`;
           firebase.database().ref(path).once('value').then((snapshot) => {
+            const defaultContent = "This is an example message.  Notice how you can use different variables, like $FIRSTNAME or $COMPANY, to compose this message.  Try filling in the corresponding fields on the left and see what happens!"
             userObj.contacts = snapshot.val() ? snapshot.val().contacts : {};
-            userObj.template = snapshot.val() ? snapshot.val().template : { position: '', content: '', subject: '' };
+            userObj.template = snapshot.val() ? snapshot.val().template : { position: '', content: defaultContent, subject: '' };
           })
             .then(() => {
             // set the firebase user
@@ -151,8 +152,8 @@ const LoginPage = ({ handleGoogleLogin }) => (
         </div>
         <div className="col-md-6">
           <div className="fadein">
-            <img src={img2} className="landing-img" id="f2"/>
-            <img src={img1} className="landing-img" id="f1"/>
+            <img src={img2} className="landing-img" id="f2" alt=""/>
+            <img src={img1} className="landing-img" id="f1" alt=""/>
           </div>
         </div>
     </div>

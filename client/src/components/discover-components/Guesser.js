@@ -5,6 +5,7 @@ import { Alert } from 'reactstrap';
 import MediumHeader from '../headers/MediumHeader';
 import { ClipLoader } from 'react-spinners';
 import AddContactForm from '../contacts-components/AddContactForm';
+import Results from './Results';
 
 const database = firebase.database();
 
@@ -232,80 +233,6 @@ class Guesser extends React.Component {
   }
 }
 
-const Results = ({emailLists, createContact}) => {
-  if (!emailLists) {
-    return (
-      <div className="no-results" style={{paddingTop: '0px !important'}}>
-        <h5 className="no-results-header"><strong>Whoops!</strong></h5>
-        <p className="no-results-text">Something went wrong.  Please try again</p>
-      </div>
-    );
-  }
-
-  if (emailLists.valid.length === 0 && emailLists.tryAgain.length === 0 && emailLists.verFail.length === 0) {
-    return (
-      <div className="no-results" style={{paddingTop: '0px !important'}}>
-        <h5 className="no-results-header"><strong>Whoops!</strong></h5>
-        <p className="no-results-text">No email addresses were found right now.  Wait a minute or so, and then try again.</p>
-      </div>
-    );
-  }
-
-  if (emailLists.valid.length === 0 && emailLists.tryAgain.length === 0 && emailLists.verFail.length > 0) {
-    const msg = `It looks like that email server won't process our requests.  Try a different company or domain!`;
-    return (
-      <div className="no-results" style={{paddingTop: '0px !important'}}>
-        <h5 className="no-results-header"><strong>Well, Shucks...</strong></h5>
-        <p className="no-results-text">{msg}</p>
-      </div>
-    );
-  }
-
-  const validList = !(emailLists.valid.length === 0) ? (
-    <div>
-      <h5>Valid Email Addresses</h5>
-      <ResultList list={emailLists.valid} type="success" createContact={email => createContact(email)}/>
-    </div>
-  ) : <div/>;
-
-  const verFailList = !(emailLists.verFail.length === 0) ? (
-    <div>
-      <h5>Possible (Verification Failed)</h5>
-      <ResultList list={emailLists.verFail} type="warning" createContact={email => createContact(email)}/>
-    </div>
-  ) : <div/>;
-
-  const tryAgainList = !(emailLists.tryAgain.length === 0) ? (
-    <div>
-      <h5>Possible addresses</h5>
-      <ResultList list={emailLists.tryAgain} type="info" createContact={email => createContact(email)}/>
-    </div>
-  ) : <div/>;
-
-
-  return (
-    <div>
-      <div className="result-list">{validList}</div>
-      <div className="result-list">{verFailList}</div>
-      <div className="result-list">{tryAgainList}</div>
-    </div>
-  );
-}
-
-const ResultList = ({list, type, createContact}) => {
-  return (
-    <div className="list-group">
-      {list.map(function(email) {
-        const str = `list-group-item list-group-item-${type}`
-        return (
-          <a role="button" tabIndex="0" className={str} key={email} onClick={() => createContact(email)}>
-            {email}
-          </a>
-        );
-      })}
-    </div>
-  );
-}
 
 const InfoHeader = ({ open, toggle}) => {
   return (
