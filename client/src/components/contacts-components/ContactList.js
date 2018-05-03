@@ -31,7 +31,7 @@ class ContactList extends React.Component {
     this.compareBy = this.compareBy.bind(this);
 
     this.state = {
-      list: this.props.list,
+      list: this.props.list ? this.props.list : {},
       addNewContact: false,
       deleteItems: false,
       sortBy: 'f_name',
