@@ -20,7 +20,7 @@
   overflow-y: scroll;
 }
 
-.col-md-8 form {
+.input-wrapper form {
   padding: 20px;
 }
 
@@ -60,4 +60,18 @@
 .no-results-header {
   color: #666666;
   margin-top: -40px;
+}
+
+#giraffeIcon {
+  width: 200px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+#giraffeIcon2 {
+  width: 200px;
+  position: absolute;
+  bottom: 0;
+  right: 100px;
 }

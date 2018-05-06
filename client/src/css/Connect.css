@@ -120,10 +120,32 @@ label a {
   float: right;
 }
 
-#templateButtons button {
+.dropdown .btn-sm {
+  float: right;
+}
+
+#templateButtons button, #templateButtons .btn-group {
   margin: 10px;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+#templateLabel {
+  width: 80%;
+}
+
+#templateLabel a, #templateLabel .fa-trash-alt  {
+  margin: 2px 0 0 10px;
+  float: right;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+#templateLabel .fa-trash-alt:hover {
+  color: #666666;
+  cursor: pointer;
 }
 
 .modal-img {
@@ -135,4 +157,21 @@ label a {
   font-weight: bold;
   font-size: 18px;
   text-align: center;
+}
+
+.selected-temp {
+  color: #157EFB !important;
+  background-color: #F8F9FA !important;
+}
+
+.temp-icon {
+  margin-left: 20px;
+}
+
+.result-list-item {
+  overflow-x: scroll;
+}
+
+.form-inline {
+  background-color: red !important;
 }

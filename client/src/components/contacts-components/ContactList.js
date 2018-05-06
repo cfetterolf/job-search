@@ -12,7 +12,7 @@ const styles = {
     marginTop: '25px',
     boxShadow: '0 1px 10px rgba(0,0,0,0.24)',
     borderRadius: '10px',
-    overflow: 'hidden',
+    overflowX: 'scroll',
     backgroundColor: 'white',
   },
 };

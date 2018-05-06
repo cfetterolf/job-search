@@ -8,14 +8,19 @@ function Results(props) {
     return <ErrorMsg title="Whoops!" msg="Something went wrong.  Please try again"/>
   }
 
+  // 403 Error
+  if (props.emailLists.err) {
+    return <ErrorMsg title="Whoops!" msg="You tried to find an email too many times.  Wait a minute or two, and then try again."/>
+  }
+
   // All lists are empty
   if (props.emailLists.valid.length === 0 && props.emailLists.tryAgain.length === 0 && props.emailLists.verFail.length === 0) {
-    return <ErrorMsg title="Whoops!" msg="No email addresses were found right now.  Wait a minute or so, and then try again."/>
+    return <ErrorMsg title="Oh No!" msg="No email addresses were found for that combination.  Try another name or email!"/>
   }
 
   // Verification failed for all guess attempts
-  if (props.emailLists.valid.length === 0 && props.emailLists.tryAgain.length === 0 && props.emailLists.verFail.length > 0) {
-    return <ErrorMsg title="Well, Shucks..." msg="It looks like that email server won't process our requests.  Try a different company or domain!"/>
+  if (props.emailLists.valid.length === 0 && props.emailLists.tryAgain.length === 0 && props.emailLists.verFail.length === 8) {
+    return <ErrorMsg title="Well, Shucks..." msg="It looks like that particular email server won't process our requests.  Try a different company or domain!"/>
   }
 
   const validList = props.emailLists.valid.length > 0 ? (
@@ -63,7 +68,7 @@ const ResultList = ({list, type, createContact}) => {
   return (
     <div className="list-group">
       {list.map(function(email) {
-        const str = `list-group-item list-group-item-${type}`
+        const str = `list-group-item list-group-item-${type} result-list-item`
         return (
           <a role="button" tabIndex="0" className={str} key={email} onClick={() => createContact(email)}>
             {email}

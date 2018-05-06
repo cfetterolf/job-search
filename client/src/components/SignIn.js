@@ -77,12 +77,29 @@ export default class SignIn extends React.Component {
           // get contacts
           const path = `users/${user.uid}`;
           firebase.database().ref(path).once('value').then((snapshot) => {
-            const defaultContent = "This is an example message.  Notice how you can use different variables, like $FIRSTNAME or $COMPANY, to compose this message.  Try filling in the corresponding fields on the left and see what happens!"
+
+            // set default contacts
             userObj.contacts = snapshot.val() ? snapshot.val().contacts : {};
-            userObj.template = snapshot.val() ? snapshot.val().template : { position: '', content: defaultContent, subject: '' };
+
+            // set default template
+            if (!snapshot.val().template) {
+              const defaultContent = "This is an example message.  Notice how you can use different variables, like $FIRSTNAME or $COMPANY, to compose this message.  Try filling in the corresponding fields on the left and see what happens!"
+              const tempID = Date.now();
+              const defaultTemplate = {
+                default: tempID,
+                templates: {
+                  [tempID]: { name: 'Example Template', position: '', content: defaultContent, subject: '' }
+                }
+              }
+              firebase.database().ref(`users/${user.uid}/template`).set(defaultTemplate);
+              userObj.template = defaultTemplate;
+            } else {
+              userObj.template = snapshot.val().template;
+            }
           })
             .then(() => {
-            // set the firebase user
+              // set the firebase user
+              console.log('setting localStorage:', userObj);
               localStorage.setItem(firebaseUser, JSON.stringify(userObj));
 
               // go to dashboard

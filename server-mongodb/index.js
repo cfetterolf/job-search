@@ -82,6 +82,13 @@ app.post('/api/guess', (request, response) => {
       const tooSoon = `4.2.1 The user you are trying to contact is receiving mail at a rate that`
       const success = `E-mail address is valid`;
 
+      // Check for 403
+      if (html.includes('403 Forbidden')) {
+        response.send({
+          err: '403 Forbidden'
+        });
+      }
+
       if (html.includes(success)) {
         validArr.push(addr.toLowerCase());
       } else if (html.includes(noVer)) {

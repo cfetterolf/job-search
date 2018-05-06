@@ -13,16 +13,22 @@ const database = firebase.database();
 class Template extends React.Component {
   constructor(props) {
     super(props);
-
+    console.log(props.user);
+    const template = props.user.template.templates[props.user.template.default];
     this.state = {
+      uid: this.props.user.user.uid,
+      defaultID: props.user.template.default,
+      templates: props.user.template.templates,
+      curTempID: props.user.template.default,
+      curTempName: template.name,
       name: '',
       company: '',
       city: '',
-      position: props.user.template.position ? props.user.template.position : '',
+      position: template.position ? template.position : '',
       email: '',
-      subject: props.user.template.subject ? props.user.template.subject : '',
+      subject: template.subject ? template.subject : '',
       password: '',
-      content: props.user.template.content ? props.user.template.content : '',
+      content: template.content ? template.content : '',
       readOnly: true,
       modal: false,
       alertModal: false,
@@ -31,19 +37,13 @@ class Template extends React.Component {
       curContact: null,
     };
 
-    // bind input fields to handleTextUpdate
-    this.handleName = this.handleTextUpdate.bind(this, 'name');
-    this.handleCompany = this.handleTextUpdate.bind(this, 'company');
-    this.handleCity = this.handleTextUpdate.bind(this, 'city');
-    this.handlePosition = this.handleTextUpdate.bind(this, 'position');
-    this.handleEmail = this.handleTextUpdate.bind(this, 'email');
-    this.handleSubject = this.handleTextUpdate.bind(this, 'subject');
-    this.handleContent = this.handleTextUpdate.bind(this, 'content');
-    this.handlePassword = this.handleTextUpdate.bind(this, 'password');
-
     this.toggle = this.toggle.bind(this);
     this.saveContent = this.saveContent.bind(this);
     this.sendEmail = this.sendEmail.bind(this);
+    this.chooseTemplate = this.chooseTemplate.bind(this);
+    this.setNewTemplate = this.setNewTemplate.bind(this);
+    this.setDefaultTemplate = this.setDefaultTemplate.bind(this);
+    this.deleteTemplate = this.deleteTemplate.bind(this);
   }
 
   toggle(type) {
@@ -74,23 +74,106 @@ class Template extends React.Component {
     }
   }
 
-  saveContent(newContent) {
+  deleteTemplate(tempID) {
+    if (window.confirm('Are you sure you want to permanently delete this template?')) {
+
+      const templates = this.state.templates;
+
+      if (Object.keys(templates).length <= 1) {
+        window.alert("That's your last template!  You can't delete it.");
+        return;
+      }
+
+      delete templates[tempID];
+      const newDefaultID = tempID === this.state.defaultID ? parseInt(Object.keys(templates)[0], 10) : this.props.user.template.default;
+
+      const templateObj = {
+        default: newDefaultID,
+        templates: templates
+      };
+
+      // update localStorage
+      const user = JSON.parse(localStorage.getItem('firebaseUser'));
+      user.template = templateObj;
+      localStorage.setItem('firebaseUser', JSON.stringify(user));
+
+      // update Firebase
+      database.ref(`users/${user.user.uid}/template/`).set(templateObj);
+
+      // update state
+      this.setState({
+        templates: templates,
+        defaultID: newDefaultID
+      }, () => {
+        this.chooseTemplate(newDefaultID);
+      })
+    }
+  }
+
+  chooseTemplate(tempID) {
+    const template = this.state.templates[tempID];
+    this.setState({
+      curTempID: tempID,
+      curTempName: template.name,
+      position: template.position,
+      subject: template.subject,
+      content: template.content,
+    });
+  }
+
+  setNewTemplate(tempID, newTemp) {
+    const self = this;
+    this.setState({
+      curTempID: tempID,
+      curTempName: newTemp.name,
+      position: newTemp.position,
+      subject: newTemp.subject,
+      content: newTemp.content,
+    }, () => {
+      self.saveContent(newTemp.content, tempID, newTemp.name)
+    });
+  }
+
+  setDefaultTemplate() {
+    // update firebase
+    database.ref(`users/${this.state.uid}/template/default`).set(this.state.curTempID);
+
+    // update localStorage
+    const user = JSON.parse(localStorage.getItem('firebaseUser'));
+    user.template.default = this.state.curTempID;
+    localStorage.setItem('firebaseUser', JSON.stringify(user));
+
+    // update state
+    this.setState({ defaultID: this.state.curTempID });
+
+    window.alert(`${this.state.templates[this.state.curTempID].name} is now your default template.`);
+  }
+
+  saveContent(newContent, tempID, curTempName) {
     const template = {
       content: newContent,
       position: this.state.position,
       subject: this.state.subject,
+      name: curTempName ? curTempName : this.state.curTempName,
     };
 
     // save new content to firebase
-    database.ref(`users/${this.props.user.user.uid}/template`).set(template);
+    database.ref(`users/${this.state.uid}/template/templates/${tempID}`).set(template);
 
     // update localStorage
     const user = JSON.parse(localStorage.getItem('firebaseUser'));
-    user.template = template;
+    user.template.templates[tempID] = template;
     localStorage.setItem('firebaseUser', JSON.stringify(user));
 
     // update state
-    this.setState({ content: newContent });
+    this.setState({
+      content: newContent,
+      curTempName: curTempName,
+      curTempID: tempID,
+      templates: user.template.templates
+    }, () => {
+      console.log('saved content.  New state:', this.state);
+    });
   }
 
   sendEmail(content) {
@@ -157,32 +240,6 @@ class Template extends React.Component {
 
   render() {
 
-    // Create our macro input fields
-    const inputFields = (
-      <div className="col-md-4 form-input email-input">
-        <div className="form-group email-input">
-          <label htmlFor="inTop" id="topLabel">
-            <strong>Contact Info</strong>
-            <a role="button" tabIndex="0" onClick={() => this.toggle('modal')}>Import Contact</a>
-          </label>
-          <input id="inTop" type="text" name="name" placeholder="$FIRSTNAME $LASTNAME" value={this.state.name} onChange={this.handleName} />
-          <input type="text" name="company" placeholder="$COMPANY" value={this.state.company} onChange={this.handleCompany} />
-          <input type="text" name="city" placeholder="$CITY" value={this.state.city} onChange={this.handleCity} />
-          <input type="text" name="position" placeholder="$POSITION" value={this.state.position} onChange={this.handlePosition} />
-        </div>
-        <div className="form-group email-input">
-          <label id="label2" htmlFor="inMid"><strong>Email Details</strong></label>
-          <input id="inMid" type="email" name="email" placeholder="Contact Email" value={this.state.email} onChange={this.handleEmail} />
-          <input type="text" name="subject" placeholder="Subject Line of Email" value={this.state.subject} onChange={this.handleSubject} />
-          <input type="password" name="password" placeholder="Your Email Password" value={this.state.password} onChange={this.handlePassword} />
-        </div>
-        <p>Email Not sending?<br />
-          Click <a href="https://myaccount.google.com/lesssecureapps" target="_blank" rel="noopener noreferrer"> here
-          </a> and <a href="https://accounts.google.com/DisplayUnlockCaptcha" target="_blank" rel="noopener noreferrer"> here</a>
-        </p>
-      </div>
-    );
-
     // Create our import contacts list
     const contactsModal = (
       <Modal isOpen={this.state.modal} toggle={() => this.toggle('modal')} className="modal-example">
@@ -221,23 +278,55 @@ class Template extends React.Component {
     return (
       <div className="form template-form">
         <div className="row" style={{ height: '100%' }}>
-          {inputFields}
           {contactsModal}
           {alertModal}
+          <InputFields
+            state={this.state}
+            toggle={type => this.toggle(type)}
+            handleTextUpdate={(field, e) => this.handleTextUpdate(field, e)}
+          />
           <div className="col-md-8">
-            <div className="form-group email-temp">
-              <label htmlFor="emailTemplate"><strong>Email Template</strong></label>
-              <EmailTemplate
-                {...this.state}
-                saveContent={content => this.saveContent(content)}
-                sendEmail={content => this.sendEmail(content)}
-              />
-            </div>
+            <EmailTemplate
+              {...this.state}
+              saveContent={(content, tempID, name) => this.saveContent(content, tempID, name)}
+              sendEmail={content => this.sendEmail(content)}
+              chooseTemplate={tempID => this.chooseTemplate(tempID)}
+              setNewTemplate={(tempID, newTemp) => this.setNewTemplate(tempID, newTemp)}
+              deleteTemplate={() => this.deleteTemplate(this.state.curTempID)}
+              setDefaultTemplate={() => this.setDefaultTemplate()}
+            />
           </div>
         </div>
       </div>
     );
   }
+}
+
+const InputFields = ({ state, toggle, handleTextUpdate }) => {
+  return (
+    <div className="col-md-4 form-input email-input">
+      <div className="form-group email-input">
+        <label htmlFor="inTop" id="topLabel">
+          <strong>Contact Info</strong>
+          <a role="button" tabIndex="0" onClick={() => toggle('modal')}>Import Contact</a>
+        </label>
+        <input id="inTop" type="text" name="name" placeholder="$FIRSTNAME $LASTNAME" value={state.name} onChange={e => handleTextUpdate('name', e)} />
+        <input type="text" name="company" placeholder="$COMPANY" value={state.company} onChange={e => handleTextUpdate('company', e)} />
+        <input type="text" name="city" placeholder="$CITY" value={state.city} onChange={e => handleTextUpdate('city', e)} />
+        <input type="text" name="position" placeholder="$POSITION" value={state.position} onChange={e => handleTextUpdate('position', e)} />
+      </div>
+      <div className="form-group email-input">
+        <label id="label2" htmlFor="inMid"><strong>Email Details</strong></label>
+        <input id="inMid" type="email" name="email" placeholder="Contact Email" value={state.email} onChange={e => handleTextUpdate('email', e)} />
+        <input type="text" name="subject" placeholder="Subject Line of Email" value={state.subject} onChange={e => handleTextUpdate('subject', e)} />
+        <input type="password" name="password" placeholder="Your Email Password" value={state.password} onChange={e => handleTextUpdate('password', e)} />
+      </div>
+      <p>Email Not sending?<br />
+        Click <a href="https://myaccount.google.com/lesssecureapps" target="_blank" rel="noopener noreferrer"> here
+        </a> and <a href="https://accounts.google.com/DisplayUnlockCaptcha" target="_blank" rel="noopener noreferrer"> here</a>
+      </p>
+    </div>
+  );
 }
 
 export default Template;

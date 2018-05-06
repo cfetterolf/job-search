@@ -6,6 +6,8 @@ import MediumHeader from '../headers/MediumHeader';
 import { ClipLoader } from 'react-spinners';
 import AddContactForm from '../contacts-components/AddContactForm';
 import Results from './Results';
+import giraffe from '../../img/nerd_giraffe.png';
+//import giraffe2 from '../../img/love_giraffe.png';
 
 const database = firebase.database();
 
@@ -29,7 +31,6 @@ class Guesser extends React.Component {
     this.state = initState;
 
     this.toggle = this.toggle.bind(this);
-    //this.createContact = this.createContact.bind(this);
   }
 
   submit(disabled) {
@@ -207,9 +208,11 @@ class Guesser extends React.Component {
 
     return (
       <div className="discover-form">
+        <img src={giraffe} id="giraffeIcon" alt=""/>
+        {/*<img src={giraffe2} id="giraffeIcon2" />*/}
         {info}
         <div className="row">
-          <div className="col-md-8">
+          <div className="col-md-7 input-wrapper">
             <form>
               <MediumHeader title="Contact Information" />
               <hr style={{ margin: '5px 0 25px 0' }} />
@@ -218,7 +221,7 @@ class Guesser extends React.Component {
               {buttons}
             </form>
           </div>
-          <div className="col-md-4" style={{padding: '17px'}}>
+          <div className="col-md-5" style={{padding: '17px'}}>
             <div>
               <MediumHeader title="Results" style={{marginTop: '0px'}}/>
               <hr style={{ margin: '5px 30px 25px 0' }} />

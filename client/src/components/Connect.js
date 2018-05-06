@@ -9,6 +9,8 @@ class Connect extends React.Component {
     this.state = {};
   }
   render() {
+    console.log('getting localStorage:', JSON.parse(localStorage.getItem('firebaseUser')));
+
     return (
       <div className="container-fluid wrapper">
         <Template user={JSON.parse(localStorage.getItem('firebaseUser'))} />
