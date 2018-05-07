@@ -33,3 +33,18 @@
 .navbar-brand {
   font-weight: 600;
 }
+
+#helpIcon {
+  color: #e6e6e6;
+  font-size: 23px;
+  margin-right: 30px;
+}
+
+#helpIcon:hover {
+  color: white;
+  cursor: pointer;
+}
+
+#helpSpan:hover {
+  background-color: #C63D0F !important;
+}

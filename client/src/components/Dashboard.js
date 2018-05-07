@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { logout } from '../helpers/auth';
-// import { colors } from '../config/constants';
-// import styled from 'styled-components';
-
 import NavBar from './NavBar';
 import Sidebar from './Sidebar';
 import Timeline from './Timeline';
@@ -28,9 +25,14 @@ const bodyStyle = {
 const sections = ['Timeline', 'Tasks', 'Contacts', 'Discover', 'Connect'];
 const appTokenKey = 'appToken';
 
+/*
+ * props:
+ *    logout() - callback on logout
+ */
 class Dashboard extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       selected: sections[0],
       firebaseUser: JSON.parse(localStorage.getItem('firebaseUser')),
@@ -48,36 +50,43 @@ class Dashboard extends Component {
   }
 
   render() {
-    /* conditionally set body based on section selected */
+    // conditionally set body based on section selected
     let body;
-    if (this.state.selected === 'Timeline') {
-      body = <Timeline />;
-    } else if (this.state.selected === 'Tasks') {
-      body = <Tasks user={this.state.firebaseUser} />;
-    } else if (this.state.selected === 'Contacts') {
-      body = <Contacts contacts={this.state.firebaseUser.contacts} />;
-    } else if (this.state.selected === 'Connect') {
-      body = <Connect />;
-    } else if (this.state.selected === 'Discover') {
-      body = <Discover />;
-    } else {
-      body = <div>Something went wrong!</div>;
+    switch (this.state.selected) {
+      case 'Timeline':
+        body = <Timeline />;
+        break;
+      case 'Tasks':
+        body = <Tasks user={this.state.firebaseUser} />;
+        break;
+      case 'Contacts':
+        body = <Contacts contacts={this.state.firebaseUser.contacts} />;
+        break;
+      case 'Connect':
+        body = <Connect />;
+        break;
+      case 'Discover':
+        body = <Discover />;
+        break;
+      default:
+        body = <div>Something went wrong!</div>;
     }
 
-    return (
-      <div className="Dashboard">
-        <NavBar logoutClicked={() => this.handleLogout} user={this.state.firebaseUser.user} />
-        <div className="container-fluid">
-          <div clas="row">
-            <Sidebar
-              setSection={s => this.setState({ selected: s })} // callback function
-              sections={sections}
-            />
-            <main className="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3" style={bodyStyle}>
-              {body}
-            </main>
-          </div>
+    const mainSection = (
+      <div className="container-fluid">
+        <div clas="row">
+          <Sidebar sections={sections} setSection={s => this.setState({ selected: s })}/>
+          <main className="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3" style={bodyStyle}>
+            {body}
+          </main>
         </div>
+      </div>
+    );
+
+    return (
+      <div>
+        <NavBar logoutClicked={() => this.handleLogout} user={this.state.firebaseUser.user} />
+        {mainSection}
       </div>
     );
   }
