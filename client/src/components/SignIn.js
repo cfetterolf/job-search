@@ -14,23 +14,12 @@ const appTokenKey = 'appToken';
 const firebaseUser = 'firebaseUser';
 const styles = {
   bg: {
-    //background: '#eee url(https://subtlepatterns.com/patterns/extra_clean_paper.png)',
     background: '#34447A',
     width: '100%',
     height: '100vh',
     overflow: 'hidden',
     overflowY: 'scroll',
-  },
-  icon: {
-    width: '200px',
-    height: 'auto',
-    boxShadow: '0 1px 3px rgba(0,0,0,0.24)',
-    transition: 'all 0.3s cubic-bezier(.25,.8,.25,1)',
-    borderRadius: '3px',
-  },
-  center: {
-    marginTop: '-100px',
-  },
+  }
 };
 
 /*
@@ -74,15 +63,19 @@ export default class SignIn extends React.Component {
             user,
           };
 
-          // get contacts
+          // get user info
           const path = `users/${user.uid}`;
           firebase.database().ref(path).once('value').then((snapshot) => {
 
-            // set default contacts
+            // check if first login
+            userObj.firstLogin = !snapshot.val() ? true : false;
+            console.log(snapshot.val(), userObj);
+
+            // set contacts
             userObj.contacts = snapshot.val() ? snapshot.val().contacts : {};
 
-            // set default template
-            if (!snapshot.val().template) {
+            // set template
+            if (!snapshot.val() || !snapshot.val().template) {
               const defaultContent = "This is an example message.  Notice how you can use different variables, like $FIRSTNAME or $COMPANY, to compose this message.  Try filling in the corresponding fields on the left and see what happens!"
               const tempID = Date.now();
               const defaultTemplate = {
@@ -97,14 +90,13 @@ export default class SignIn extends React.Component {
               userObj.template = snapshot.val().template;
             }
           })
-            .then(() => {
-              // set the firebase user
-              console.log('setting localStorage:', userObj);
-              localStorage.setItem(firebaseUser, JSON.stringify(userObj));
+          .then(() => {
+            // set the firebase user
+            localStorage.setItem(firebaseUser, JSON.stringify(userObj));
 
-              // go to dashboard
-              this.props.login();
-            });
+            // go to dashboard
+            this.props.login();
+          });
         } catch (error) {
           console.log(error);
           localStorage.removeItem(firebaseAuthKey);
@@ -116,6 +108,7 @@ export default class SignIn extends React.Component {
 
   reset() {
     localStorage.removeItem(firebaseAuthKey);
+    localStorage.removeItem(firebaseUser);
     this.setState({ splashScreen: false });
   }
 
@@ -132,7 +125,7 @@ export default class SignIn extends React.Component {
           />
           <div className="mt-md">
             <span>
-              Not Loading? <a role="button" tabIndex="0" onClick={() => this.reset}>
+              Not Loading? <a role="button" tabIndex="0" onClick={() => this.reset()}>
               Back
               </a>
             </span>
@@ -159,13 +152,12 @@ const LoginPage = ({ handleGoogleLogin }) => (
               Click below to get started
           </h4>
         </div>
-        {/*eslint-disable */}
           <img
             src={icon}
             id="signInBtn"
             onClick={handleGoogleLogin}
+            alt=""
           />
-          {/* eslint-enable */}
         </div>
         <div className="col-md-6">
           <div className="fadein">

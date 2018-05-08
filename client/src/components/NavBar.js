@@ -1,49 +1,69 @@
 import React from 'react';
+import styled from 'styled-components';
 import { Avatar } from 'material-ui';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import glassdoorIcon from '../img/glassdoor.png';
 import { colors } from '../config/constants';
 import '../css/NavBar.css';
 
+const Section = styled.span`
+  font-weight: bold;
+  color: ${colors.light_blue};
+`;
+
+const Title = styled.span`
+  font-weight: bold;
+  color: ${colors.bg};
+`;
+
 const welcomeText = (
   <div style={{ color: colors.text }}>
     <p>Here you will find some useful tools that may assist you in your next job hunt.</p>
-    <p>In the <strong>Timeline</strong> section, you can find table that help organize your tasks in a linear fashion.</p>
-    <p>The <strong>Tasks</strong> section helps you track applicaitons you need to comlete and other things you need to do.</p>
-    <p>Click on <strong>Contacts</strong> to record and view any contacts you need to reach out and network with, in either a list or graph format.</p>
-    <p>In <strong>Discover</strong>, you can enter someone's name and company to find a possible email address.</p>
-    <p>Finally, use the <strong>Connect</strong> section to import a contact's information into a template, and send a networking email!</p>
+    <p>In the <Section>Timeline</Section> section, you can find table that helps organize your tasks in a linear fashion.</p>
+    <p>The <Section>Tasks</Section> section helps you track ongoing job applications and other things you need to do.</p>
+    <p>Click on <Section>Contacts</Section> to see a table of every contact you hope to network with, in either a list or graph format.</p>
+    <p>In <Section>Discover</Section>, you can enter someone's name and company to find a valid email address.</p>
+    <p>Finally, use the <Section>Connect</Section> section to import a contact's information into a template, and send a networking email!</p>
   </div>
 );
 
 /*
  * props:
  *    user - firebaseUser object
+ *    showHelp - boolean
  *    logoutClicked() - callback
  */
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false,
+      modal: props.showHelp,
     };
 
     this.toggle = this.toggle.bind(this);
+    this.closeHelp = this.closeHelp.bind(this);
   }
 
-  toggle(type) {
+  toggle() {
     this.setState({ modal: !this.state.modal });
+  }
+
+  closeHelp() {
+    const user = JSON.parse(localStorage.getItem('firebaseUser'));
+    user.firstLogin = false;
+    localStorage.setItem('firebaseUser', JSON.stringify(user));
+    this.toggle();
   }
 
   render() {
     const helpModal = (
       <Modal isOpen={this.state.modal} toggle={this.toggle} className="modal-example">
-        <ModalHeader toggle={this.toggle}>Welcome to <strong>Endeavor!</strong></ModalHeader>
+        <ModalHeader toggle={this.toggle}>Welcome to <Title>Endeavor!</Title></ModalHeader>
         <ModalBody>
           {welcomeText}
         </ModalBody>
         <ModalFooter>
-          <Button outline color="success" onClick={() => this.toggle('modal')}>Got It!</Button>
+          <Button outline color="success" onClick={() => this.closeHelp()}>Got It</Button>
         </ModalFooter>
       </Modal>
     );
