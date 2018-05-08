@@ -2,7 +2,19 @@ import React from 'react';
 import { Avatar } from 'material-ui';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import glassdoorIcon from '../img/glassdoor.png';
+import { colors } from '../config/constants';
 import '../css/NavBar.css';
+
+const welcomeText = (
+  <div style={{ color: colors.text }}>
+    <p>Here you will find some useful tools that may assist you in your next job hunt.</p>
+    <p>In the <strong>Timeline</strong> section, you can find table that help organize your tasks in a linear fashion.</p>
+    <p>The <strong>Tasks</strong> section helps you track applicaitons you need to comlete and other things you need to do.</p>
+    <p>Click on <strong>Contacts</strong> to record and view any contacts you need to reach out and network with, in either a list or graph format.</p>
+    <p>In <strong>Discover</strong>, you can enter someone's name and company to find a possible email address.</p>
+    <p>Finally, use the <strong>Connect</strong> section to import a contact's information into a template, and send a networking email!</p>
+  </div>
+);
 
 /*
  * props:
@@ -26,12 +38,12 @@ class NavBar extends React.Component {
   render() {
     const helpModal = (
       <Modal isOpen={this.state.modal} toggle={this.toggle} className="modal-example">
-        <ModalHeader toggle={this.toggle}>Choose Contact to Import</ModalHeader>
+        <ModalHeader toggle={this.toggle}>Welcome to <strong>Endeavor!</strong></ModalHeader>
         <ModalBody>
-          Hello
+          {welcomeText}
         </ModalBody>
         <ModalFooter>
-          <Button outline color="danger" onClick={() => this.toggle('modal')}>Cancel</Button>
+          <Button outline color="success" onClick={() => this.toggle('modal')}>Got It!</Button>
         </ModalFooter>
       </Modal>
     );
@@ -83,7 +95,7 @@ const UserIcon = ({photoURL, logoutClicked}) => (
           GitHub
         </a>
         <div className="dropdown-divider" />
-        <a className="dropdown-item logout" role="button" tabIndex="0" onClick={() => logoutClicked()}>
+        <a style={{textAlign: 'center'}} className="dropdown-item logout" role="button" tabIndex="0" onClick={() => logoutClicked()}>
           Log Out
         </a>
       </div>

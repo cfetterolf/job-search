@@ -249,7 +249,8 @@ const InfoHeader = ({ open, toggle}) => {
         </p>
         <hr />
         <p className="mb-0">
-          Fill out the fields below to get started.
+          Fill out the fields below and click <strong>Get Email Address</strong> to
+          find your next connection.  Click on the results to add that email as a contact!
         </p>
       </Alert>
     </div>
