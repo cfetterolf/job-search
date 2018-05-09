@@ -28,6 +28,7 @@
     "url-loader": "^1.0.1"
   },
   "dependencies": {
+    "react-virtual-kanban": "^0.2.0",
     "webpack": "^4.6.0"
   }
 }

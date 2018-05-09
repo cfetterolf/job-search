@@ -5,8 +5,6 @@ import firebase from 'firebase';
 //import TodoItems from './task-components/TodoItems.js';
 // import "./TodoList.css";
 
-// React Todo Application
-
 function uuid(len) {
   let length = len || 6;
   let charCodes = [];
@@ -80,7 +78,7 @@ class AddTask extends React.Component {
     return (
       <form onSubmit={this.handleSubmit.bind(this)} className="task-form">
         <div className="task-input">
-          <input type="text" ref="taskName" placeholder="What do you need to do?" />
+          <input className="taskinput" type="text" ref="taskName" placeholder="What do you need to do?" />
         </div>
         <button className="task-add-button" type="submit" value="Submit">
           <svg viewBox="0 0 40 40">
@@ -112,7 +110,7 @@ class TaskItem extends React.Component {
     //}
     return (
       <li>
-        <input
+        <input className="taskinput"
           id={this.props.task.id}
           type="checkbox"
           checked={this.props.task.completed}
@@ -222,7 +220,7 @@ class Modal extends React.Component {
   render() {
     return (
       <div className="modal-wrap">
-        <div className="modal">
+        <div className="modal-tasks">
           <p>{this.props.content}</p>
         </div>
       </div>
@@ -239,24 +237,24 @@ class App extends React.Component {
 
 	componentWillMount() {
         let initial = [
-            {
-                id: uuid(),
-                content: "Learn React",
-                completed: false,
-                tag: 'Work'
-            },
-            {
-                id: uuid(),
-                content: "Make another app",
-                completed: false,
-                tag: false
-            },
-            {
-                id: uuid(),
-                content: "Make to do list",
-                completed: true,
-                tag: false
-            }
+            // {
+            //     id: uuid(),
+            //     content: "Learn React",
+            //     completed: false,
+            //     tag: 'Work'
+            // },
+            // {
+            //     id: uuid(),
+            //     content: "Make another app",
+            //     completed: false,
+            //     tag: false
+            // },
+            // {
+            //     id: uuid(),
+            //     content: "Make to do list",
+            //     completed: true,
+            //     tag: false
+            // }
         ];
 		if (localStorage && localStorage.getItem('tasks')) {
 			this.setState({
