@@ -85,7 +85,11 @@ class Dashboard extends Component {
 
     return (
       <div>
-        <NavBar logoutClicked={() => this.handleLogout} user={this.state.firebaseUser.user} />
+        <NavBar
+          logoutClicked={() => this.handleLogout}
+          user={this.state.firebaseUser.user}
+          showHelp={this.state.firebaseUser.firstLogin}
+        />
         {mainSection}
       </div>
     );

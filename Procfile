@@ -1,1 +1,1 @@
-web: npm run server --prefix server-mongodb
+web: npm run server --prefix server

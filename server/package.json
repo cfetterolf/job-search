@@ -1,0 +1,39 @@
+{
+  "name": "job-search-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Express server for job search app",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "node postinstall.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "node index.js",
+    "mongo": "mongod --config mongod.conf",
+    "start": "npm run server",
+    "lint": "eslint ."
+  },
+  "keywords": [],
+  "author": "Chris Fetterolf <cfetterolf@middlebury.edu>",
+  "contributors": [
+    "Chris Fetterolf <cfetterolf@middlebury.edu>",
+    "Connor Hanify <chanify@middlebury.edu>"
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "async": "^2.6.0",
+    "body-parser": "^1.18.2",
+    "cheerio": "^1.0.0-rc.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "mongodb": "^3.0.1",
+    "needle": "^2.2.1",
+    "nodemailer": "^4.6.4",
+    "request": "^2.85.0"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1",
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0"
+  }
+}

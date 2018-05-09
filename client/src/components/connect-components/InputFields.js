@@ -24,7 +24,7 @@ function InputFields(props) {
         <label id="label2" htmlFor="inMid"><strong>Email Details</strong></label>
         <input id="inMid" type="email" name="email" placeholder="Contact Email" value={props.email} onChange={e => props.handleTextUpdate('email', e)} />
         <input type="text" name="subject" placeholder="Subject Line of Email" value={props.subject} onChange={e => props.handleTextUpdate('subject', e)} />
-        <input type="password" name="password" placeholder="Your Email Password" value={props.password} onChange={e => props.handleTextUpdate('password', e)} />
+        <input type="password" name="password" placeholder="Your Account Password" value={props.password} onChange={e => props.handleTextUpdate('password', e)} />
       </div>
       <p>Email Not sending?<br />
         Click <a href="https://myaccount.google.com/lesssecureapps" target="_blank" rel="noopener noreferrer"> here

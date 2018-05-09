@@ -23,4 +23,6 @@ export const colors = {
   text: '#3B3738',
   fill: '#fffaf4',
   accent: '#92a191',
+  indigo: '#354578',
+  light_blue: '#0b8ac1',
 };

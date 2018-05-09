@@ -1,7 +1,4 @@
 import React from 'react';
-
-/* eslint-disable react/prefer-stateless-function */
-
 import Dashboard from './components/Dashboard';
 import SignIn from './components/SignIn';
 

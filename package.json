@@ -2,19 +2,18 @@
   "name": "job-search",
   "version": "0.1.0",
   "private": true,
-  "description": "Job Search skeleton",
+  "description": "Endeavor - Job Search Application",
   "engines": {
     "node": "8.9.x"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"npm start --prefix server-mongodb\" \"npm start --prefix client\"",
-    "heroku-postbuild": "npm install --prefix client && npm install --only=dev --no-shrinkwrap --prefix client && npm run build --prefix client && npm install --prefix server-mongodb",
-    "basin-postbuild": "npm install --prefix client && npm install --only=dev --no-shrinkwrap --prefix client && npm run build --prefix client && npm install --prefix server-sqlite"
+    "start": "concurrently \"npm start --prefix server\" \"npm start --prefix client\"",
+    "heroku-postbuild": "npm install --prefix client && npm install --only=dev --no-shrinkwrap --prefix client && npm run build --prefix client && npm install --prefix server"
   },
   "cacheDirectories": [
     "client/node_modules",
-    "server-mongodb/node_modules"
+    "server/node_modules"
   ],
   "keywords": [],
   "author": "Chris Fetterolf <cfetterolf@middlebury.edu>",
