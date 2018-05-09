@@ -4,6 +4,7 @@ import { Avatar } from 'material-ui';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import glassdoorIcon from '../img/glassdoor.png';
 import { colors } from '../config/constants';
+import brandIcon from '../img/endeavor_icon.png';
 import '../css/NavBar.css';
 
 const Section = styled.span`
@@ -71,6 +72,14 @@ class NavBar extends React.Component {
     const brand = (
       <div className="navbar-header">
         <a className="navbar-brand" role="button" tabIndex="0">
+          <img
+            src={brandIcon}
+            width="40"
+            height="40"
+            className="d-inline-block align-top"
+            alt=""
+            style={{ marginRight: '7px', marginTop: '-3px' }}
+          />
           Endeavor
         </a>
       </div>
