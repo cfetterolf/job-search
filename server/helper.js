@@ -60,7 +60,7 @@ exports.getEmailAddress = (request, response) => {
       }
 
       callback();
-    });
+    }).catch(err => response.send({ err: 'Please try again later' }));
   }, function(err) {
       if (err) {
         response.send({ error: err });

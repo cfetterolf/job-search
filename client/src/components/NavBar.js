@@ -74,11 +74,11 @@ class NavBar extends React.Component {
         <a className="navbar-brand" role="button" tabIndex="0">
           <img
             src={brandIcon}
-            width="40"
-            height="40"
+            width="30"
+            height="30"
             className="d-inline-block align-top"
             alt=""
-            style={{ marginRight: '7px', marginTop: '-3px' }}
+            style={{ marginRight: '7px' }}
           />
           Endeavor
         </a>
