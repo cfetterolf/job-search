@@ -44,7 +44,7 @@ h1[class*="task"]:after {
   bottom: 0;
   background: #5c3df5;
 }
-input[type=text, class*="taskinput"] {
+input[class*="taskinput"] {
   font-weight: 300;
   display: block;
   background: transparent;

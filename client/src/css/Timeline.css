@@ -1,4 +1,4 @@
-/*.main {
+.main {
   padding-left: 0px;
   padding-right: 0px;
   background-color: #f7f7f7;
@@ -14,8 +14,10 @@
 
 .pt-3 {
     padding-top: 2rem!important;
-}*/
+}
 
+
+/*
 *{
   box-sizing: border-box;
 }
@@ -115,4 +117,4 @@ ul {
   padding: 10px;
   margin-top: 5px;
   border-radius: 3px;
-}
+}*/
