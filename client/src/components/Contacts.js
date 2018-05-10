@@ -25,7 +25,6 @@ class Contacts extends React.Component {
   }
 
   render() {
-
     /* conditionally set selected tab */
     const listStyle = { color: '#9D7618', fontWeight: 'normal', backgroundColor: 'inherit' };
     const graphStyle = { color: '#95211B', fontWeight: 'normal', backgroundColor: 'inherit' };

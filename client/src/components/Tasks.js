@@ -2,12 +2,12 @@ import React from 'react';
 // import styled from 'styled-components';
 import '../css/Tasks.css';
 import firebase from 'firebase';
-//import TodoItems from './task-components/TodoItems.js';
+// import TodoItems from './task-components/TodoItems.js';
 // import "./TodoList.css";
 
 function uuid(len) {
-  let length = len || 6;
-  let charCodes = [];
+  const length = len || 6;
+  const charCodes = [];
   let string = '';
 
   for (let i = 0; i < 10; i++) {
@@ -19,8 +19,8 @@ function uuid(len) {
   }
 
   for (let i = 0; i < length; i++) {
-    let charIndex = Math.floor(Math.random() * charCodes.length);
-    string = string + String.fromCharCode(charCodes[charIndex]);
+    const charIndex = Math.floor(Math.random() * charCodes.length);
+    string += String.fromCharCode(charCodes[charIndex]);
   }
 
   return string;
@@ -30,11 +30,10 @@ function colour(bright) {
   let val;
 
   if (bright) {
-    val = 'hsl(' + Math.floor(Math.random() * 360) + ', 100%, 60%)';
-  }
-  else {
+    val = `hsl(${Math.floor(Math.random() * 360)}, 100%, 60%)`;
+  } else {
     val = '#';
-    let chars = '1234567890ABCDEF'.split('');
+    const chars = '1234567890ABCDEF'.split('');
     for (let i = 0; i < 6; i++) {
       val += chars[Math.floor(Math.random() * chars.length)];
     }
@@ -45,26 +44,24 @@ function colour(bright) {
 }
 
 class AddTask extends React.Component {
-
   constructor() {
     super();
     this.state = {
-      newTask: {}
+      newTask: {},
     };
   }
 
   handleSubmit(e) {
     if (this.refs.taskName.value === '') {
       alert('Please enter a task');
-    }
-    else {
+    } else {
       this.setState({
         newTask: {
           content: this.refs.taskName.value,
           completed: false,
           id: uuid(),
-          tag: 'Home'
-        }
+          tag: 'Home',
+        },
       }, function () {
         console.log(this.state);
         this.props.addTask(this.state.newTask);
@@ -103,104 +100,107 @@ class TaskItem extends React.Component {
     let tags = this.props.tags,
       task = this.props.task;
 
-    //let colour = tags[task.tag] !== undefined ? tags[task.tag].colour : '#ccc';
+    // let colour = tags[task.tag] !== undefined ? tags[task.tag].colour : '#ccc';
 
-    //let tagStyle = {
+    // let tagStyle = {
     //	borderColor: tags[task.tag].colour
-    //}
+    // }
     return (
       <li>
-        <input className="taskinput"
+        <input
+          className="taskinput"
           id={this.props.task.id}
           type="checkbox"
           checked={this.props.task.completed}
-          onChange={this.checkTask.bind(this, this.props.task.id)} />
+          onChange={this.checkTask.bind(this, this.props.task.id)}
+        />
         <label
-          htmlFor={this.props.task.id}>
+          htmlFor={this.props.task.id}
+        >
           {this.props.task.content}
           <span
-            className="task-strike">
-          </span>
+            className="task-strike"
+          />
         </label>
         <button
           className="task-item-remove"
-          onClick={this.removeTask.bind(this, this.props.task.id)}>
+          onClick={this.removeTask.bind(this, this.props.task.id)}
+        >
           <svg viewBox="0 0 40 40">
             <path d="M15 15 L25 25 M25 15 L15 25" />
           </svg>
         </button>
       </li>
     );
-
   }
 }
 
 class TaskList extends React.Component {
-
   render() {
-    let taskItems = this.props.tasks.map(task => {
+    const taskItems = this.props.tasks.map(task =>
       // console.log(task.id);
-      return (
+      (
         <TaskItem
           task={task}
           key={task.id}
           onRemove={this.props.removeTask.bind(this)}
           onCheck={this.props.checkTask.bind(this)}
-          tags={this.props.tags} />
-      )
-    });
+          tags={this.props.tags}
+        />
+      ));
 
     return (
       <ul className="task-list">
         {taskItems}
       </ul>
-    )
+    );
   }
 }
 
 class TaskControls extends React.Component {
   render() {
     let filters = this.props.filters;
-    filters = filters.map(filter => {
-      return (
-        <button
-          key={filter.id}
-          onClick={this.props.setFilter.bind(this, filter)}
-          className={this.props.activeFilter === filter.name ? 'btn-active' : ''}>
-          {filter.label || filter.name}
-        </button>
-      );
-    });
+    filters = filters.map(filter => (
+      <button
+        key={filter.id}
+        onClick={this.props.setFilter.bind(this, filter)}
+        className={this.props.activeFilter === filter.name ? 'btn-active' : ''}
+      >
+        {filter.label || filter.name}
+      </button>
+    ));
 
     return (
       <div className="task-controls">
         <span>{this.props.completed()} / {this.props.total()} Completed</span>
         {filters}
         <button
-          onClick={this.props.clearCompleted}>
-          <i className="fa fa-trash-o" aria-hidden="true"></i> Clear Completed
-                  </button>
+          onClick={this.props.clearCompleted}
+        >
+          <i className="fa fa-trash-o" aria-hidden="true" /> Clear Completed
+        </button>
       </div>
-    )
+    );
   }
 }
 
 class Tags extends React.Component {
   render() {
     let tags = this.props.tags;
-    tags = tags.map(tag => {
-      let dotStyle = {
-        background: tag.colour
+    tags = tags.map((tag) => {
+      const dotStyle = {
+        background: tag.colour,
       };
-      let activeStyle = {
-        boxShadow: '0 0 0 2px ' + tag.colour
+      const activeStyle = {
+        boxShadow: `0 0 0 2px ${tag.colour}`,
       };
       return (
         <button
           key={tag.id}
           onClick={this.props.setTag.bind(this, tag)}
-          style={tag.name === this.props.activeTag ? activeStyle : {}}>
-          <span style={dotStyle}></span>
+          style={tag.name === this.props.activeTag ? activeStyle : {}}
+        >
+          <span style={dotStyle} />
           {tag.name}
         </button>
       );
@@ -208,9 +208,11 @@ class Tags extends React.Component {
     return (
       <div className="task-tags">
         <span>Tags </span> &nbsp;
-                  {tags}
+        {tags}
         <button
-          onClick={this.props.reset.bind(this)}>Reset</button>
+          onClick={this.props.reset.bind(this)}
+        >Reset
+        </button>
       </div>
     );
   }
@@ -228,218 +230,216 @@ class Modal extends React.Component {
   }
 }
 class App extends React.Component {
-	constructor() {
-		super();
-		this.state = {
-			tasks: []
-		}
-	}
+  constructor() {
+    super();
+    this.state = {
+      tasks: [],
+    };
+  }
 
-	componentWillMount() {
-        let initial = [
-            // {
-            //     id: uuid(),
-            //     content: "Learn React",
-            //     completed: false,
-            //     tag: 'Work'
-            // },
-            // {
-            //     id: uuid(),
-            //     content: "Make another app",
-            //     completed: false,
-            //     tag: false
-            // },
-            // {
-            //     id: uuid(),
-            //     content: "Make to do list",
-            //     completed: true,
-            //     tag: false
-            // }
-        ];
-		if (localStorage && localStorage.getItem('tasks')) {
-			this.setState({
-				tasks: JSON.parse(localStorage.getItem('tasks'))
-			});
-		}
-		else {
-			this.setState({tasks: initial})
-		}
-		this.setState({
-			activeList: 'all',
-            activeTag: 'all',
-            initial: initial,
-			tags: [
-				{
-					id: uuid(),
-					name: 'all',
-					colour: colour(true)
-				},
-				{
-					id: uuid(),
-					name: 'Applications',
-					colour: colour(true)
-				},
-				{
-					id: uuid(),
-					name: 'Networking',
-					colour: colour(true)
-				},
-				{
-					id: uuid(),
-					name: 'Interviews',
-					colour: colour(true)
-				}
-            ],
-            filters: [
-                {
-                    id: uuid(),
-                    name: 'all',
-                    label: 'All Tasks',
-                    method: function (item) {
-                        return item;
-                    }
-                },
-                {
-                    id: uuid(),
-                    name: 'active',
-                    label: 'Active',
-                    method: function (item) {
-                        return item.completed === false;
-                    }
-                },
-                {
-                    id: uuid(),
-                    name: 'completed',
-                    label: 'Completed',
-                    method: function (item) {
-                        return item.completed === true;
-                    }
-                }
-            ]
-		})
+  componentWillMount() {
+    const initial = [
+      // {
+      //     id: uuid(),
+      //     content: "Learn React",
+      //     completed: false,
+      //     tag: 'Work'
+      // },
+      // {
+      //     id: uuid(),
+      //     content: "Make another app",
+      //     completed: false,
+      //     tag: false
+      // },
+      // {
+      //     id: uuid(),
+      //     content: "Make to do list",
+      //     completed: true,
+      //     tag: false
+      // }
+    ];
+    if (localStorage && localStorage.getItem('tasks')) {
+      this.setState({
+        tasks: JSON.parse(localStorage.getItem('tasks')),
+      });
+    } else {
+      this.setState({ tasks: initial });
+    }
+    this.setState({
+      activeList: 'all',
+      activeTag: 'all',
+      initial,
+      tags: [
+        {
+          id: uuid(),
+          name: 'all',
+          colour: colour(true),
+        },
+        {
+          id: uuid(),
+          name: 'Applications',
+          colour: colour(true),
+        },
+        {
+          id: uuid(),
+          name: 'Networking',
+          colour: colour(true),
+        },
+        {
+          id: uuid(),
+          name: 'Interviews',
+          colour: colour(true),
+        },
+      ],
+      filters: [
+        {
+          id: uuid(),
+          name: 'all',
+          label: 'All Tasks',
+          method(item) {
+            return item;
+          },
+        },
+        {
+          id: uuid(),
+          name: 'active',
+          label: 'Active',
+          method(item) {
+            return item.completed === false;
+          },
+        },
+        {
+          id: uuid(),
+          name: 'completed',
+          label: 'Completed',
+          method(item) {
+            return item.completed === true;
+          },
+        },
+      ],
+    });
+  }
 
-	}
+  // Handlers
+  handleAddTask(task) {
+    console.log(task);
+    const tasks = this.state.tasks;
+    tasks.unshift(task);
+    this.setState({ tasks });
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
 
-	// Handlers
-	handleAddTask(task) {
-		console.log(task);
-		let tasks = this.state.tasks;
-		tasks.unshift(task);
-		this.setState({tasks: tasks});
-		localStorage.setItem('tasks', JSON.stringify(tasks));
-	}
+  handleRemoveTask(id) {
+    console.log(`Delete ${id}`);
+    const tasks = this.state.tasks;
+    const target = tasks.findIndex(index => index.id === id);
+    tasks.splice(target, 1);
+    this.setState({ tasks });
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
 
-	handleRemoveTask(id) {
-		console.log('Delete ' + id);
-		let tasks = this.state.tasks;
-		let target = tasks.findIndex(index => index.id === id);
-		tasks.splice(target, 1);
-		this.setState({tasks: tasks});
-		localStorage.setItem('tasks', JSON.stringify(tasks));
-	}
+  handleCheckTask(id) {
+    console.log(`Check ${id}`);
+    const tasks = this.state.tasks;
+    const target = tasks.findIndex(index => index.id === id);
+    tasks[target].completed = tasks[target].completed !== true;
+    this.setState({ tasks });
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
 
-	handleCheckTask(id) {
-		console.log('Check ' + id);
-		let tasks = this.state.tasks;
-		let target = tasks.findIndex(index => index.id === id);
-		tasks[target].completed = tasks[target].completed === true ? false : true;
-		this.setState({tasks: tasks});
-		localStorage.setItem('tasks', JSON.stringify(tasks));
-	}
+  // Setters
+  setFilter(filter) {
+    const activeFilter = filter.name;
+    this.setState({ activeFilter });
+  }
 
-	// Setters
-	setFilter(filter) {
-		let activeFilter = filter.name;
-		this.setState({activeFilter: activeFilter});
-	}
+  setTag(tag) {
+    const activeTag = tag.name;
+    this.setState({ activeTag });
+  }
 
-	setTag(tag) {
-        let activeTag = tag.name;
-		this.setState({activeTag: activeTag});
-	}
+  reset() {
+    const tasks = this.state.initial;
+    this.setState({ tasks });
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
 
-	reset() {
-        let tasks =  this.state.initial;
-		this.setState({tasks: tasks});
-		localStorage.setItem('tasks', JSON.stringify(tasks));
-	}
+  // Getters
+  getTotalCompleted() {
+    const tasks = this.state.tasks;
+    const completed = tasks.filter(item => item.completed === true);
+    return completed.length;
+  }
 
-	// Getters
-	getTotalCompleted() {
-		let tasks = this.state.tasks;
-		let completed = tasks.filter(item => item.completed === true);
-		return completed.length;
-	}
+  getTotalTasks() {
+    return this.state.tasks.length;
+  }
 
-	getTotalTasks() {
-		return this.state.tasks.length;
-	}
+  getActiveList() {
+    const filter = this.state.activeFilter;
+    const tag = this.state.activeTag;
+    let tasks = this.state.tasks;
 
-	getActiveList() {
-        let filter = this.state.activeFilter;
-        let tag = this.state.activeTag;
-		let tasks = this.state.tasks;
+    // Filte by Filter
+    for (let i = 0, len = this.state.filters.length; i < len; i++) {
+      const element = this.state.filters[i];
+      if (filter === element.name) {
+        tasks = tasks.filter(item => element.method(item));
+      }
+    }
 
-        //Filte by Filter
-        for (let i = 0, len = this.state.filters.length; i < len; i++) {
-            const element = this.state.filters[i];
-            if (filter === element.name) {
-                tasks = tasks.filter(function (item) {
-                    return element.method(item);
-                });
-            }
-        }
+    // Filter by Tag
+    if (tag === 'all') {
+      return tasks;
+    }
 
-        // Filter by Tag
-        if (tag === 'all') {
-            return tasks;
-        }
-        else {
-            return tasks.filter(item => item.tag === tag);
-        }
-	}
+    return tasks.filter(item => item.tag === tag);
+  }
 
-	clearCompleted() {
-		let tasks = this.state.tasks;
-		tasks = tasks.filter(item => item.completed === false);
-		this.setState({tasks: tasks});
-		localStorage.setItem('tasks', JSON.stringify(tasks));
-	}
+  clearCompleted() {
+    let tasks = this.state.tasks;
+    tasks = tasks.filter(item => item.completed === false);
+    this.setState({ tasks });
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
 
-	render() {
-		return (
-			<div className="app">
+  render() {
+    return (
+      <div className="app">
         <AddTask addTask={this.handleAddTask.bind(this)} />
 
-				<Tags
-					tags={this.state.tags}
-					setTag={this.setTag.bind(this)}
-					activeTag={this.state.activeTag}
-					reset={this.reset.bind(this)}/>
+        <Tags
+          tags={this.state.tags}
+          setTag={this.setTag.bind(this)}
+          activeTag={this.state.activeTag}
+          reset={this.reset.bind(this)}
+        />
 
-				<TaskList
-					tasks={this.getActiveList.call(this)}
-					removeTask={this.handleRemoveTask.bind(this)}
-					checkTask={this.handleCheckTask.bind(this)}
-					tags={this.state.tags} />
+        <TaskList
+          tasks={this.getActiveList.call(this)}
+          removeTask={this.handleRemoveTask.bind(this)}
+          checkTask={this.handleCheckTask.bind(this)}
+          tags={this.state.tags}
+        />
 
-				<TaskControls
-                    completed={this.getTotalCompleted.bind(this)}
-                    filters={this.state.filters}
-					total={this.getTotalTasks.bind(this)}
-					activeFilter={this.state.activeFilter}
-					setFilter={this.setFilter.bind(this)}
-					clearCompleted={this.clearCompleted.bind(this)} />
+        <TaskControls
+          completed={this.getTotalCompleted.bind(this)}
+          filters={this.state.filters}
+          total={this.getTotalTasks.bind(this)}
+          activeFilter={this.state.activeFilter}
+          setFilter={this.setFilter.bind(this)}
+          clearCompleted={this.clearCompleted.bind(this)}
+        />
 
-				 {/* <Modal content="Nothing yet" /> */}
-			</div>
-		);
-	}
+        {/* <Modal content="Nothing yet" /> */}
+      </div>
+    );
+  }
 }
 
 export default App;
 
-/*********************************************************/
+/** ****************************************************** */
 /*
 var ESCAPE_KEY = 27;
 var ENTER_KEY = 13;
@@ -781,9 +781,9 @@ class App extends React.Component {
               </div>
             );
       }
-}*/
+} */
 
-/*********************************************************************/
+/** ****************************************************************** */
 
 /*
 class Tasks extends React.Component {
@@ -936,9 +936,9 @@ class TodoList extends React.Component {
       </ul>
     );
   }
-}*/
+} */
 
-/*********************************************************************/
+/** ****************************************************************** */
 
 /*
 class Tasks extends React.Component {
@@ -1013,7 +1013,7 @@ class Tasks extends React.Component {
       </div>
     );
   }
-}*/
+} */
 
 
 /*

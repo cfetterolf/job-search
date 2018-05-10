@@ -19,7 +19,7 @@ const styles = {
     height: '100vh',
     overflow: 'hidden',
     overflowY: 'scroll',
-  }
+  },
 };
 
 /*
@@ -66,9 +66,8 @@ export default class SignIn extends React.Component {
           // get user info
           const path = `users/${user.uid}`;
           firebase.database().ref(path).once('value').then((snapshot) => {
-
             // check if first login
-            userObj.firstLogin = !snapshot.val() ? true : false;
+            userObj.firstLogin = !snapshot.val();
             console.log(snapshot.val(), userObj);
 
             // set contacts
@@ -76,27 +75,29 @@ export default class SignIn extends React.Component {
 
             // set template
             if (!snapshot.val() || !snapshot.val().template) {
-              const defaultContent = "This is an example message.  Notice how you can use different variables, like $FIRSTNAME or $COMPANY, to compose this message.  Try filling in the corresponding fields on the left and see what happens!"
+              const defaultContent = 'This is an example message.  Notice how you can use different variables, like $FIRSTNAME or $COMPANY, to compose this message.  Try filling in the corresponding fields on the left and see what happens!';
               const tempID = Date.now();
               const defaultTemplate = {
                 default: tempID,
                 templates: {
-                  [tempID]: { name: 'Example Template', position: '', content: defaultContent, subject: '' }
-                }
-              }
+                  [tempID]: {
+                    name: 'Example Template', position: '', content: defaultContent, subject: '',
+                  },
+                },
+              };
               firebase.database().ref(`users/${user.uid}/template`).set(defaultTemplate);
               userObj.template = defaultTemplate;
             } else {
               userObj.template = snapshot.val().template;
             }
           })
-          .then(() => {
+            .then(() => {
             // set the firebase user
-            localStorage.setItem(firebaseUser, JSON.stringify(userObj));
+              localStorage.setItem(firebaseUser, JSON.stringify(userObj));
 
-            // go to dashboard
-            this.props.login();
-          });
+              // go to dashboard
+              this.props.login();
+            });
         } catch (error) {
           console.log(error);
           localStorage.removeItem(firebaseAuthKey);
@@ -152,19 +153,19 @@ const LoginPage = ({ handleGoogleLogin }) => (
               Click below to get started
           </h4>
         </div>
-          <img
-            src={icon}
-            id="signInBtn"
-            onClick={handleGoogleLogin}
-            alt=""
-          />
+        <img
+          src={icon}
+          id="signInBtn"
+          onClick={handleGoogleLogin}
+          alt=""
+        />
+      </div>
+      <div className="col-md-6">
+        <div className="fadein">
+          <img src={img2} className="landing-img" id="f2" alt="" />
+          <img src={img1} className="landing-img" id="f1" alt="" />
         </div>
-        <div className="col-md-6">
-          <div className="fadein">
-            <img src={img2} className="landing-img" id="f2" alt=""/>
-            <img src={img1} className="landing-img" id="f1" alt=""/>
-          </div>
-        </div>
+      </div>
     </div>
   </div>
 );

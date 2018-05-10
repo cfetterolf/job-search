@@ -9,7 +9,7 @@ class TodoItems extends React.Component {
   delete(key) {
     this.props.delete(key);
   }
-  
+
   createTasks(item) {
     return (<li
       onClick={() => this.delete(item.key)}

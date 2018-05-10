@@ -77,7 +77,6 @@ class Template extends React.Component {
 
   deleteTemplate(tempID) {
     if (window.confirm('Are you sure you want to permanently delete this template?')) {
-
       const templates = this.state.templates;
 
       if (Object.keys(templates).length <= 1) {
@@ -90,7 +89,7 @@ class Template extends React.Component {
 
       const templateObj = {
         default: newDefaultID,
-        templates: templates
+        templates,
       };
 
       // update localStorage
@@ -103,11 +102,11 @@ class Template extends React.Component {
 
       // update state
       this.setState({
-        templates: templates,
-        defaultID: newDefaultID
+        templates,
+        defaultID: newDefaultID,
       }, () => {
         this.chooseTemplate(newDefaultID);
-      })
+      });
     }
   }
 
@@ -131,7 +130,7 @@ class Template extends React.Component {
       subject: newTemp.subject,
       content: newTemp.content,
     }, () => {
-      self.saveContent(newTemp.content, tempID, newTemp.name)
+      self.saveContent(newTemp.content, tempID, newTemp.name);
     });
   }
 
@@ -155,7 +154,7 @@ class Template extends React.Component {
       content: newContent,
       position: this.state.position,
       subject: this.state.subject,
-      name: curTempName ? curTempName : this.state.curTempName,
+      name: curTempName || this.state.curTempName,
     };
 
     // save new content to firebase
@@ -169,9 +168,9 @@ class Template extends React.Component {
     // update state
     this.setState({
       content: newContent,
-      curTempName: curTempName,
+      curTempName,
       curTempID: tempID,
-      templates: user.template.templates
+      templates: user.template.templates,
     }, () => {
       console.log('saved content.  New state:', this.state);
     });
@@ -209,7 +208,8 @@ class Template extends React.Component {
         return response.json();
       })
       .then((response) => {
-        let msg, img;
+        let msg,
+          img;
         if (response.error) {
           console.log(response.error);
           msg = 'Could not send email.  Make sure to unlock your account by clicking the links below.';
@@ -218,7 +218,6 @@ class Template extends React.Component {
           msg = `Email successfully sent to ${response.info.envelope.to}!`;
           img = 'success';
           if (this.state.curContact) {
-
             // update firebase
             database.ref(`users/${this.props.user.user.uid}/contacts/${this.state.curContact}/emailed`).set(true);
 
@@ -231,7 +230,7 @@ class Template extends React.Component {
 
         this.setState({
           modalMsg: msg,
-          modalImg: img
+          modalImg: img,
         });
       })
       .catch(err => console.log(err)); // eslint-disable-line no-console
@@ -267,8 +266,8 @@ class Template extends React.Component {
     const alertModal = (
       <Modal isOpen={this.state.alertModal} toggle={() => this.toggle('alertModal')}>
         <ModalBody className="alert">
-          {this.state.modalMsg}<br/>
-          <img src={modalImg} className="modal-img" alt=""/>
+          {this.state.modalMsg}<br />
+          <img src={modalImg} className="modal-img" alt="" />
         </ModalBody>
       </Modal>
     );
