@@ -1,0 +1,63 @@
+{
+  "lanes": [
+    {
+      "id": "PLANNED",
+      "title": "To Apply",
+      "label": "20/70",
+      "style": {"width": 280},
+      "cards": [
+        {
+          "id": "Google",
+          "title": "Google",
+          "label": "60 mins",
+          "cardStyle": { "width": 270, "maxWidth": 270, "margin": "auto", "marginBottom": 5 },
+          "description": "Learn about BSTs before applying"
+        },
+        {
+          "id": "Quid",
+          "title": "Quid",
+          "label": "30 mins",
+          "cardStyle": { "width": 270, "maxWidth": 270, "margin": "auto", "marginBottom": 5 },
+          "description": "Email contact at Quid"
+        }
+      ]
+    },
+    {
+      "id": "WIP",
+      "title": "In Progress",
+      "label": "10/20",
+      "style": {"width": 280},
+      "cards": [
+        {
+          "id": "Salesforce",
+          "title": "Salesforce",
+          "label": "30 mins",
+          "cardStyle": { "width": 270, "maxWidth": 270, "margin": "auto", "marginBottom": 5 },
+          "description": "Waiting to hear back about phone screen interview"
+        }
+      ]
+    },
+    {
+      "id": "COMPLETED",
+      "title": "Completed",
+      "style": {"width": 280},
+      "label": "2/5",
+      "cards": [
+        {
+          "id": "Amazon",
+          "title": "Amazon",
+          "label": "0 mins",
+          "cardStyle": { "width": 270, "maxWidth": 270, "margin": "auto", "marginBottom": 5 },
+          "description": "Rejected after onsite interview"
+        },
+        {
+          "id": "Microsoft",
+          "title": "Microsoft",
+          "label": "0 mins",
+          "cardStyle": { "width": 270, "maxWidth": 270, "margin": "auto", "marginBottom": 5 },
+          "description": "Offered internship"
+        }
+      ]
+    }
+  ]
+}

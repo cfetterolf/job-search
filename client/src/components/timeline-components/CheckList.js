@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component} from 'react';
+import PropTypes from 'prop-types';
 
 class CheckList extends React.Component {
   checkInputKeyPress(evt){
@@ -32,9 +33,11 @@ class CheckList extends React.Component {
     );
   }
 }
+
 CheckList.propTypes = {
   cardId: PropTypes.number,
   tasks: PropTypes.arrayOf(PropTypes.object),
   taskCallbacks: PropTypes.object
 };
+
 export default CheckList;

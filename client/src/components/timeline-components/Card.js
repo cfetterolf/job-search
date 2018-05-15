@@ -1,6 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component} from 'react';
 import CheckList from './CheckList';
 import marked from 'marked';
+import PropTypes from 'prop-types';
 
 let titlePropType = (props, propName, componentName) => {
   if (props[propName]) {
@@ -30,7 +31,7 @@ class Card extends React.Component {
     if (this.state.showDetails) {
       cardDetails = (
         <div className="card__details">
-          <span dangerouslySetInnerHTML={{__html:marked(this.props.description)}} />
+          {/* <span dangerouslySetInnerHTML={{__html:marked(this.props.description)}} /> */}
             <CheckList cardId={this.props.id}
                        tasks={this.props.tasks}
                        taskCallbacks={this.props.taskCallbacks} />
@@ -61,6 +62,7 @@ class Card extends React.Component {
     )
   }
 }
+
 Card.propTypes = {
   id: PropTypes.number,
   title: titlePropType,

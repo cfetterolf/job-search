@@ -1,7 +1,15 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Card from './Card';
+import PropTypes from 'prop-types';
 
 class List extends React.Component {
+
+    constructor(props) {
+      super(props);
+
+      this.state = {};
+    }
+    
   render() {
     let cards = this.props.cards.map((card) => {
       return <Card key={card.id}
@@ -17,6 +25,7 @@ class List extends React.Component {
     );
   }
 };
+
 List.propTypes = {
   title: PropTypes.string.isRequired,
   cards: PropTypes.arrayOf(PropTypes.object),

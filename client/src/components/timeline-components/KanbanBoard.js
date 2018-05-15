@@ -1,7 +1,14 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component} from 'react';
 import List from './timeline-components/List';
+import PropTypes from 'prop-types';
 
 class KanbanBoard extends React.Component {
+    constructor(props) {
+      super(props);
+
+      this.state = {};
+    }
+    
   render(){
     return (
       <div className="app">
@@ -21,6 +28,7 @@ class KanbanBoard extends React.Component {
     );
   }
 };
+
 KanbanBoard.propTypes = {
   cards: PropTypes.arrayOf(PropTypes.object),
   taskCallbacks: PropTypes.object
