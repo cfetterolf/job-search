@@ -4,26 +4,6 @@
   box-sizing: border-box;
 }
 
-/*html {
-  font-family: Lato, 'Segoe UI', 'Helvetica Neue', sans-serif;
-  font-size: 18px;
-  color: #333;
-}
-body {
-  margin: 0;
-}
-body {
-  padding: 2rem;
-  background: #eeeef6;
-}
-a {
-  text-decoration: none;
-  color: #0000cc;
-}
-a:hover {
-  text-decoration: underline;
-}*/
-
 h1[class*="task"] {
   font-weight: 700;
   font-size: 1.5rem;

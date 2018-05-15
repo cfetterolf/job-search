@@ -1,8 +1,5 @@
 import React from 'react';
-// import React, { Component, PropTypes } from 'react';
-
 import '../css/Timeline.css';
-//import './App.css'
 import {Board} from 'react-trello'
 
 const data = require('./timeline-components/data.json')
