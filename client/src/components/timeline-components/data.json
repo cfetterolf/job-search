@@ -3,7 +3,7 @@
     {
       "id": "PLANNED",
       "title": "To Apply",
-      "label": "20/70",
+      "label": "",
       "style": {"width": 280},
       "cards": [
         {
@@ -18,7 +18,7 @@
     {
       "id": "WIP",
       "title": "In Progress",
-      "label": "10/20",
+      "label": "",
       "style": {"width": 280},
       "cards": [
 
@@ -28,7 +28,7 @@
       "id": "COMPLETED",
       "title": "Completed",
       "style": {"width": 280},
-      "label": "2/5",
+      "label": "",
       "cards": [
 
       ]
