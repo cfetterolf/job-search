@@ -10,6 +10,8 @@ The client was created with [create-react-app](https://github.com/facebookincuba
 
 The combined application, client and server, can be run with `npm start`, e.g. `npm start`, in the top-level directory. `npm start` launches the client development server on http://localhost:3000 and the specified server on http://localhost:3001. By setting the `proxy` field in the client `package.json`, the client development server will proxy any unrecognized requests to the server.
 
+You can view the deployed application at ```endeavorapp.herokuapp.com```, or if you are on the Middlebury network, ```go/endeavor```.
+
 ## Testing
 
 The client application can be independently tested as described in the [CRA documentation](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#running-tests), i.e.:
