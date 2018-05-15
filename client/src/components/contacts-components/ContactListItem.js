@@ -12,7 +12,6 @@ import '../../css/Contacts.css';
  *    delete - callback function to delete contact, takes ID parameter
  */
 function ContactListItem(props) {
-
   /* eslint-disable */
   const delIcon = props.delIcon ? (
     <img

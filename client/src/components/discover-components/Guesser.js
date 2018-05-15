@@ -7,7 +7,7 @@ import { ClipLoader } from 'react-spinners';
 import AddContactForm from '../contacts-components/AddContactForm';
 import Results from './Results';
 import giraffe from '../../img/nerd_giraffe.png';
-//import giraffe2 from '../../img/love_giraffe.png';
+// import giraffe2 from '../../img/love_giraffe.png';
 
 const database = firebase.database();
 
@@ -20,7 +20,7 @@ const initState = {
   results: '',
   addContactForm: false,
   selectedEmail: '',
-}
+};
 
 /*
  * props: user - current user object
@@ -35,7 +35,6 @@ class Guesser extends React.Component {
 
   submit(disabled) {
     if (!disabled) {
-
       this.setState({ results: 'in-progress' });
 
       const body = {
@@ -43,7 +42,7 @@ class Guesser extends React.Component {
         l_name: this.state.l_name,
         company: this.state.company,
         custom: this.state.custom,
-      }
+      };
 
       fetch('/api/guess', {
         method: 'POST',
@@ -87,14 +86,13 @@ class Guesser extends React.Component {
       // update Firebase
       database.ref(`users/${user.user.uid}/contacts/${id}`).set(contact);
 
-      window.alert("Successfully added new contact!");
+      window.alert('Successfully added new contact!');
     }
 
     this.setState(initState);
   }
 
   render() {
-
     if (this.state.addContactForm) {
       return (
         <div className="add-form">
@@ -106,12 +104,12 @@ class Guesser extends React.Component {
             email={this.state.selectedEmail}
           />
         </div>
-      )
+      );
     }
 
     const infoIcon = (
       <a onClick={this.toggle} className="help-icon">
-        <i className="fa fa-question-circle" aria-hidden="true"/>
+        <i className="fa fa-question-circle" aria-hidden="true" />
       </a>
     );
 
@@ -165,7 +163,7 @@ class Guesser extends React.Component {
       </div>
     );
 
-    const disabled = (this.state.f_name && this.state.l_name && (!this.state.company !== !this.state.custom )) ? '' : ' disabled';
+    const disabled = (this.state.f_name && this.state.l_name && (!this.state.company !== !this.state.custom)) ? '' : ' disabled';
     const buttons = (
       <div className="form-row">
         <div className="col">
@@ -192,24 +190,24 @@ class Guesser extends React.Component {
     } else if (this.state.results === 'in-progress') {
       results = (
         <div className="no-results">
-          <div style={{display: 'inline-block', marginBottom: '10px'}}>
-          <ClipLoader
-            color={'#999999'}
-          />
+          <div style={{ display: 'inline-block', marginBottom: '10px' }}>
+            <ClipLoader
+              color="#999999"
+            />
           </div>
           <p className="no-results-text"><strong>Checking Emails...</strong></p>
         </div>
       );
     } else { // we have our results!
-      results = <Results emailLists={this.state.results} createContact={(email) => this.setContact(email)}/>;
+      results = <Results emailLists={this.state.results} createContact={email => this.setContact(email)} />;
     }
 
-    const info = this.state.visible ? <InfoHeader open={this.state.visible} toggle={this.toggle}/> : infoIcon;
+    const info = this.state.visible ? <InfoHeader open={this.state.visible} toggle={this.toggle} /> : infoIcon;
 
     return (
       <div className="discover-form">
-        <img src={giraffe} id="giraffeIcon" alt=""/>
-        {/*<img src={giraffe2} id="giraffeIcon2" />*/}
+        <img src={giraffe} id="giraffeIcon" alt="" />
+        {/* <img src={giraffe2} id="giraffeIcon2" /> */}
         {info}
         <div className="row">
           <div className="col-md-7 input-wrapper">
@@ -221,9 +219,9 @@ class Guesser extends React.Component {
               {buttons}
             </form>
           </div>
-          <div className="col-md-5" style={{padding: '17px'}}>
+          <div className="col-md-5" style={{ padding: '17px' }}>
             <div>
-              <MediumHeader title="Results" style={{marginTop: '0px'}}/>
+              <MediumHeader title="Results" style={{ marginTop: '0px' }} />
               <hr style={{ margin: '5px 30px 25px 0' }} />
               <div style={{ marginRight: '25px', padding: '10px' }}>
                 {results}
@@ -237,24 +235,22 @@ class Guesser extends React.Component {
 }
 
 
-const InfoHeader = ({ open, toggle}) => {
-  return (
-    <div style={{ margin: '20px 20px 0 20px' }}>
-      <Alert color="info" isOpen={open} toggle={toggle}>
-        <h4 className="alert-heading">Find Your Next Connection</h4>
-        <p>
+const InfoHeader = ({ open, toggle }) => (
+  <div style={{ margin: '20px 20px 0 20px' }}>
+    <Alert color="info" isOpen={open} toggle={toggle}>
+      <h4 className="alert-heading">Find Your Next Connection</h4>
+      <p>
           You found an alumni on LinkedIn, but don't know their email address.
           How do you connect?  With <strong>Discover</strong>, just
           enter their name and company and we'll handle the rest.
-        </p>
-        <hr />
-        <p className="mb-0">
+      </p>
+      <hr />
+      <p className="mb-0">
           Fill out the fields below and click <strong>Get Email Address</strong> to
           find your next connection.  Click on the results to add that email as a contact!
-        </p>
-      </Alert>
-    </div>
-  );
-}
+      </p>
+    </Alert>
+  </div>
+);
 
 export default Guesser;

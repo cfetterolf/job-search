@@ -11,11 +11,11 @@ class List extends React.Component {
     }
     
   render() {
-    let cards = this.props.cards.map((card) => {
-      return <Card key={card.id}
-                   taskCallbacks={this.props.taskCallbacks}
-                   {...card} />
-    });
+    const cards = this.props.cards.map(card => (<Card
+      key={card.id}
+      taskCallbacks={this.props.taskCallbacks}
+      {...card}
+    />));
 
     return (
       <div className="list">
@@ -24,12 +24,16 @@ class List extends React.Component {
       </div>
     );
   }
+<<<<<<< HEAD
 };
 
+=======
+}
+>>>>>>> f9c80bcad6a3a66ecfab5fd02e23ed376942ccae
 List.propTypes = {
   title: PropTypes.string.isRequired,
   cards: PropTypes.arrayOf(PropTypes.object),
-  taskCallbacks: PropTypes.object
+  taskCallbacks: PropTypes.object,
 };
 
 export default List;

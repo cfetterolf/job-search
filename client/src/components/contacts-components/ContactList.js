@@ -131,7 +131,7 @@ class ContactList extends React.Component {
             <Button outline color="primary" onClick={this.showForm}>
               Add New Contact
             </Button>
-          </td><td/><td/><td/><td/><td/><td/>
+          </td><td /><td /><td /><td /><td /><td />
         </tr>
       </tfoot>
     );

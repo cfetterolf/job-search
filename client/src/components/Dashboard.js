@@ -75,7 +75,7 @@ class Dashboard extends Component {
     const mainSection = (
       <div className="container-fluid">
         <div clas="row">
-          <Sidebar sections={sections} setSection={s => this.setState({ selected: s })}/>
+          <Sidebar sections={sections} setSection={s => this.setState({ selected: s })} />
           <main className="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3" style={bodyStyle}>
             {body}
           </main>

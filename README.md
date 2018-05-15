@@ -1,14 +1,14 @@
 Chris Fetterolf and Connor Hanify
 
-# Film Explorer Top-level
+# Endeavor - Job Search Web Application
 
-This repository combines the Film Explorer client and servers into a single repository that can be co-developed, tested and ultimately deployed to Heroku.
+This repository contains the source code for Endeavor, a React/Node web application for managing your job hunt.  
 
-The client was created with [create-react-app](https://github.com/facebookincubator/create-react-app) (CRA) and the server is a separate Node.js application. The client-server integration is based on this [tutorial](https://www.fullstackreact.com/articles/using-create-react-app-with-a-server/) and [repository](https://github.com/fullstackreact/food-lookup-demo). This repository will be referred to as the "top-level" to distinguish it from the client and server.
+The client was created with [create-react-app](https://github.com/facebookincubator/create-react-app) (CRA) and the server is a separate Node.js application, hosted through Heroku. The client-server integration is based on this [tutorial](https://www.fullstackreact.com/articles/using-create-react-app-with-a-server/) and [repository](https://github.com/fullstackreact/food-lookup-demo). This repository will be referred to as the "top-level" to distinguish it from the client and server.
 
 ## Running the Application
 
-The combined application, client and server, can be run with `npm start:[memory,mongo,sqlite]`, e.g. `npm start:memory`, in the top-level directory. `npm start:[memory,mongo,sqlite]` launches the client development server on http://localhost:3000 and the specified server on http://localhost:3001 (one of memory, mongo, sqlite). By setting the `proxy` field in the client `package.json`, the client development server will proxy any unrecognized requests to the server.
+The combined application, client and server, can be run with `npm start`, e.g. `npm start`, in the top-level directory. `npm start` launches the client development server on http://localhost:3000 and the specified server on http://localhost:3001. By setting the `proxy` field in the client `package.json`, the client development server will proxy any unrecognized requests to the server.
 
 ## Testing
 
@@ -21,7 +21,7 @@ npm test
 
 ## Deploying to Heroku
 
-The Film Explorer can be deployed to [Heroku](heroku.com) using the approach demonstrated in this [repository](https://github.com/mars/heroku-cra-node). The current configuration deploys the MongoDB-backed server. The key additions to the top-level `package.json` file to enable Heroku deployment:
+This can be deployed to [Heroku](heroku.com) using the approach demonstrated in this [repository](https://github.com/mars/heroku-cra-node). The key additions to the top-level `package.json` file to enable Heroku deployment:
 
 * Specify the node version in the `engines` field
 * Add a `heroku-postbuild` script field that will install dependencies for the client and server and create the production build of the client application.
@@ -49,20 +49,3 @@ Assuming that you have a Heroku account, have installed the [Heroku command line
   ```
   git push heroku master
   ```
-
-## Deploying to Basin
-
-The Film Explorer can be deployed to basin (where it is typically run within `screen`). The current configuration deploys the sqlite-backed server.
-
-1. Create and seed the database from with `server-sqlite`:
-
-  ```
-  npx knex migrate:latest
-  npx knex seed:run
-  ```
-
-1. Start the server from the top-level directory
-
-	```
-	NODE_ENV=production PORT=5042 npm run start --prefix server-sqlite
-	```

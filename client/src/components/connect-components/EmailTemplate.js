@@ -37,7 +37,6 @@ const replaceContent = (props) => {
  *    deleteTemplate(tempID): callback
 */
 class EmailTemplate extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -56,10 +55,10 @@ class EmailTemplate extends React.Component {
 
   componentWillReceiveProps(nextProps) {
   // You don't have to do this check first, but it can help prevent an unneeded render
-  if (nextProps.curTempName !== this.state.name) {
-    this.setState({ name: nextProps.curTempName });
+    if (nextProps.curTempName !== this.state.name) {
+      this.setState({ name: nextProps.curTempName });
+    }
   }
-}
 
   toggleEditor() {
     if (this.state.readOnly) {
@@ -77,15 +76,15 @@ class EmailTemplate extends React.Component {
     const tempID = Date.now();
     const numTemps = Object.keys(this.props.templates).length;
     const newTemp = {
-      name: `Template ${numTemps+1}`,
+      name: `Template ${numTemps + 1}`,
       content: 'Write your email template here',
       subject: '',
       position: '',
-    }
-    let templates = this.state.templates;
+    };
+    const templates = this.state.templates;
     templates[tempID] = newTemp;
     this.setState({
-      templates: templates,
+      templates,
       curTempID: tempID,
       name: newTemp.name,
     }, this.props.setNewTemplate(tempID, newTemp));
@@ -94,7 +93,7 @@ class EmailTemplate extends React.Component {
   render() {
     let buttons;
     if (this.state.readOnly) {
-      const disabled = this.props.email && this.props.password ? false : true;
+      const disabled = !(this.props.email && this.props.password);
       buttons = (
         <div id="templateButtons">
           <button disabled={disabled} type="button" className="btn btn-success btn-sm" onClick={() => this.props.sendEmail(replaceContent(this.props))}>
@@ -108,10 +107,10 @@ class EmailTemplate extends React.Component {
               My Templates
             </button>
             <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
-              {Object.keys(this.props.templates).map(function(id) {
+              {Object.keys(this.props.templates).map(function (id) {
                 const tempID = parseInt(id, 10);
                 const cur = tempID === this.props.curTempID ? 'selected-temp' : '';
-                const defaultIcon = tempID === this.props.defaultID ? <span className="temp-icon"><i className="far fa-star"></i></span> : '';
+                const defaultIcon = tempID === this.props.defaultID ? <span className="temp-icon"><i className="far fa-star" /></span> : '';
                 return (
                   <a className={`dropdown-item ${cur}`} key={tempID} role="button" tabIndex="0" onClick={() => this.props.chooseTemplate(tempID)}>
                     {this.props.templates[tempID].name}
@@ -119,7 +118,7 @@ class EmailTemplate extends React.Component {
                   </a>
                 );
               }, this)}
-              <div className="dropdown-divider"></div>
+              <div className="dropdown-divider" />
               <a className="dropdown-item" role="button" tabIndex="0" onClick={() => this.makeNewTemplate()}>
                 <strong>New Template</strong>
               </a>
@@ -179,7 +178,7 @@ class EmailTemplate extends React.Component {
           />
         </span>
       </label>
-    )
+    );
 
     return (
       <div className="form-group email-temp">

@@ -161,6 +161,6 @@ AddContactForm.defaultProps = {
   l_name: '',
   company: '',
   email: '',
-}
+};
 
 export default AddContactForm;
